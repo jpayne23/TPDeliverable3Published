@@ -1,0 +1,68 @@
+﻿@model TimetableSys_T17.Room
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Room</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.LabelFor(model => model.roomCode, "Room Code")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roomCode)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.Building.buildingName, "Building Name")
+        </dt>
+
+        <dd>
+            @ViewBag.building
+        </dd>
+        <dt>
+            Facilities
+        </dt>
+        @if(@ViewBag.count == 0)
+        {
+            <dd>No facilities</dd>
+        }
+        else{
+            foreach (var x in @ViewBag.Fac[0])
+            {
+                <dd>@x</dd>
+            }
+        }  
+        <dt>
+            @Html.LabelFor(model => model.capacity, "Capacity")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacity)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.lab, "Lab")
+        </dt>
+
+        <dd>
+            @if(@ViewBag.Lab == 1){
+                <p>Yes</p>
+            }
+            else{
+                <p>No</p>
+            }
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.roomID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,72 @@
+﻿@model TimetableSys_T17.RoundInfo
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="~/bundles/jqueryval"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script>
+
+$(function() {
+    $( "#datepickerStart" ).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        minDate: 0,
+        dateFormat: 'dd/mm/yy',
+        onSelect: function ()
+        {
+            $("#startDate").val($("#datepickerStart").val());
+        }
+    });
+
+    $("#datepickerEnd").datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        minDate: 0,
+        dateFormat: 'dd/mm/yy',
+        onSelect: function ()
+        {
+            $("#endDate").val($("#datepickerEnd").val());
+        }
+    });
+    
+});
+
+</script>
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>RoundInfo</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+           <p>Start Date: <input type="text" id="datepickerStart"></p>
+        </div>
+        @Html.HiddenFor(model => model.startDate, new {@id="startDate"})
+
+        <div class="form-group">
+            <p>End Date: <input type="text" id="datepickerEnd"></p>
+        </div>
+        @Html.HiddenFor(model => model.endDate, new {@id="endDate"})
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

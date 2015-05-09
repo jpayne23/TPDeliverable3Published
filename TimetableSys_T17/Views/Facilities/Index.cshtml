@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TimetableSys_T17.Facility>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Facility Name
+        </th>
+        <th>Number of rooms facility is in</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.facilityName)
+        </td>
+        <td>
+            @ViewBag.NumFac[item.facilityID - 1]
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.facilityID }) 
+
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.facilityID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<TimetableSys_T17.Room>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Room Code
+        </th>
+        <th>
+            Building Name
+        </th>
+        <th>
+            Capacity
+        </th>
+        <th>
+            Lab
+        </th>
+        <th>
+            Private
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.roomCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Building.buildingName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.capacity)
+        </td>
+        @if (item.lab == 1)
+        {
+            <td>Yes</td>     
+        }
+        else
+        {
+            <td>No</td>
+        }
+        @if (item.@private == 1)
+        {
+            <td>Yes</td>
+        }
+        else
+        {
+            <td>No</td>
+        }
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.roomID })
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.roomID })
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.roomID })
+        </td>
+    </tr>
+}
+
+</table>

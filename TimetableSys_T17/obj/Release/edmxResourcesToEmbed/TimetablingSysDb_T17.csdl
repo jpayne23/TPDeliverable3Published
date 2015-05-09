@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="team17Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="TimetableDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Buildings" EntityType="team17Model.Building" />
+    <EntitySet Name="DayInfoes" EntityType="team17Model.DayInfo" />
+    <EntitySet Name="DegreeInfoes" EntityType="team17Model.DegreeInfo" />
+    <EntitySet Name="DeptInfoes" EntityType="team17Model.DeptInfo" />
+    <EntitySet Name="Facilities" EntityType="team17Model.Facility" />
+    <EntitySet Name="LecturerInfoes" EntityType="team17Model.LecturerInfo" />
+    <EntitySet Name="Modules" EntityType="team17Model.Module" />
+    <EntitySet Name="Parks" EntityType="team17Model.Park" />
+    <EntitySet Name="PeriodInfoes" EntityType="team17Model.PeriodInfo" />
+    <EntitySet Name="Preferences" EntityType="team17Model.Preference" />
+    <EntitySet Name="Requests" EntityType="team17Model.Request" />
+    <EntitySet Name="Rooms" EntityType="team17Model.Room" />
+    <EntitySet Name="RoomRequests" EntityType="team17Model.RoomRequest" />
+    <EntitySet Name="RoundInfoes" EntityType="team17Model.RoundInfo" />
+    <EntitySet Name="SessionTypeInfoes" EntityType="team17Model.SessionTypeInfo" />
+    <EntitySet Name="StatusInfoes" EntityType="team17Model.StatusInfo" />
+    <EntitySet Name="Users" EntityType="team17Model.User" />
+    <AssociationSet Name="FK_Building1_Park" Association="team17Model.FK_Building1_Park">
+      <End Role="Park" EntitySet="Parks" />
+      <End Role="Building" EntitySet="Buildings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Room1_Building1" Association="team17Model.FK_Room1_Building1">
+      <End Role="Building" EntitySet="Buildings" />
+      <End Role="Room" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request1_DayInfo" Association="team17Model.FK_Request1_DayInfo">
+      <End Role="DayInfo" EntitySet="DayInfoes" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DegreeInfo_DeptInfo" Association="team17Model.FK_DegreeInfo_DeptInfo">
+      <End Role="DeptInfo" EntitySet="DeptInfoes" />
+      <End Role="DegreeInfo" EntitySet="DegreeInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LecturerInfo_DeptInfo" Association="team17Model.FK_LecturerInfo_DeptInfo">
+      <End Role="DeptInfo" EntitySet="DeptInfoes" />
+      <End Role="LecturerInfo" EntitySet="LecturerInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Module1_DeptInfo" Association="team17Model.FK_Module1_DeptInfo">
+      <End Role="DeptInfo" EntitySet="DeptInfoes" />
+      <End Role="Module" EntitySet="Modules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User1_DeptInfo" Association="team17Model.FK_User1_DeptInfo">
+      <End Role="DeptInfo" EntitySet="DeptInfoes" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request1_Module1" Association="team17Model.FK_Request1_Module1">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request1_PeriodInfo" Association="team17Model.FK_Request1_PeriodInfo">
+      <End Role="PeriodInfo" EntitySet="PeriodInfoes" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request1_RoundInfo" Association="team17Model.FK_Request1_RoundInfo">
+      <End Role="RoundInfo" EntitySet="RoundInfoes" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request1_SessionTypeInfo" Association="team17Model.FK_Request1_SessionTypeInfo">
+      <End Role="SessionTypeInfo" EntitySet="SessionTypeInfoes" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request1_StatusInfo" Association="team17Model.FK_Request1_StatusInfo">
+      <End Role="StatusInfo" EntitySet="StatusInfoes" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request1_User1" Association="team17Model.FK_Request1_User1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomRequest_Room1" Association="team17Model.FK_RoomRequest_Room1">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="RoomRequest" EntitySet="RoomRequests" />
+    </AssociationSet>
+    <AssociationSet Name="AllocatedRoom" Association="team17Model.AllocatedRoom">
+      <End Role="Request" EntitySet="Requests" />
+      <End Role="Room" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="DegreeModule" Association="team17Model.DegreeModule">
+      <End Role="DegreeInfo" EntitySet="DegreeInfoes" />
+      <End Role="Module" EntitySet="Modules" />
+    </AssociationSet>
+    <AssociationSet Name="DeptBuilding" Association="team17Model.DeptBuilding">
+      <End Role="Building" EntitySet="Buildings" />
+      <End Role="DeptInfo" EntitySet="DeptInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FacilityRequest" Association="team17Model.FacilityRequest">
+      <End Role="Facility" EntitySet="Facilities" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="ModuleLecturer" Association="team17Model.ModuleLecturer">
+      <End Role="LecturerInfo" EntitySet="LecturerInfoes" />
+      <End Role="Module" EntitySet="Modules" />
+    </AssociationSet>
+    <AssociationSet Name="RequestToRoom" Association="team17Model.RequestToRoom">
+      <End Role="Request" EntitySet="Requests" />
+      <End Role="RoomRequest" EntitySet="RoomRequests" />
+    </AssociationSet>
+    <AssociationSet Name="RoomFacility" Association="team17Model.RoomFacility">
+      <End Role="Facility" EntitySet="Facilities" />
+      <End Role="Room" EntitySet="Rooms" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Building">
+    <Key>
+      <PropertyRef Name="buildingID" />
+    </Key>
+    <Property Type="Int32" Name="buildingID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="buildingName" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="buildingCode" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="parkID" />
+    <NavigationProperty Name="Park" Relationship="team17Model.FK_Building1_Park" FromRole="Building" ToRole="Park" />
+    <NavigationProperty Name="Rooms" Relationship="team17Model.FK_Room1_Building1" FromRole="Building" ToRole="Room" />
+    <NavigationProperty Name="DeptInfoes" Relationship="team17Model.DeptBuilding" FromRole="Building" ToRole="DeptInfo" />
+  </EntityType>
+  <EntityType Name="DayInfo">
+    <Key>
+      <PropertyRef Name="dayID" />
+    </Key>
+    <Property Type="Int32" Name="dayID" Nullable="false" />
+    <Property Type="String" Name="day" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.FK_Request1_DayInfo" FromRole="DayInfo" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="DegreeInfo">
+    <Key>
+      <PropertyRef Name="degreeID" />
+    </Key>
+    <Property Type="Int32" Name="degreeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="degreeName" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="deptID" />
+    <NavigationProperty Name="DeptInfo" Relationship="team17Model.FK_DegreeInfo_DeptInfo" FromRole="DegreeInfo" ToRole="DeptInfo" />
+    <NavigationProperty Name="Modules" Relationship="team17Model.DegreeModule" FromRole="DegreeInfo" ToRole="Module" />
+  </EntityType>
+  <EntityType Name="DeptInfo">
+    <Key>
+      <PropertyRef Name="deptID" />
+    </Key>
+    <Property Type="Int32" Name="deptID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="deptCode" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="deptName" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DegreeInfoes" Relationship="team17Model.FK_DegreeInfo_DeptInfo" FromRole="DeptInfo" ToRole="DegreeInfo" />
+    <NavigationProperty Name="LecturerInfoes" Relationship="team17Model.FK_LecturerInfo_DeptInfo" FromRole="DeptInfo" ToRole="LecturerInfo" />
+    <NavigationProperty Name="Modules" Relationship="team17Model.FK_Module1_DeptInfo" FromRole="DeptInfo" ToRole="Module" />
+    <NavigationProperty Name="User" Relationship="team17Model.FK_User1_DeptInfo" FromRole="DeptInfo" ToRole="User" />
+    <NavigationProperty Name="Buildings" Relationship="team17Model.DeptBuilding" FromRole="DeptInfo" ToRole="Building" />
+  </EntityType>
+  <EntityType Name="Facility">
+    <Key>
+      <PropertyRef Name="facilityID" />
+    </Key>
+    <Property Type="Int32" Name="facilityID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="facilityName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.FacilityRequest" FromRole="Facility" ToRole="Request" />
+    <NavigationProperty Name="Rooms" Relationship="team17Model.RoomFacility" FromRole="Facility" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="LecturerInfo">
+    <Key>
+      <PropertyRef Name="lecturerID" />
+    </Key>
+    <Property Type="Int32" Name="lecturerID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="name" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="deptID" />
+    <NavigationProperty Name="DeptInfo" Relationship="team17Model.FK_LecturerInfo_DeptInfo" FromRole="LecturerInfo" ToRole="DeptInfo" />
+    <NavigationProperty Name="Modules" Relationship="team17Model.ModuleLecturer" FromRole="LecturerInfo" ToRole="Module" />
+  </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="moduleID" />
+    </Key>
+    <Property Type="Int32" Name="moduleID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="modCode" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="modTitle" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="deptID" />
+    <Property Type="String" Name="part" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="student" />
+    <NavigationProperty Name="DeptInfo" Relationship="team17Model.FK_Module1_DeptInfo" FromRole="Module" ToRole="DeptInfo" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.FK_Request1_Module1" FromRole="Module" ToRole="Request" />
+    <NavigationProperty Name="DegreeInfoes" Relationship="team17Model.DegreeModule" FromRole="Module" ToRole="DegreeInfo" />
+    <NavigationProperty Name="LecturerInfoes" Relationship="team17Model.ModuleLecturer" FromRole="Module" ToRole="LecturerInfo" />
+  </EntityType>
+  <EntityType Name="Park">
+    <Key>
+      <PropertyRef Name="parkID" />
+    </Key>
+    <Property Type="Int32" Name="parkID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="parkName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Buildings" Relationship="team17Model.FK_Building1_Park" FromRole="Park" ToRole="Building" />
+  </EntityType>
+  <EntityType Name="PeriodInfo">
+    <Key>
+      <PropertyRef Name="periodID" />
+    </Key>
+    <Property Type="Int32" Name="periodID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="time" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.FK_Request1_PeriodInfo" FromRole="PeriodInfo" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="Preference">
+    <Key>
+      <PropertyRef Name="preferencesID" />
+    </Key>
+    <Property Type="Int32" Name="preferencesID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="userID" Nullable="false" />
+    <Property Type="Int32" Name="period" Nullable="false" />
+    <Property Type="Int32" Name="hr24Format" Nullable="false" />
+    <Property Type="String" Name="defaultLocation" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="defaultPage" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="header1" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="header2" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="header3" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="requestID" />
+    </Key>
+    <Property Type="Int32" Name="requestID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="userID" />
+    <Property Type="Int32" Name="moduleID" />
+    <Property Type="Int32" Name="sessionTypeID" />
+    <Property Type="Int32" Name="dayID" />
+    <Property Type="Int32" Name="periodID" />
+    <Property Type="Int32" Name="sessionLength" />
+    <Property Type="Int32" Name="semester" />
+    <Property Type="Int32" Name="round" />
+    <Property Type="Int32" Name="year" />
+    <Property Type="Int32" Name="priority" />
+    <Property Type="Int32" Name="adhoc" />
+    <Property Type="String" Name="specialRequirement" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="statusID" />
+    <Property Type="String" Name="week" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DayInfo" Relationship="team17Model.FK_Request1_DayInfo" FromRole="Request" ToRole="DayInfo" />
+    <NavigationProperty Name="Module" Relationship="team17Model.FK_Request1_Module1" FromRole="Request" ToRole="Module" />
+    <NavigationProperty Name="PeriodInfo" Relationship="team17Model.FK_Request1_PeriodInfo" FromRole="Request" ToRole="PeriodInfo" />
+    <NavigationProperty Name="RoundInfo" Relationship="team17Model.FK_Request1_RoundInfo" FromRole="Request" ToRole="RoundInfo" />
+    <NavigationProperty Name="SessionTypeInfo" Relationship="team17Model.FK_Request1_SessionTypeInfo" FromRole="Request" ToRole="SessionTypeInfo" />
+    <NavigationProperty Name="StatusInfo" Relationship="team17Model.FK_Request1_StatusInfo" FromRole="Request" ToRole="StatusInfo" />
+    <NavigationProperty Name="User" Relationship="team17Model.FK_Request1_User1" FromRole="Request" ToRole="User" />
+    <NavigationProperty Name="Rooms" Relationship="team17Model.AllocatedRoom" FromRole="Request" ToRole="Room" />
+    <NavigationProperty Name="Facilities" Relationship="team17Model.FacilityRequest" FromRole="Request" ToRole="Facility" />
+    <NavigationProperty Name="RoomRequests" Relationship="team17Model.RequestToRoom" FromRole="Request" ToRole="RoomRequest" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="roomID" />
+    </Key>
+    <Property Type="Int32" Name="roomID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="roomCode" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="buildingID" />
+    <Property Type="Int32" Name="capacity" />
+    <Property Type="Int32" Name="lab" />
+    <Property Type="Int32" Name="private" />
+    <NavigationProperty Name="Building" Relationship="team17Model.FK_Room1_Building1" FromRole="Room" ToRole="Building" />
+    <NavigationProperty Name="RoomRequests" Relationship="team17Model.FK_RoomRequest_Room1" FromRole="Room" ToRole="RoomRequest" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.AllocatedRoom" FromRole="Room" ToRole="Request" />
+    <NavigationProperty Name="Facilities" Relationship="team17Model.RoomFacility" FromRole="Room" ToRole="Facility" />
+  </EntityType>
+  <EntityType Name="RoomRequest">
+    <Key>
+      <PropertyRef Name="roomRequestID" />
+    </Key>
+    <Property Type="Int32" Name="roomRequestID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="roomID" />
+    <Property Type="Int32" Name="groupSize" />
+    <NavigationProperty Name="Room" Relationship="team17Model.FK_RoomRequest_Room1" FromRole="RoomRequest" ToRole="Room" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.RequestToRoom" FromRole="RoomRequest" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="RoundInfo">
+    <Key>
+      <PropertyRef Name="round" />
+    </Key>
+    <Property Type="Int32" Name="round" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="startDate" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="endDate" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.FK_Request1_RoundInfo" FromRole="RoundInfo" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="SessionTypeInfo">
+    <Key>
+      <PropertyRef Name="sessionTypeID" />
+    </Key>
+    <Property Type="Int32" Name="sessionTypeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="sessionType" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.FK_Request1_SessionTypeInfo" FromRole="SessionTypeInfo" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="StatusInfo">
+    <Key>
+      <PropertyRef Name="statusID" />
+    </Key>
+    <Property Type="Int32" Name="statusID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="status" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.FK_Request1_StatusInfo" FromRole="StatusInfo" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Type="Int32" Name="userID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="password" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="admin" />
+    <Property Type="Int32" Name="deptID" />
+    <NavigationProperty Name="DeptInfo" Relationship="team17Model.FK_User1_DeptInfo" FromRole="User" ToRole="DeptInfo" />
+    <NavigationProperty Name="Requests" Relationship="team17Model.FK_Request1_User1" FromRole="User" ToRole="Request" />
+  </EntityType>
+  <Association Name="FK_Building1_Park">
+    <End Type="team17Model.Park" Role="Park" Multiplicity="0..1" />
+    <End Type="team17Model.Building" Role="Building" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Park">
+        <PropertyRef Name="parkID" />
+      </Principal>
+      <Dependent Role="Building">
+        <PropertyRef Name="parkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Room1_Building1">
+    <End Type="team17Model.Building" Role="Building" Multiplicity="0..1" />
+    <End Type="team17Model.Room" Role="Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Building">
+        <PropertyRef Name="buildingID" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="buildingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request1_DayInfo">
+    <End Type="team17Model.DayInfo" Role="DayInfo" Multiplicity="0..1" />
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DayInfo">
+        <PropertyRef Name="dayID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="dayID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DegreeInfo_DeptInfo">
+    <End Type="team17Model.DeptInfo" Role="DeptInfo" Multiplicity="0..1" />
+    <End Type="team17Model.DegreeInfo" Role="DegreeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeptInfo">
+        <PropertyRef Name="deptID" />
+      </Principal>
+      <Dependent Role="DegreeInfo">
+        <PropertyRef Name="deptID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LecturerInfo_DeptInfo">
+    <End Type="team17Model.DeptInfo" Role="DeptInfo" Multiplicity="0..1" />
+    <End Type="team17Model.LecturerInfo" Role="LecturerInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeptInfo">
+        <PropertyRef Name="deptID" />
+      </Principal>
+      <Dependent Role="LecturerInfo">
+        <PropertyRef Name="deptID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Module1_DeptInfo">
+    <End Type="team17Model.DeptInfo" Role="DeptInfo" Multiplicity="0..1" />
+    <End Type="team17Model.Module" Role="Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeptInfo">
+        <PropertyRef Name="deptID" />
+      </Principal>
+      <Dependent Role="Module">
+        <PropertyRef Name="deptID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User1_DeptInfo">
+    <End Type="team17Model.DeptInfo" Role="DeptInfo" Multiplicity="1" />
+    <End Type="team17Model.User" Role="User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DeptInfo">
+        <PropertyRef Name="deptID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request1_Module1">
+    <End Type="team17Model.Module" Role="Module" Multiplicity="0..1" />
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="moduleID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="moduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request1_PeriodInfo">
+    <End Type="team17Model.PeriodInfo" Role="PeriodInfo" Multiplicity="0..1" />
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PeriodInfo">
+        <PropertyRef Name="periodID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="periodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request1_RoundInfo">
+    <End Type="team17Model.RoundInfo" Role="RoundInfo" Multiplicity="0..1" />
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoundInfo">
+        <PropertyRef Name="round" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="round" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request1_SessionTypeInfo">
+    <End Type="team17Model.SessionTypeInfo" Role="SessionTypeInfo" Multiplicity="0..1" />
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SessionTypeInfo">
+        <PropertyRef Name="sessionTypeID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="sessionTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request1_StatusInfo">
+    <End Type="team17Model.StatusInfo" Role="StatusInfo" Multiplicity="0..1" />
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusInfo">
+        <PropertyRef Name="statusID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request1_User1">
+    <End Type="team17Model.User" Role="User" Multiplicity="0..1" />
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomRequest_Room1">
+    <End Type="team17Model.Room" Role="Room" Multiplicity="0..1" />
+    <End Type="team17Model.RoomRequest" Role="RoomRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="roomID" />
+      </Principal>
+      <Dependent Role="RoomRequest">
+        <PropertyRef Name="roomID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AllocatedRoom">
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+    <End Type="team17Model.Room" Role="Room" Multiplicity="*" />
+  </Association>
+  <Association Name="DegreeModule">
+    <End Type="team17Model.DegreeInfo" Role="DegreeInfo" Multiplicity="*" />
+    <End Type="team17Model.Module" Role="Module" Multiplicity="*" />
+  </Association>
+  <Association Name="DeptBuilding">
+    <End Type="team17Model.Building" Role="Building" Multiplicity="*" />
+    <End Type="team17Model.DeptInfo" Role="DeptInfo" Multiplicity="*" />
+  </Association>
+  <Association Name="FacilityRequest">
+    <End Type="team17Model.Facility" Role="Facility" Multiplicity="*" />
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+  </Association>
+  <Association Name="ModuleLecturer">
+    <End Type="team17Model.LecturerInfo" Role="LecturerInfo" Multiplicity="*" />
+    <End Type="team17Model.Module" Role="Module" Multiplicity="*" />
+  </Association>
+  <Association Name="RequestToRoom">
+    <End Type="team17Model.Request" Role="Request" Multiplicity="*" />
+    <End Type="team17Model.RoomRequest" Role="RoomRequest" Multiplicity="*" />
+  </Association>
+  <Association Name="RoomFacility">
+    <End Type="team17Model.Facility" Role="Facility" Multiplicity="*" />
+    <End Type="team17Model.Room" Role="Room" Multiplicity="*" />
+  </Association>
+</Schema>

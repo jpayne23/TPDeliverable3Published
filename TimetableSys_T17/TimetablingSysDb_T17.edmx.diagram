@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b088582e6e0d45cf84c0c5f3c1131462" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="team17Model.Building" Width="1.5" PointX="1.5" PointY="22.5" />
+        <EntityTypeShape EntityType="team17Model.DayInfo" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="team17Model.DegreeInfo" Width="1.5" PointX="1.5" PointY="15.75" />
+        <EntityTypeShape EntityType="team17Model.DeptInfo" Width="1.5" PointX="1.5" PointY="18.5" />
+        <EntityTypeShape EntityType="team17Model.Facility" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="team17Model.LecturerInfo" Width="1.5" PointX="1.5" PointY="28.75" />
+        <EntityTypeShape EntityType="team17Model.Module" Width="1.5" PointX="0.75" PointY="11.25" />
+        <EntityTypeShape EntityType="team17Model.Park" Width="1.5" PointX="1.5" PointY="25.875" />
+        <EntityTypeShape EntityType="team17Model.PeriodInfo" Width="1.5" PointX="0.75" PointY="31.5" />
+        <EntityTypeShape EntityType="team17Model.Preference" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="team17Model.Request" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="team17Model.Room" Width="1.5" PointX="5.25" PointY="2.5" />
+        <EntityTypeShape EntityType="team17Model.RoomRequest" Width="1.5" PointX="7.5" PointY="3" />
+        <EntityTypeShape EntityType="team17Model.RoundInfo" Width="1.5" PointX="0.75" PointY="33.875" />
+        <EntityTypeShape EntityType="team17Model.SessionTypeInfo" Width="1.5" PointX="0.75" PointY="36.375" />
+        <EntityTypeShape EntityType="team17Model.StatusInfo" Width="1.5" PointX="0.75" PointY="38.75" />
+        <EntityTypeShape EntityType="team17Model.User" Width="1.5" PointX="0.75" PointY="41.125" />
+        <AssociationConnector Association="team17Model.FK_Building1_Park" />
+        <AssociationConnector Association="team17Model.FK_Room1_Building1" />
+        <AssociationConnector Association="team17Model.FK_Request1_DayInfo" />
+        <AssociationConnector Association="team17Model.FK_DegreeInfo_DeptInfo" />
+        <AssociationConnector Association="team17Model.FK_LecturerInfo_DeptInfo" />
+        <AssociationConnector Association="team17Model.FK_Module1_DeptInfo" />
+        <AssociationConnector Association="team17Model.FK_User1_DeptInfo" />
+        <AssociationConnector Association="team17Model.FK_Request1_Module1" />
+        <AssociationConnector Association="team17Model.FK_Request1_PeriodInfo" />
+        <AssociationConnector Association="team17Model.FK_Request1_RoundInfo" />
+        <AssociationConnector Association="team17Model.FK_Request1_SessionTypeInfo" />
+        <AssociationConnector Association="team17Model.FK_Request1_StatusInfo" />
+        <AssociationConnector Association="team17Model.FK_Request1_User1" />
+        <AssociationConnector Association="team17Model.FK_RoomRequest_Room1" />
+        <AssociationConnector Association="team17Model.AllocatedRoom" />
+        <AssociationConnector Association="team17Model.DegreeModule" />
+        <AssociationConnector Association="team17Model.DeptBuilding" />
+        <AssociationConnector Association="team17Model.FacilityRequest" />
+        <AssociationConnector Association="team17Model.ModuleLecturer" />
+        <AssociationConnector Association="team17Model.RequestToRoom" />
+        <AssociationConnector Association="team17Model.RoomFacility" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

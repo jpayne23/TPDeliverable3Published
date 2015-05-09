@@ -1,0 +1,99 @@
+﻿@model TimetableSys_T17.Room
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="~/bundles/jqueryval"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script type="text/javascript">
+   
+    $(function () {
+
+        $("#capacity").spinner({
+            min: 1,
+            max: 400,
+            change: function (event, ui) {
+                $("#cap").val($("#capacity").val());
+            }
+        });
+        $("#capacity").spinner("value", $("#cap").val());
+
+        $("button").button();
+    });
+    
+</script>
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Room</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.roomID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.roomCode, "Room Code" ,htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.roomCode)
+                @Html.ValidationMessageFor(model => model.roomCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.buildingID, "Building Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("buildingID", String.Empty)
+                @Html.ValidationMessageFor(model => model.buildingID)
+            </div>
+        </div>
+        <div class="form-group">
+            Facility Name
+            <div class="col-md-10">
+                @Html.ListBox("fac", new MultiSelectList(@ViewBag.facilities, "facilityID", "facilityName", @ViewBag.selectedFac))
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>
+                    <label for="capacity">Capacity:</label>
+                    <input id="capacity" name="value">
+                </p>
+            </div>
+            @Html.HiddenFor(model => model.capacity, new {@id="cap"})
+        </div>
+
+        <div class="form-group">
+            Lab
+            <div class="col-md-10">
+                @if(@ViewBag.Lab == 1){
+                    @Html.CheckBox("Labe",true)
+                }
+                else{
+                    @Html.CheckBox("Labe")
+                }         
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

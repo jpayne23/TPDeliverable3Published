@@ -1,0 +1,41 @@
+﻿@model TimetableSys_T17.Models.RequestModel
+@{
+    ViewBag.Title = "Submit Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@Styles.Render("~/Content/multiselectcss");*@
+
+<b> Do not remove - READ COMMENTS </b>
+
+<!-- ERROR TRAPPING REQUIRED - If user does park then room, it should then filter building. --> 
+<!-- On submit, query to ensure that the booking details are consistant. -->
+
+<!-- Extra filters based on available rooms!!!! -->
+
+
+    <div class="ui-widget">
+
+        Park:  <select id="parks_input" name="park_sel[]" multiple="multiple"></select>
+        Building: <select id="buildings_input" multiple="multiple"></select>
+        Rooms: <select id="rooms_input" multiple="multiple"></select>
+        Facilities: <select id="facilities_input" multiple="multiple"></select>
+
+    <hr />
+    <hr />
+
+    Module Code:
+    <input id="code_input" data-ttablejs-mcode />
+    Module Name:
+    <input id="name_input" data-ttablejs-mname />
+    Room Type:
+    <input id="type_input" data-ttablejs-rtype />
+
+
+        <input type="button" value="Submit Me" id="submitter"/>
+</div>
+
+
+
+
+

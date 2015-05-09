@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TimetableSys_T17.RoundInfo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Round
+        </th>
+        <th>
+            Start Date
+        </th>
+        <th>
+            End Date
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.round)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.endDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.round }) |
+            @Html.ActionLink("Details", "Details", new { id=item.round }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.round })
+        </td>
+    </tr>
+}
+
+</table>

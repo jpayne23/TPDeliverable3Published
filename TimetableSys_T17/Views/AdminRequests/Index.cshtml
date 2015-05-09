@@ -1,0 +1,382 @@
+﻿@model IEnumerable<TimetableSys_T17.Models.AdminRequestModel>
+@{
+    Layout = null;
+}
+@*@Scripts.Render("~/bundles/modernizr")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")*@
+
+<!DOCTYPE html>
+<style type="text/css">
+    td {
+        width:120px;
+    }
+
+</style>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin Request</title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover({
+                placement: 'left',
+                html: true,
+                container: 'body'
+            });
+        });
+
+        function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
+            }
+        }
+
+        var sem = getUrlParameter('semester');
+        var day = getUrlParameter('day');
+        var status = getUrlParameter('status');
+        var year = getUrlParameter('year');
+        var round = getUrlParameter('roundID');
+
+    </script>
+    <style type="text/css">
+        .popover {
+            max-width:100%;
+        }
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+          background-color: pink;
+        }
+
+        td, th{
+          text-align: center;
+        }
+
+	
+        h4{
+          text-align: center;
+        }
+        #filtered {
+            font-size:16px;
+        }
+        .tableFilter{
+           margin-left: auto;
+           margin-right: auto;
+        width:67%;
+        }
+        .mainTable{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table.scroll {
+            width: 85%;
+        }
+
+        table.scroll tbody,
+        table.scroll thead { display: block; }
+
+        thead tr th { 
+            height: auto;
+            line-height: 30px;
+            width: 100px;
+        }
+
+        table.scroll tbody {
+            height: 740px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        tbody { 
+        border-top: none; 
+        }
+
+        tbody td, thead th {
+              width: 100px;
+
+        }
+        .weeks {
+              width:200px;
+        }
+
+        tbody td:last-child, thead th:last-child {
+        border-right: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+ <form action="" method="get">
+	<table class="tableFilter">
+     <thead>
+	 <tr>
+	<th colspan="6"><h4>Filter Options</h4></th>
+    </thead>
+	<tr>
+	<tbody>
+		<tr>
+			
+			
+			<td>Semester:	<br/>		
+			    <select name="semester">
+                    <option value="">Any</option>
+			        <option value="1">One</option>
+                    <option value="2">Two</option>
+			    </select>
+			</td>
+			<td>Day:<br/>
+			<select name="day">
+                <option value="">Any</option>
+		    	<option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+			</select>
+			</td>
+            <td>
+                Round ID:<br />
+                <select id="roundID" name="roundID">
+                    <option value="">Any</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </td>
+            <td>
+                 Year:<br />
+                <select id="roundID" name="year">
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="1">All Years</option>
+                    
+                  
+                </select>
+
+            </td>
+			
+			<td>
+			    <input type="submit" value="Filter" />
+            </form>
+			</td>
+           
+            <td>
+              <form action="" method="get">
+                <input type="submit" value="reset"/>    
+              </form>
+            </td>    
+
+            </td>
+
+		</tr>
+
+
+
+	</tbody>
+	
+	</table>
+  
+	<br/>	
+
+           <div id="filtered" align="center">
+
+                  <b>  Filtered By: </b>
+
+                    <script>
+
+                        if (sem != undefined && sem != "") {
+                            document.write("&nbsp;&nbsp;&nbsp; Semester " + sem);
+                        }
+                        if (day != undefined && day != "") {
+                            switch (day) {
+                                case "1":
+                                    day = "Monday"
+                                    break;
+                                case "2":
+                                    day = "Tuesday"
+                                    break;
+                                case "3":
+                                    day = "Wednesday"
+                                    break;
+                                case "4":
+                                    day = "Thursday"
+                                    break;
+                                case "5":
+                                    day = "Friday"
+                                    break;
+
+                            }
+                            document.write("&nbsp;&nbsp;&nbsp; Day: " + day);
+                        }
+                        if (status != "undefined" && status != "") {
+                            switch (status) {
+                                case "1":
+                                    status = "Accepted"
+                                    break;
+                                case "2":
+                                    status = "Rejected"
+                                    break;
+                                case "3":
+                                    status = "Altered"
+                                    break;
+                                case "4":
+                                    status = "Pending"
+                                    break;
+                                case "5":
+                                    status = "Cancelled"
+                                    break;
+                            }
+                            document.write("&nbsp;&nbsp;&nbsp; Status: " + status);
+                        }
+                        if (year != undefined && year != "") {
+                            if (year == 1) year = "Any";
+                            document.write("&nbsp;&nbsp;&nbsp; Year: " + year);
+                        }
+                        if (round != undefined && round != "") {
+                            document.write("&nbsp;&nbsp;&nbsp; Round: " + round);
+                        }
+
+                    </script>
+         <br />   </div>
+
+  <table class="table table-striped table-hover mainTable table-bordered scroll">
+  <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Html.ActionLink("Request ID", "Index", new{ sortOrder = ViewBag.IDSortPram})</td>
+        <td>@Html.ActionLink("Module ID", "Index", new{sortOrder = ViewBag.ModuleSortPram})</td>
+        <td>Room</td>
+        <td>Day</td>
+        <td>Weeks</td>
+        <td>Period</td>		
+        <td>Session length</td>
+        <td>Status</td>
+
+	
+		
+      </tr>
+  
+    
+      
+      @foreach(var x in Model){
+            <tr>
+                @if(x.room.Count() == 0){
+                    <td>@Html.ActionLink("Assign Room(s)", "Index", new {alterID=x.requestID})</td>
+                }
+                else{
+                    <td>@Html.ActionLink("Accept", "Index", new {acceptID=x.requestID})</td>
+                }
+                <td>@Html.ActionLink("Change", "Index", new {alterID=x.requestID})</td>
+                <td>@Html.ActionLink("Reject", "Index", new {rejectID=x.requestID})</td>
+                <td> @x.requestID </td>
+                <td> @x.moduleCode </td>
+                <td>
+                    @foreach(var i in x.room){
+                        <span>@i</span>
+                    }
+
+
+                </td>
+                <td> @x.day </td>
+                <td class="weeks">
+                   @x.weekID
+
+                </td>
+                <td> @x.periodID  </td>
+                <td> @x.sessionLength Hour(s) </td>
+                <td> @x.status </td>
+                <td>   <button type="button" class="btn btn-info" data-toggle="popover" title="Request ID: @x.requestID" 
+                    data-content="
+                            <table>
+                                <tr>
+                                    <td>Booked by: (Email) </td>
+                                    <td>Session Type: </td>
+                                    <td>Semester: </td>
+                                    <td>Year</td>
+                                    <td>Priority:</td>
+                                    <td>Type of request: (adhoc?)</td>
+                                    <td>Special Requirements</td>
+             
+                                </tr>
+                                <tr>
+                                    <td><a> @x.email </a>
+    
+                                    </td>
+                                    <td> @x.sessionType </td>
+                                    <td> @x.semester  </td>
+                                    <td> @x.year </td>
+                                    <td> 
+
+                                        @if(x.priority == 1){
+                                            <span>Yes</span>
+                                        } else {
+                                            <span>No</span>
+                                        }
+                    
+                                        
+                                    </td>
+                                    <td> @if(x.adhoc == 1){
+                                            <span>Yes</span>
+                                        } else {
+                                            <span>No</span>
+                                        }
+                                    </td>
+                                    <td> @x.specialRequirement </td>
+
+                                </tr>
+                                <tr>
+                                
+                                </tr>
+                            </table>
+                    ">
+
+                        More Information
+
+                    </button>
+                    
+                        </td>
+            </tr>
+      }
+    </tbody> 
+
+  </table>
+  
+  
+  
+<script>
+    var $table = $('table.scroll'),
+        $bodyCells = $table.find('tbody tr:first').children(),
+        colWidth;
+
+    $(window).resize(function () {
+        colWidth = $bodyCells.map(function () {
+            return $(this).width();
+        }).get();
+
+        $table.find('thead tr').children().each(function (i, v) {
+            $(v).width(colWidth[i]);
+        });
+    }).resize();
+</script>
+</body>
+</html>

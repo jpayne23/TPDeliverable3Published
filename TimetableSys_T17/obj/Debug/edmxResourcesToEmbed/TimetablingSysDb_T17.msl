@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="team17ModelStoreContainer" CdmEntityContainer="TimetableDbEntities">
+    <EntitySetMapping Name="Buildings">
+      <EntityTypeMapping TypeName="team17Model.Building">
+        <MappingFragment StoreEntitySet="Building">
+          <ScalarProperty Name="parkID" ColumnName="parkID" />
+          <ScalarProperty Name="buildingCode" ColumnName="buildingCode" />
+          <ScalarProperty Name="buildingName" ColumnName="buildingName" />
+          <ScalarProperty Name="buildingID" ColumnName="buildingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DayInfoes">
+      <EntityTypeMapping TypeName="team17Model.DayInfo">
+        <MappingFragment StoreEntitySet="DayInfo">
+          <ScalarProperty Name="day" ColumnName="day" />
+          <ScalarProperty Name="dayID" ColumnName="dayID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DegreeInfoes">
+      <EntityTypeMapping TypeName="team17Model.DegreeInfo">
+        <MappingFragment StoreEntitySet="DegreeInfo">
+          <ScalarProperty Name="deptID" ColumnName="deptID" />
+          <ScalarProperty Name="degreeName" ColumnName="degreeName" />
+          <ScalarProperty Name="degreeID" ColumnName="degreeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeptInfoes">
+      <EntityTypeMapping TypeName="team17Model.DeptInfo">
+        <MappingFragment StoreEntitySet="DeptInfo">
+          <ScalarProperty Name="deptName" ColumnName="deptName" />
+          <ScalarProperty Name="deptCode" ColumnName="deptCode" />
+          <ScalarProperty Name="deptID" ColumnName="deptID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Facilities">
+      <EntityTypeMapping TypeName="team17Model.Facility">
+        <MappingFragment StoreEntitySet="Facility">
+          <ScalarProperty Name="facilityName" ColumnName="facilityName" />
+          <ScalarProperty Name="facilityID" ColumnName="facilityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LecturerInfoes">
+      <EntityTypeMapping TypeName="team17Model.LecturerInfo">
+        <MappingFragment StoreEntitySet="LecturerInfo">
+          <ScalarProperty Name="deptID" ColumnName="deptID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="lecturerID" ColumnName="lecturerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="team17Model.Module">
+        <MappingFragment StoreEntitySet="Module">
+          <ScalarProperty Name="student" ColumnName="student" />
+          <ScalarProperty Name="part" ColumnName="part" />
+          <ScalarProperty Name="deptID" ColumnName="deptID" />
+          <ScalarProperty Name="modTitle" ColumnName="modTitle" />
+          <ScalarProperty Name="modCode" ColumnName="modCode" />
+          <ScalarProperty Name="moduleID" ColumnName="moduleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parks">
+      <EntityTypeMapping TypeName="team17Model.Park">
+        <MappingFragment StoreEntitySet="Park">
+          <ScalarProperty Name="parkName" ColumnName="parkName" />
+          <ScalarProperty Name="parkID" ColumnName="parkID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PeriodInfoes">
+      <EntityTypeMapping TypeName="team17Model.PeriodInfo">
+        <MappingFragment StoreEntitySet="PeriodInfo">
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="periodID" ColumnName="periodID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Preferences">
+      <EntityTypeMapping TypeName="team17Model.Preference">
+        <MappingFragment StoreEntitySet="Preference">
+          <ScalarProperty Name="header3" ColumnName="header3" />
+          <ScalarProperty Name="header2" ColumnName="header2" />
+          <ScalarProperty Name="header1" ColumnName="header1" />
+          <ScalarProperty Name="defaultPage" ColumnName="defaultPage" />
+          <ScalarProperty Name="defaultLocation" ColumnName="defaultLocation" />
+          <ScalarProperty Name="hr24Format" ColumnName="hr24Format" />
+          <ScalarProperty Name="period" ColumnName="period" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="preferencesID" ColumnName="preferencesID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requests">
+      <EntityTypeMapping TypeName="team17Model.Request">
+        <MappingFragment StoreEntitySet="Request">
+          <ScalarProperty Name="week" ColumnName="week" />
+          <ScalarProperty Name="statusID" ColumnName="statusID" />
+          <ScalarProperty Name="specialRequirement" ColumnName="specialRequirement" />
+          <ScalarProperty Name="adhoc" ColumnName="adhoc" />
+          <ScalarProperty Name="priority" ColumnName="priority" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="round" ColumnName="round" />
+          <ScalarProperty Name="semester" ColumnName="semester" />
+          <ScalarProperty Name="sessionLength" ColumnName="sessionLength" />
+          <ScalarProperty Name="periodID" ColumnName="periodID" />
+          <ScalarProperty Name="dayID" ColumnName="dayID" />
+          <ScalarProperty Name="sessionTypeID" ColumnName="sessionTypeID" />
+          <ScalarProperty Name="moduleID" ColumnName="moduleID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="requestID" ColumnName="requestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="team17Model.Room">
+        <MappingFragment StoreEntitySet="Room">
+          <ScalarProperty Name="private" ColumnName="private" />
+          <ScalarProperty Name="lab" ColumnName="lab" />
+          <ScalarProperty Name="capacity" ColumnName="capacity" />
+          <ScalarProperty Name="buildingID" ColumnName="buildingID" />
+          <ScalarProperty Name="roomCode" ColumnName="roomCode" />
+          <ScalarProperty Name="roomID" ColumnName="roomID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoomRequests">
+      <EntityTypeMapping TypeName="team17Model.RoomRequest">
+        <MappingFragment StoreEntitySet="RoomRequest">
+          <ScalarProperty Name="groupSize" ColumnName="groupSize" />
+          <ScalarProperty Name="roomID" ColumnName="roomID" />
+          <ScalarProperty Name="roomRequestID" ColumnName="roomRequestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoundInfoes">
+      <EntityTypeMapping TypeName="team17Model.RoundInfo">
+        <MappingFragment StoreEntitySet="RoundInfo">
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="round" ColumnName="round" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionTypeInfoes">
+      <EntityTypeMapping TypeName="team17Model.SessionTypeInfo">
+        <MappingFragment StoreEntitySet="SessionTypeInfo">
+          <ScalarProperty Name="sessionType" ColumnName="sessionType" />
+          <ScalarProperty Name="sessionTypeID" ColumnName="sessionTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusInfoes">
+      <EntityTypeMapping TypeName="team17Model.StatusInfo">
+        <MappingFragment StoreEntitySet="StatusInfo">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="statusID" ColumnName="statusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="team17Model.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="deptID" ColumnName="deptID" />
+          <ScalarProperty Name="admin" ColumnName="admin" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AllocatedRoom" TypeName="team17Model.AllocatedRoom" StoreEntitySet="AllocatedRoom">
+      <EndProperty Name="Room">
+        <ScalarProperty Name="roomID" ColumnName="roomID" />
+      </EndProperty>
+      <EndProperty Name="Request">
+        <ScalarProperty Name="requestID" ColumnName="requestID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DegreeModule" TypeName="team17Model.DegreeModule" StoreEntitySet="DegreeModule">
+      <EndProperty Name="Module">
+        <ScalarProperty Name="moduleID" ColumnName="moduleID" />
+      </EndProperty>
+      <EndProperty Name="DegreeInfo">
+        <ScalarProperty Name="degreeID" ColumnName="degreeID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DeptBuilding" TypeName="team17Model.DeptBuilding" StoreEntitySet="DeptBuilding">
+      <EndProperty Name="DeptInfo">
+        <ScalarProperty Name="deptID" ColumnName="deptID" />
+      </EndProperty>
+      <EndProperty Name="Building">
+        <ScalarProperty Name="buildingID" ColumnName="buildingID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FacilityRequest" TypeName="team17Model.FacilityRequest" StoreEntitySet="FacilityRequest">
+      <EndProperty Name="Request">
+        <ScalarProperty Name="requestID" ColumnName="requestID" />
+      </EndProperty>
+      <EndProperty Name="Facility">
+        <ScalarProperty Name="facilityID" ColumnName="facilityID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ModuleLecturer" TypeName="team17Model.ModuleLecturer" StoreEntitySet="ModuleLecturer">
+      <EndProperty Name="Module">
+        <ScalarProperty Name="moduleID" ColumnName="moduleID" />
+      </EndProperty>
+      <EndProperty Name="LecturerInfo">
+        <ScalarProperty Name="lecturerID" ColumnName="lecturerID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RequestToRoom" TypeName="team17Model.RequestToRoom" StoreEntitySet="RequestToRoom">
+      <EndProperty Name="RoomRequest">
+        <ScalarProperty Name="roomRequestID" ColumnName="roomRequestID" />
+      </EndProperty>
+      <EndProperty Name="Request">
+        <ScalarProperty Name="requestID" ColumnName="requestID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RoomFacility" TypeName="team17Model.RoomFacility" StoreEntitySet="RoomFacility">
+      <EndProperty Name="Room">
+        <ScalarProperty Name="roomID" ColumnName="roomID" />
+      </EndProperty>
+      <EndProperty Name="Facility">
+        <ScalarProperty Name="facilityID" ColumnName="facilityID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
