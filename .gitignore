@@ -165,4 +165,3 @@ FakesAssemblies/
 *.plg
 # Visual Studio 6 workspace options file
 *.opt
-TimetableSys_T17/Views/CreateRoom/Create.cshtml
