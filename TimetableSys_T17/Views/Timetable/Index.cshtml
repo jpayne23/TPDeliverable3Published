@@ -1,0 +1,173 @@
+﻿@model IEnumerable<TimetableSys_T17.Models.TimetableModel>
+@{
+    Layout = null;
+}
+
+<style type="text/css">
+
+   tr td {
+        border: 1px solid #000;
+    }
+    
+    .filled {
+        background-color:#f00;
+    }
+
+    #mainRow {
+        width:300px;
+        height:100px;
+    }
+
+</style>
+
+<html>
+<head>
+    <title>Timetable</title>
+</head>
+<body>
+    <form action="" method="get">
+    
+        
+        <select name="modOrLec">
+            <option value="Degree">Degree</option>
+            <option value="Lecturer">Lecturer</option>
+        </select>
+
+        <select name="nameOrCode">
+           <option value="COA101">COA101</option>
+           <option value="Firat Batmaz">Firat Batmaz</option>
+        </select>
+        <select name="week">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <select name="getSemester">
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        
+        <input type="submit" value="Search" />
+    </form>
+
+   
+ 
+
+<br /><br />
+
+
+
+    
+
+
+
+
+  
+
+<div>
+<table>
+        @{string rowID = "";}
+        @for(var i = 0; i < 6; i++){
+        
+            
+            if(i == 0){
+                rowID = "top";
+            } else{
+                rowID = "mainRow";
+            }
+            <tr id="@rowID">
+            @for(var j = 0; j<10; j++){
+                if(i==0 && j == 1 ){
+                        <td>9:00 - 10:00</td>
+                }
+                if(i==0 && j == 2 ){
+                        <td>10:00 - 11:00</td>
+                }
+                if(i==0 && j == 3 ){
+                        <td>11:00 - 12:00</td>
+                }
+                if(i==0 && j == 4 ){
+                        <td>12:00 - 13:00</td>
+                }
+                if(i==0 && j == 5 ){
+                        <td>13:00 - 14:00</td>
+                }
+                if(i==0 && j == 6 ){
+                        <td>14:00 - 15:00</td>
+                }
+                if(i==0 && j == 7 ){
+                        <td>15:00 - 16:00</td>
+                }
+                if(i==0 && j == 8 ){
+                        <td>16:00 - 17:00</td>
+                }
+                if(i==0 && j == 9 ){
+                        <td>17:00 - 18:00</td>
+                }
+                if(i == 1 && j==0 ){
+                    <td>Monday</td>
+                }
+                if(i == 2 && j==0 ){
+                    <td>Tuesday</td>
+                }
+                if(i == 3 && j==0 ){
+                    <td>Wednesday</td>
+                }
+                if(i == 4 && j==0 ){
+                    <td>Thursday</td>
+                }
+                if(i == 5 && j==0 ){
+                    <td>Friday</td>
+                }
+               if(i==0 && j==0){
+                    <td>    </td>
+               }
+               if(j!=0 && i!=0){
+        
+               
+                    <td colspan="@ViewBag.sessionLength">
+                    @if(@ViewBag.error == "good"){ 
+                        if(@ViewBag.req.periodID == j && @ViewBag.req.dayID == i){
+                            @ViewBag.sessionLength <br />
+                            @ViewBag.moduleCode <br />
+                            @ViewBag.moduleName 
+                            @ViewBag.type <br />
+                            @ViewBag.roomCode <br />
+                            @ViewBag.buildingName   <br />
+                        string[] weeks = ViewBag.weeks.Split(new char[]{','});
+                        int count = 0;
+                        foreach(var p in weeks){
+                          count++;
+                          if(p == "1" || p == "[1" || p == "1]"){
+                            <span>@count </span>
+                          }
+                        }   
+                        } 
+                    }
+                            
+
+                               
+
+                    </td>
+               }
+}
+
+               
+                
+            
+    
+            </tr>
+
+        }
+</table>
+</div>
+
+   
+    
+
+
+</body>
+
+</html>
