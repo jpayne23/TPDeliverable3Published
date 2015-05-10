@@ -7,7 +7,6 @@
 
 <h2>Create</h2>
 
-<script src="~/bundles/jqueryval"></script>
 
 @using (Html.BeginForm()) 
 {
@@ -17,6 +16,7 @@
         <h4>Facility</h4>
         <hr />
         @Html.ValidationSummary(true)
+        <div>@ViewBag.error</div>
         <div class="form-group">
             Faciltity Name
             <div class="col-md-10">
@@ -36,4 +36,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-

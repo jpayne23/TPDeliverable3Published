@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="~/bundles/jqueryval"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script>
 
@@ -17,7 +16,7 @@ $(function() {
         showOtherMonths: true,
         selectOtherMonths: true,
         minDate: 0,
-        dateFormat: 'dd/mm/yy',
+        dateFormat: 'dd/mm/yyyy',
         onSelect: function ()
         {
             $("#startDate").val($("#datepickerStart").val());
@@ -30,7 +29,7 @@ $(function() {
         selectOtherMonths: true,
         minDate: 0,
         defaultDate: $("#endDate").val(),
-        dateFormat: 'dd/mm/yy',
+        dateFormat: 'dd/mm/yyyy',
         onSelect: function ()
         {
             $("#endDate").val($("#datepickerEnd").val());
@@ -53,7 +52,7 @@ $(function() {
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.round)
-
+        <div>@ViewBag.error</div>
         <div class="form-group">
            <p>Start Date: <input type="text" id="datepickerStart"></p>
         </div>

@@ -7,12 +7,10 @@
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="~/bundles/jqueryval"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script type="text/javascript">
    
-    $(function () {
-
+    $(function() {
         $("#capacity").spinner({
             min: 1,
             max: 400,
@@ -23,7 +21,6 @@
         $("#capacity").spinner("value", 50);
 
         $("button").button();
-
     });
     
 </script>
@@ -38,7 +35,7 @@
         <h4>Room</h4>
         <hr />
         @Html.ValidationSummary(true)
-
+        <div>@ViewBag.error</div>
         <div class="form-group">
             @Html.LabelFor(model => model.roomCode, "Room Code", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -65,7 +62,6 @@
                     <label for="capacity">Capacity:</label>
                     <input id="capacity" name="value">
                 </p>
-                <div id="slider-range-min"></div>
             </div>
             @Html.HiddenFor(model => model.capacity, new {@id="cap"})
         </div>

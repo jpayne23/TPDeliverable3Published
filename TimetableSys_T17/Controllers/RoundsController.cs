@@ -48,6 +48,8 @@ namespace TimetableSys_T17.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "round,startDate,endDate")] RoundInfo roundInfo)
         {
+            ViewBag.error = "";
+
             var testStart = roundInfo.startDate;
             var testEnd = roundInfo.endDate;
             //Check start date is before end date
@@ -61,13 +63,16 @@ namespace TimetableSys_T17.Controllers
 
             if (ModelState.IsValid && tStartYear < tEndYear || (tStartYear == tEndYear && tStartMonth < tEndMonth) || (tStartYear == tEndYear && tStartMonth == tEndMonth && tStartDay < tEndDay))
             {
-                
+
                 db.RoundInfoes.Add(roundInfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-                
+
             }
-            return View(roundInfo);
+            else {
+                ViewBag.error = "End date before start date";
+                return View(roundInfo);
+            }
         }
 
         // GET: Rounds/Edit/5

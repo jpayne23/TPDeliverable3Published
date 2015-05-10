@@ -6,7 +6,6 @@
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="~/bundles/jqueryval"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script type="text/javascript">
    
@@ -37,12 +36,11 @@
         <h4>Room</h4>
         <hr />
         @Html.ValidationSummary(true)
-
+        <div>@ViewBag.error</div>
         <div class="form-group">
             @Html.LabelFor(model => model.roomCode, "Room Code", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.roomCode)
-                @Html.ValidationMessageFor(model => model.roomCode)
             </div>
         </div>
 
@@ -50,7 +48,6 @@
             @Html.LabelFor(model => model.buildingID, "Building Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                     @Html.DropDownList("buildingID", String.Empty)
-                    @*@Html.ValidationMessageFor(model => model.buildingID)*@
             </div>
         </div>
         <div class="form-group">
@@ -86,8 +83,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-
-@*TO DO: - Return message notifying room was created or any error message*@
-
-

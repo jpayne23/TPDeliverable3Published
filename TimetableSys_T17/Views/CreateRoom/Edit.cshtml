@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="~/bundles/jqueryval"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script type="text/javascript">
    
@@ -41,7 +40,7 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.roomID)
-
+        <div>@ViewBag.error</div>
         <div class="form-group">
             @Html.LabelFor(model => model.roomCode, "Room Code" ,htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

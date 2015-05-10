@@ -11,9 +11,9 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script>
 
-    $(function () {
-
-    });
+$(function() {
+    
+});
 
 </script>
 
@@ -25,12 +25,12 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Altering Request @ViewBag.id</h4>
+        <h4>Allocate Room for request @ViewBag.id</h4>
         <hr />
         @Html.ValidationSummary(true)
         <div class="form-group">
             @Html.ListBox("roomNames",
-                 new MultiSelectList(@ViewBag.rooms, "roomID", "roomCode", @ViewBag.selected))
+                 new MultiSelectList(@ViewBag.rooms, "roomID", "roomCode"))
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -43,3 +43,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+

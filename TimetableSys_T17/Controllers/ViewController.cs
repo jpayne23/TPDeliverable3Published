@@ -8,10 +8,10 @@ namespace TimetableSys_T17.Controllers
 {
     public class ViewController : Controller
     {
-
+        
         //
         // GET: /View/
-        public ActionResult Index(string sortOrder, int? roundID, int? cancelledID, int? moduleCode, int? semester, int? day, int? status, int? year)
+        public ActionResult Index(string sortOrder, int? roundID, int? cancelledID, string moduleCode, int? semester, int? day, int? status, int? year)
         {
             //get db and run query
        
@@ -19,14 +19,26 @@ namespace TimetableSys_T17.Controllers
             var getRequests = from t in db.Requests
                               select t;
 
+            var getRounds = from t in db.RoundInfoes select t.round;
+            @ViewBag.rounds = getRounds;
+
+            var moduleCodes = db.Modules.Where(f => f.deptID == 5).Select(a => a.modCode).ToList();
+            var lecturer = db.LecturerInfoes.Where(f => f.deptID == 5).Select(a => a.name).ToList();
+
+            List<string> codeOrName = new List<string>();
+            codeOrName.Add(moduleCode);
+            //codeOrName.Add(lecturer);
+            @ViewBag.moduleCodes = moduleCodes;
 
             if (roundID != null)
             {
                 getRequests = getRequests.Where(t => t.round == roundID);
             }
-            if (moduleCode != null)
+            if (moduleCode != null && moduleCode != "")
             {
-                getRequests = getRequests.Where(t => t.moduleID == moduleCode);
+                var getModID = db.Modules.Where(t => t.modCode == moduleCode).Select(o => o.moduleID).FirstOrDefault();
+    
+                getRequests = getRequests.Where(t => t.moduleID == getModID);
             }
             if (semester != null)
             {
@@ -60,7 +72,6 @@ namespace TimetableSys_T17.Controllers
 
             
             if(year == 2014){
-               
                  getRequests = getRequests.Where(t => t.year == 2014);
             }
             if (year == 2015 || year == null)
@@ -91,7 +102,7 @@ namespace TimetableSys_T17.Controllers
                     reqArray = getRequests.ToArray();
                     break;
                 case "Module":
-                    getRequests = getRequests.OrderBy(s => s.moduleID);
+                    getRequests = getRequests.OrderBy(f => f.Module.modCode);
                     reqArray = getRequests.ToArray();
                     break;
                 case "module_desc":
@@ -155,7 +166,7 @@ namespace TimetableSys_T17.Controllers
                 tmp.status = statusName.FirstOrDefault();
 
 
-             
+                
 
                 var sessionTypeName = db.Requests.Join(db.SessionTypeInfoes, a => a.sessionTypeID, d => d.sessionTypeID, (a, d) => new { a.sessionTypeID, d.sessionType }).Where(a => a.sessionTypeID == x.sessionTypeID).Select(d => d.sessionType);
                 tmp.sessionType = sessionTypeName.FirstOrDefault();
@@ -165,8 +176,7 @@ namespace TimetableSys_T17.Controllers
                 requestList.Add(tmp);
 
 
-
-
+                
             }
 
             var example = requestList.ToList();

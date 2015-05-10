@@ -294,10 +294,10 @@ input.ui-button {
 }
 
 /* button sets */
-.ui-buttonset {
+.ui-buttonsetJ {
 	margin-right: 7px;
 }
-.ui-buttonset .ui-button {
+.ui-buttonsetJ .ui-button {
 	margin-left: 0;
 	margin-right: -.3em;
 }
@@ -517,7 +517,7 @@ button.ui-button::-moz-focus-inner {
 	margin-top: .5em;
 	padding: .3em 1em .5em .4em;
 }
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonsetJ {
 	float: right;
 }
 .ui-dialog .ui-dialog-buttonpane button {

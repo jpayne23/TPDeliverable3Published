@@ -2,10 +2,10 @@
 @{
     Layout = null;
 }
-@*@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/modernizr")
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")*@
+@Scripts.Render("~/bundles/bootstrap")
 
 <!DOCTYPE html>
 <style type="text/css">
@@ -281,7 +281,7 @@
       @foreach(var x in Model){
             <tr>
                 @if(x.room.Count() == 0){
-                    <td>@Html.ActionLink("Assign Room(s)", "Index", new {alterID=x.requestID})</td>
+                    <td>@Html.ActionLink("Assign Room(s)", "Index", new {allocateID=x.requestID})</td>
                 }
                 else{
                     <td>@Html.ActionLink("Accept", "Index", new {acceptID=x.requestID})</td>

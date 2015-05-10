@@ -36,14 +36,15 @@ namespace TimetableSys_T17.Controllers
             Int16 round = 1;
             bool satisfied = false;
 
-            var req_line = from datesTables in _db.RoundInfoes select datesTables;
+            var req_line = _db.RoundInfoes;
+
             var dates_list = req_line.ToList();
 
             DateTime current_date = DateTime.Today;
 
             Int16 rs_day = 0, rs_month = 0, re_day = 0, re_month = 0;
 
-            for (Int16 i = 0; i < 3; i++)
+            for (Int16 i = 0; i < dates_list.Count(); i++)
             {
 
                 String[] round_start = dates_list[i].startDate.Split(new String[] { "/" }, StringSplitOptions.None);
@@ -54,7 +55,7 @@ namespace TimetableSys_T17.Controllers
                     // Convert strings to integers :-
 
                     rs_day = Convert.ToInt16(round_start[0]); // round start day. 
-                    rs_month = Convert.ToInt16(round_start[1]); // round start month           
+                    rs_month = Convert.ToInt16(round_start[1]); // round start month
 
                     re_day = Convert.ToInt16(round_end[0]); // round end day
                     re_month = Convert.ToInt16(round_end[1]); // round end month
@@ -83,14 +84,16 @@ namespace TimetableSys_T17.Controllers
                     break;
                 }
             }
-                
+
+            round++;
+
             return round;
         }
 
         protected Int16? ReturnSemester()
         {
             Int16? semester = null; // Make this null, so that error is thrown if problem. (DB wont accept null).
-            if (DateTime.Today.Month > 8)
+            if (DateTime.Today.Month > 8 || DateTime.Today.Month < 2)
             {
 
                 semester = 1;
@@ -102,7 +105,7 @@ namespace TimetableSys_T17.Controllers
                 semester = 2;
 
             }
-
+            ViewBag.semester = "VIEWBAG!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
             return semester;
 
         }
@@ -152,122 +155,11 @@ namespace TimetableSys_T17.Controllers
 
         }
 
-
-        // Private
-
-        public void SubmitRoundI(string room, List<string> facilities, string module_code, string module_title, string session_type)
-        {
-
-            if (isValidInput("Rooms", room) && isValidInput("Modules_C", module_code) && isValidInput("Modules_T", module_title) && isValidInput("SessionTypeInfo", session_type)) // && FREE - Round 2, 3, then ELSE if this.+adhoc, else reject
-            {
-
-                List<Int16> weeksSelected = new List<Int16>(15) {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-
-                Request submitNewRequest = new Request
-                {
-
-                    userID = 3,
-                    moduleID = _db.Modules.Where(x => x.modCode == module_code).Select(x => x.moduleID).First(),
-                    sessionTypeID = _db.SessionTypeInfoes.Where(x => x.sessionType == session_type).Select(x => x.sessionTypeID).First(),
-                    dayID = 2,
-                    periodID = 1,
-                    sessionLength = 2,
-                    semester = ReturnSemester(),
-                    round = ReturnRound(),
-                    year = DateTime.Today.Year,
-                    priority = 0,
-                    adhoc = 0, // pass this through switch statement
-                    specialRequirement = "Cake must be provided!", // Complete this
-                    statusID = 2,
-                   
-                    
-                    
-                };
-
-                Debug.WriteLine(submitNewRequest.semester + " SEMESTER");
-                Debug.WriteLine(submitNewRequest.round + " ROUND");
-                Debug.WriteLine(submitNewRequest.year + " YEAR");
-
-                _db.Requests.Add(submitNewRequest);
-                _db.SaveChanges(); // -- -- -- -- -- TRY STATEMENT, ON FAIL RETURN ERR -- -- -- -- -- --
-
-               // _db.Weeks.Add(temp);
-               // _db.SaveChanges();
-            
-            
-            
-            
-            
-            }
-
-        }
-
-        protected void SubmitRoundII_III()
-        {
-
-        }
-
-        protected void SubmitAdHoc()
-        {
-            // If Adhoc finds a pending request, it'll decline pending and approve this
-            // Because there should not be any pending at this stage - assume admin is on it.
-
-
-        }
-
-        protected void SubmitEdit()
-        {
-
-            // Edit, check before this is executed if edit != original
-
-        }
-
-
-        public void ReturnResult(Boolean edit)
-        {
-            /*
-              Return result will execute the appropriate submit request, and return, if any, a suitable 
-              view, i.e. error - adhoc - Room taken etc.*/
-
-            if (!edit)
-            {
-                int round = ReturnRound();
-
-                switch (round)
-                {
-
-                    case 1:
-                        // Do Round 1 - i.e. priority is different
-                        //SubmitRoundI(); break;
-                    case 2:
-                        // Do Round 2 & 3 here, as neither have a difference. function will take arg, r, 1 | 3
-                        SubmitRoundII_III(); break;
-                    case 3:
-                        // Adhoc here, auto approval;
-                        SubmitAdHoc(); break;
-                    default:
-                        // Adhoc? Throw a message? They shouldn't reach this far, unless dates are wrong in db.
-                        Console.WriteLine("temp 4"); break; // Return Error Page/Message
-
-                }
-            }
-            else
-            {
-
-                SubmitEdit();
-
-            }
-        }
-
-
         public ActionResult Index()
         {
 
             return View();
         }
-
-
 
         private List<string> UniqFacilities(List<List<string>> input) {
 
@@ -310,7 +202,7 @@ namespace TimetableSys_T17.Controllers
         }
 
         [HttpGet]
-        public JsonResult RequestModelUpdaterOptional2(Int16 which_call, string park_names, string building_names, string room_names, string facility_names)
+        public JsonResult RequestModelUpdaterOptional2(Int16 which_call, string park_names, string building_names, string room_names, string facility_names, string module_code, string module_title, string session_type, Int16? room_i, Int16? room_ii, Int16? room_iii)
         {
             
             RequestModel local = new RequestModel();
@@ -341,32 +233,38 @@ namespace TimetableSys_T17.Controllers
 
                     List<string> inputRooms_VII = returnStripped(room_names);
                     IQueryable<List<string>> available_facilities_VII = _db.Rooms.Where(x => inputRooms_VII.Contains(x.roomCode)).Select(x => x.Facilities.Select(y => y.facilityName).ToList()); local.facilities = UniqFacilities(available_facilities_VII.ToList());
-
                     break;
                 case 8:
 
                     List<string> inputFacilities_VIII = returnStripped(facility_names);
+                    List<string> room_codes_VIII = _db.Rooms.Where(x => (inputFacilities_VIII.Intersect(x.Facilities.Select(y => y.facilityName).ToList())).Count() == inputFacilities_VIII.Count()).Select(x => x.roomCode).ToList(); local.roomCode = room_codes_VIII;
 
-                    var firstFilter = _db.Facilities.Select(x => new  { x.facilityName,  Rooms = x.Rooms.Select(y => y.roomCode).ToList() } ).ToList();
-                    var wotsits = "SELECT Room.roomCode FROM Room JOIN RoomFacility on Room.roomID = RoomFacility.roomID JOIN Facility on RoomFacility.facilityID = Facility.facilityID WHERE facilityName = 'Chalk Board' OR facilityName = 'Data Projector' GROUP BY Room.roomCode HAVING COUNT(*) = 2";
-                   //var temp = _db.SqlQuery(wotsits);
- 
-      
+                   // This works, however, because Len = 0, jQuery executes call 7.
+                   
 
-                    Debug.WriteLine("==================================");
-                    foreach (var i in firstFilter)
-                    {
+                    break;
+                case 9: IQueryable<string> return_modules = _db.Modules.Select(x => x.modCode); local.moduleCode = return_modules.ToList(); break;
+                case 10:
 
-                        Debug.WriteLine(i);
+                    List<string> input_moduleCode_X = returnStripped(module_code);
+                    IQueryable<string> module_title_X = _db.Modules.Where(x => input_moduleCode_X.Contains(x.modCode)).Select(x => x.modTitle); local.moduleTitle = module_title_X.ToList();
 
-                    }
+                    break;
+                case 11: IQueryable<string> return_titles = _db.Modules.Select(x => x.modTitle); local.moduleTitle = return_titles.ToList(); break;
+                case 12:
 
+                    List<string> input_moduleTitle_XI = returnStripped(module_title);
+                    IQueryable<string> module_code_XI = _db.Modules.Where(x => input_moduleTitle_XI.Contains(x.modTitle)).Select(x => x.modCode); local.moduleCode = module_code_XI.ToList();
 
-                    Debug.WriteLine("==================================");
+                    break;
+                case 13: IQueryable<string> return_sessions = _db.SessionTypeInfoes.Select(x => x.sessionType); local.sessionType = return_sessions.ToList(); break;
+                case 14:
+                
+                    List<string> room_codes_XIV = returnStripped(room_names);
+                    List<Int16> room_ids_XIV = _db.Rooms.Where(x => room_codes_XIV.Contains(x.roomCode)).Select(x => (Int16)x.roomID).ToList();
+                    IQueryable<List<tableViewTemplate>> return_room_base = _db.RoomRequests.Where(x => room_ids_XIV.Contains((Int16)x.roomID)).Where(x => (x.Requests.Select(y => y.statusID)).Contains(1) || (x.Requests.Select(y => y.statusID)).Contains(3)).Select(x => x.Requests.Select(y => new tableViewTemplate { dayID = y.dayID, periodID = y.periodID, sessionLength = y.sessionLength, semester = y.semester, week = y.week }).ToList());
 
-                    
-                    
-
+                    local.tableRequest = return_room_base.ToList();
 
                     break;
             }
@@ -375,41 +273,228 @@ namespace TimetableSys_T17.Controllers
             return Json(local, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult SubmitThisThing(Int16 which_call, string park_names, string building_names, string room_names, string facility_names, string module_code, string module_title, string session_type, string weeks, string day, string dayInfo)
+        {
+            RequestModel local = new RequestModel();
+            local.response = "Oops! Something has gone terribly wrong. Call 0800 70U80R0UGH 4 45515574NC3";
 
-        [HttpGet]
-        public JsonResult RequestModelUpdaterCompulsory(string module_code, string module_title, string room_type)
+            string additional = "";
+
+            List<string> rooms = returnStripped(room_names);
+
+            if (rooms.Count() == 0)
+            {
+
+                additional += "¦" + building_names + park_names;
+
+            }
+
+
+            List<string> modCode = returnStripped(module_code);
+            List<string> sessionInfo = returnStripped(session_type);
+            string selectedDay = day.Substring(1, (day.Length - 1));
+            Int16 tempModuleID = _db.Modules.Where(a => modCode.Contains(a.modCode)).Select(b => (Int16)b.moduleID).First();
+            Int16 tempSessionTypeID = _db.SessionTypeInfoes.Where(a => sessionInfo.Contains(a.sessionType)).Select(b => (Int16)b.sessionTypeID).First();
+            Int16? tempDayID = _db.DayInfoes.Where(a => selectedDay.Contains(a.day)).Select(b => (Int16)b.dayID).First();
+            Int16 tempPeriodID = Convert.ToInt16(dayInfo.Substring(1, 1));
+            Int16 tempSessionLength = Convert.ToInt16(dayInfo.Substring(3, 1));
+            Int16 tempSemester = (Int16)ReturnSemester();
+            Int16 tempRound = ReturnRound();
+            Int16 tempYear = (Int16)DateTime.Today.Year;
+            string tempWeeks = convertWeeks(toList(weeks));
+            List<string> tempFacilities = returnStripped(facility_names);
+            List<string> tempRooms = returnStripped(room_names);
+
+
+            switch (tempRound)
+            {
+
+                case 1:
+
+                    try { 
+                          
+                        pushToDb(tempRooms, tempFacilities, tempModuleID, tempSessionTypeID, tempWeeks, 4, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 0, 1, tempYear);  // sort out prio
+
+                        local.response = "Round 1 Request submitted, please keep an eye on your view requests page for any changes.";
+                    
+                    }
+                    catch (Exception x)
+                    {
+                        
+                        local.response = "There appears to be something catastrophic... Have you been tampering with our work? " + x;
+                    
+                    }
+
+                    break;
+
+                case 2:
+
+                    Int16? checkIfTakenR2 = null;
+                    checkIfTakenR2 = _db.Requests.Where(x => x.week.Contains(tempWeeks) && x.statusID == 1 && (x.periodID >= tempPeriodID && x.periodID <= (tempPeriodID+tempSessionLength)) && (tempRooms.Intersect(x.RoomRequests.Select(y => _db.Rooms.Where(z => z.roomID == y.roomID).Select(z => z.roomCode).First())).Count() > 0)).Select(x => (Int16?)x.requestID).First();
+
+                    if (checkIfTakenR2 != null) {
+
+                        local.response = "It appears the rooms you've requested are not available, please try again or contact your administrator.";
+
+                    }else{
+                        
+                        try { 
+                          
+                            pushToDb(tempRooms, tempFacilities, tempModuleID, tempSessionTypeID, tempWeeks, 4, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 0, 0, tempYear);
+
+                            local.response = "Round 2 Request submitted, please keep an eye on your view requests page for any changes.";
+                    
+                        }
+                        catch (Exception x)
+                        {
+                        
+                            local.response = "There appears to be something catastrophic... Have you been tampering with our work? " + x;
+                    
+                        }
+
+                    
+                    }
+
+                    break;
+                    
+                case 3:
+
+                    Int16 checkIfTakenR3 = 0;
+
+                    checkIfTakenR3 = _db.Requests.Where(x => x.week.Contains(tempWeeks) && x.statusID == 1 && (x.periodID >= tempPeriodID && x.periodID <= ((tempPeriodID + tempSessionLength) - 1)) && (tempRooms.Intersect(x.RoomRequests.Select(y => _db.Rooms.Where(z => z.roomID == y.roomID).Select(z => z.roomCode).FirstOrDefault())).Count() > 0) && x.dayID == tempDayID).Select(x => (Int16)x.requestID).FirstOrDefault();
+                    Debug.WriteLine(checkIfTakenR3);
+                    if (checkIfTakenR3 != 0)
+                    {
+                        
+                        local.response = "It appears the rooms you've requested are not available, please try again or contact your administrator.";
+
+                    }else{
+                        
+                        try { 
+                          
+                            pushToDb(tempRooms, tempFacilities, tempModuleID, tempSessionTypeID, tempWeeks, 4, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 0, 0, tempYear);
+
+                            local.response = "Round 3 Request submitted, please keep an eye on your view requests page for any changes.";
+                    
+                        }
+                        catch (Exception x)
+                        {
+                        
+                            local.response = "There appears to be something catastrophic... Have you been tampering with our work? " + x;
+                    
+                        }
+
+                    
+                    }
+
+                    break;
+
+                case 4:
+
+                    Int16 checkIfTakenAdhoc = 0;
+
+                    checkIfTakenAdhoc =_db.Requests.Where(x => x.week.Contains(tempWeeks) && x.statusID == 1 && (x.periodID >= tempPeriodID && x.periodID <= ((tempPeriodID + tempSessionLength)-1)) && (tempRooms.Intersect(x.RoomRequests.Select(y => _db.Rooms.Where(z => z.roomID == y.roomID).Select(z => z.roomCode).FirstOrDefault())).Count() > 0) && x.dayID == tempDayID).Select(x => (Int16)x.requestID).FirstOrDefault();
+                    Debug.WriteLine(checkIfTakenAdhoc);
+                    if (checkIfTakenAdhoc != 0)
+                    {
+
+                        local.response = "It appears the rooms you've requested are not available, please try again or contact your administrator.";
+
+                    }
+                    else
+                    {
+                        try
+                        {
+
+                            pushToDb(tempRooms, tempFacilities, tempModuleID, tempSessionTypeID, tempWeeks, 1, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 1, 0, tempYear);
+
+                            local.response = "Your request has been approved.";
+
+                        }
+                        catch(Exception x)
+                        {
+
+                            local.response = "Great Scott, there's a problem: " + x;
+
+                        }
+                    }
+
+                    break;
+            }
+
+            return Json(local, JsonRequestBehavior.AllowGet);
+        }
+
+        protected void pushToDb(List<string> room_names, List<string>facility_names, Int16 module_id, Int16 session_type, string weeks, Int16 statusID, Int16? day, Int16 periodID, Int16 sessionLength, Int16 semester, Int16 round, Int16 adhoc, Int16 prio, Int16 year)
         {
 
-            RequestModel local_return = new RequestModel();
 
-            if (module_code != "" && module_title == "")
+
+            Request toSubmit = new Request()
             {
+                userID = 2, // sort
+                moduleID = module_id,
+                sessionTypeID = session_type,
+                dayID = day,
+                periodID = periodID,
+                sessionLength = sessionLength,
+                semester = semester,
+                round = round,
+                year = year,
+                priority = prio, // SORT
+                adhoc = adhoc,
+                specialRequirement = "There must be poop provided",
+                statusID = statusID,
+                week = weeks
+            };
 
-                IQueryable<string> module_titles = _db.Modules.Where(x => x.modCode == module_code).Select(x => x.modTitle);
-                             
-                local_return.moduleTitle = module_titles.ToList();
-
-            }
-            else if (module_code == "" && module_title != "")
+            foreach (var i in facility_names)
             {
-
-                IQueryable<string> module_codes = _db.Modules.Where(x => x.modTitle == module_title).Select(x => x.modCode);
-
-                local_return.moduleCode = module_codes.ToList();
-            }
-            else
-            {
-
-                IQueryable<string> module_codes = _db.Modules.Select(x => x.modCode);
-                IQueryable<string> module_titles = _db.Modules.Select(x => x.modTitle);
-                IQueryable<string> room_types = _db.SessionTypeInfoes.Select(x => x.sessionType);
-
-                local_return.moduleCode = module_codes.ToList();
-                local_return.moduleTitle = module_titles.ToList();
-                local_return.roomType = room_types.ToList();
+                toSubmit.Facilities.Add(_db.Facilities.Where(a => a.facilityName == i).First());
             }
 
-            return Json(local_return, JsonRequestBehavior.AllowGet);
+            foreach (var j in room_names)
+            {
+                RoomRequest temp = new RoomRequest()
+                {
+                    roomID = _db.Rooms.Where(a => a.roomCode == j).Select(b => b.roomID).First(),
+                    groupSize = 50
+                };
+
+                toSubmit.RoomRequests.Add(temp);
+            }
+
+            _db.Requests.Add(toSubmit);
+            _db.SaveChanges();
+        }
+
+
+        protected List<string> toList(string input)
+        {
+
+            List<string> these = Regex.Split(input.Substring(1, (input.Length - 2)), ",").ToList();
+       
+            return these;
+
+
+        }
+
+
+
+        protected string convertWeeks(List<string> weeks)
+        {
+
+
+            string bollocks = "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]";
+
+
+            foreach (var x in weeks)
+            {
+                bollocks = bollocks.Remove(((Convert.ToInt16(x) * 2)-1), 1).Insert(((Convert.ToInt16(x) * 2)-1), "1");
+
+            }
+
+            return bollocks;
         }
 	}
 }

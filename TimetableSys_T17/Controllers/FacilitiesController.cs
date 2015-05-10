@@ -81,6 +81,14 @@ namespace TimetableSys_T17.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "facilityID,facilityName")] Facility facility)
         {
+            ViewBag.error = "";
+
+            if (!checkDuplicate(facility.facilityName)) 
+            {
+                ViewBag.error = "Facility already exists";
+                return View(facility);
+            }
+
             if (ModelState.IsValid && checkDuplicate(facility.facilityName))
             {
                 db.Facilities.Add(facility);
@@ -116,9 +124,23 @@ namespace TimetableSys_T17.Controllers
 
             var fac = db.Facilities.Where(a => a.facilityID == facility.facilityID).Select(a => a.facilityName);
 
+            ViewBag.error = "";
+
+            if (!checkDuplicate(facility.facilityName) && fac.First() != facility.facilityName)
+            {
+                ViewBag.error = "Facility already exists";
+                return View(facility);
+            }
+
             if (ModelState.IsValid && (checkDuplicate(facility.facilityName) || fac.First() == facility.facilityName))
             {
-                db.Entry(facility).State = System.Data.EntityState.Modified;
+
+
+                Facility postAttached = db.Facilities.Where(x => x.facilityID == facility.facilityID).First();
+
+                //Updates old version of room with edited values, then saves to database
+                db.Entry(postAttached).CurrentValues.SetValues(facility);
+                //db.Entry(facility).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

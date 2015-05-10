@@ -2,10 +2,10 @@
 @{
     Layout = null;
 }
-@*@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/modernizr")
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")*@
+@Scripts.Render("~/bundles/bootstrap")
 
 <!DOCTYPE html>
 <style type="text/css">
@@ -118,31 +118,33 @@
         tbody td:last-child, thead th:last-child {
         border-right: none;
         }
+
+        .table thead {
+        background-color:#753DAE;
+        color:white;
+        }
+
+         .Cancelled {
+        background-color:#ff0000 !important;
+        }
+
+        .Accepted{
+        background-color:#7cd200 !important;
+        }
+
+        .Altered{
+        background-color:#f37735 !important;
+        }
+
+        .Pending {
+        background-color:#FFFFA6 !important;
+        }
+
     </style>
 </head>
 <body>
 
     <div class="container">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -156,7 +158,15 @@
 	<tbody>
 		<tr>
 			
-			
+			<td>
+                Module Code
+                 <select name="moduleCode">
+                            <option value="">Any</option>
+                    @foreach(var a in @ViewBag.moduleCodes){ 
+                            <option value="@a">@a</option>  
+                    }
+                 </select>
+			</td>
 			<td>Semester:	<br/>		
 			    <select name="semester">
                     <option value="">Any</option>
@@ -195,7 +205,18 @@
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
+                    <option value="4">Ad Hoc</option>
                 </select>
+            </td>
+            <td>
+                Round ID: <br />
+                <select id="roundID" name="roundID">
+                <option value="">Any</option>
+                @foreach(var u in @ViewBag.rounds){
+                    <option value="@u">@u</option>
+                }
+                </select>
+
             </td>
             <td>
                  Year:<br />
@@ -217,7 +238,7 @@
             <td>
               <form action="" method="get">
                 <input type="submit" value="reset"/>    
-              </form>
+              
             </td>    
 
             </td>
@@ -325,12 +346,21 @@
                 </td>
                 <td> @x.day </td>
                 <td class="weeks">
-                   @x.weekID
+
+                        @{string[] weeks = x.weekID.Split(new char[]{','});}
+                        @{int count = 0;}
+                        @foreach(var p in weeks){
+                          count++;
+                          if(p == "1" || p == "[1" || p == "1]"){
+                            <span>@count </span>
+                          }
+                        }   
+                        
 
                 </td>
                 <td> @x.periodID  </td>
                 <td> @x.sessionLength Hour(s) </td>
-                <td> @x.status </td>
+                <td class = "@x.status" > @x.status </td>
                 <td><a href='#'>Edit</a></td>
                 <td>   <button type="button" class="btn btn-info" data-toggle="popover" title="Request ID: @x.requestID" 
                     data-content="
@@ -389,7 +419,7 @@
 
   </table>
   
-  
+  </form>
   
 <script>
     var $table = $('table.scroll'),

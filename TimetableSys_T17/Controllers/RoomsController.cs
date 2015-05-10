@@ -96,6 +96,9 @@ namespace TimetableSys_T17.Controllers
         // GET: Rooms/Create
         public ActionResult Create()
         {
+
+            ViewBag.error = "";
+
             var options = db.Buildings.AsEnumerable().Select(s => new
             {
                 buildingID = s.buildingID,
@@ -116,15 +119,46 @@ namespace TimetableSys_T17.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "roomCode,buildingID,capacity,Facilities")] Room room, bool Labe, IEnumerable<int> fac)
         {
+            ViewBag.error = "";
 
+            if (room.roomCode == null || room.roomCode.IndexOf(".") == -1)
+            {
+                ViewBag.error = "Room code not given";
+
+                var options = db.Buildings.AsEnumerable().Select(s => new
+                {
+                    buildingID = s.buildingID,
+                    Info = string.Format("{0} - {1}", s.buildingCode, s.buildingName)
+                });
+                var facilityNames = db.Facilities.ToList();
+
+                ViewBag.facilities = facilityNames;
+                ViewBag.buildingID = new SelectList(options, "buildingID", "Info");
+
+                return View(room);
+
+            }
+           
             room.roomCode = roomCodeToUpper(room.roomCode);
 
             var bID = room.buildingID;
             var bCode = room.roomCode;
-            bCode =  bCode.Substring(0, bCode.IndexOf("."));
+            bCode = bCode.Substring(0, bCode.IndexOf("."));
 
             var result = db.Buildings.Where(s => s.buildingCode.Contains(bCode)).Select(s => s.buildingID);
 
+            if (result.First() != bID)
+            {
+                ViewBag.error = "Building code doesn't match code stated in room";
+            }
+            else if (!checkRoomCode(room.roomCode))
+            {
+                ViewBag.error = "Room code not in right format";
+            }
+            else if (!validate(room.roomCode))
+            {
+                ViewBag.error = "Room code already exists";
+            }
             if (result.First() == bID && checkRoomCode(room.roomCode) && validate(room.roomCode) && ModelState.IsValid)
             {
 
@@ -149,18 +183,18 @@ namespace TimetableSys_T17.Controllers
                 db.Rooms.Add(room);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-                
+
             }
 
-            var options = db.Buildings.AsEnumerable().Select(s => new
+            var options2 = db.Buildings.AsEnumerable().Select(s => new
             {
                 buildingID = s.buildingID,
                 Info = string.Format("{0} - {1}", s.buildingCode, s.buildingName)
             });
-            var facilityNames = db.Facilities.ToList();
+            var facilityNames2 = db.Facilities.ToList();
 
-            ViewBag.facilities = facilityNames;
-            ViewBag.buildingID = new SelectList(options, "buildingID", "Info");
+            ViewBag.facilities = facilityNames2;
+            ViewBag.buildingID = new SelectList(options2, "buildingID", "Info");
 
             return View(room);
         }
@@ -205,16 +239,55 @@ namespace TimetableSys_T17.Controllers
         [ValidateAntiForgeryToken] //Editing everything works, not complete with error checking
         public ActionResult Edit([Bind(Include = "roomID,roomCode,buildingID,capacity")] Room room, bool Labe, bool Priv, IEnumerable<int> fac)
         {
+
+            ViewBag.error = "";
+
+            if (room.roomCode == null || room.roomCode.IndexOf(".") == -1)
+            {
+                ViewBag.error = "Room code not given";
+
+                var options = db.Buildings.AsEnumerable().Select(s => new
+                {
+                    buildingID = s.buildingID,
+                    Info = string.Format("{0} - {1}", s.buildingCode, s.buildingName)
+                });
+                var facilityNames = db.Facilities.ToList();
+
+                ViewBag.facilities = facilityNames;
+                ViewBag.buildingID = new SelectList(options, "buildingID", "Info");
+
+                return View(room);
+
+            }
+
             room.roomCode = roomCodeToUpper(room.roomCode);
+
+            var bID = room.buildingID;
+            var bCode = room.roomCode;
+            bCode = bCode.Substring(0, bCode.IndexOf("."));
+
             var oldRoomCode = db.Rooms.Where(x => x.roomID == room.roomID).Select(x => x.roomCode).First();
             var newRoomCode = room.roomCode;
-            var bCode = newRoomCode.Substring(0, newRoomCode.IndexOf("."));
-            var result = db.Buildings.Where(s => s.buildingCode.Contains(bCode)).Select(s => s.buildingID);
 
             //Get all roomID where the roomName is the same as the one the user inputted
             var roomings = from roomDB in db.Rooms where roomDB.roomCode == newRoomCode select roomDB.roomCode;
 
-            if (result.First() == room.buildingID && (roomings.Count() == 0 || oldRoomCode == newRoomCode) && checkRoomCode(room.roomCode))
+            var result = db.Buildings.Where(s => s.buildingCode.Contains(bCode)).Select(s => s.buildingID);
+
+            if (result.First() != bID)
+            {
+                ViewBag.error = "Building code doesn't match code stated in room";
+            }
+            else if (!checkRoomCode(room.roomCode))
+            {
+                ViewBag.error = "Room code not in right format";
+            }
+            else if (!validate(room.roomCode) && oldRoomCode != newRoomCode)
+            {
+                ViewBag.error = "Room code already exists";
+
+            }
+            else if (result.First() == room.buildingID && (roomings.Count() == 0 || oldRoomCode == newRoomCode) && checkRoomCode(room.roomCode))
             {
 
                 if (Labe)
@@ -258,17 +331,17 @@ namespace TimetableSys_T17.Controllers
             var selected = db.Rooms.Where(a => a.roomID == room.roomID).Select(a => a.Facilities.Select(c => c.facilityID)).ToList();
             ViewBag.selectedFac = selected[0];
 
-            var facilityNames = db.Facilities.ToList();
+            var facilityNames2 = db.Facilities.ToList();
 
-            ViewBag.facilities = facilityNames;
+            ViewBag.facilities = facilityNames2;
 
-            var options = db.Buildings.AsEnumerable().Select(s => new
+            var options2 = db.Buildings.AsEnumerable().Select(s => new
             {
                 buildingID = s.buildingID,
                 Info = string.Format("{0} - {1}", s.buildingCode, s.buildingName)
             });
 
-            ViewBag.buildingID = new SelectList(options, "buildingID", "Info");
+            ViewBag.buildingID = new SelectList(options2, "buildingID", "Info");
 
             return View(room);
         }
@@ -310,7 +383,7 @@ namespace TimetableSys_T17.Controllers
             Room room = db.Rooms.Find(id);
 
             //Gets all facilities ID for room
-            var fac = db.Rooms.Where(a => a.roomID == id).Select(a => a.Facilities.Select(c => c.facilityID).ToList()).ToList();
+            var fac = db.Rooms.Where(a => a.roomID == id).Select(a => a.Facilities.Select(c => c.facilityID)).ToList();
 
             //Loops through every facility a room has and deletes it
             foreach (var i in fac[0])

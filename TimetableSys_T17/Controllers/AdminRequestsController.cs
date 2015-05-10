@@ -74,7 +74,7 @@ namespace TimetableSys_T17.Controllers
 
 
         // GET: Admin Requests
-        public ActionResult Index(string sortOrder, int? roundID, int? alterID, int? acceptID, int? rejectID, int? moduleCode, int? semester, int? day, int? status, int? year)
+        public ActionResult Index(string sortOrder, int? roundID, int? alterID, int? acceptID, int? allocateID , int? rejectID, int? moduleCode, int? semester, int? day, int? status, int? year)
         {
             //get db and run query
 
@@ -104,15 +104,23 @@ namespace TimetableSys_T17.Controllers
 
 
 
+            if (allocateID != null)
+            {
+
+                var updateStatus = db.Requests.Where(a => a.requestID == allocateID).First();
+
+                return RedirectToAction("Allocate", new { id = allocateID });
+
+            }
+
             if (alterID != null)
             {
-                //var deleteRequest = (from del in db.Requests where del.requestID == cancelledID select del).First();
-                // you want to change. 
                 var updateStatus = db.Requests.Where(a => a.requestID == alterID).First();
 
-                updateStatus.statusID = 5;
-                db.SaveChanges();
+                return RedirectToAction("Edit", new { id = alterID });
+
             }
+
 
             if (acceptID != null)
             {
@@ -208,7 +216,7 @@ namespace TimetableSys_T17.Controllers
                 tmp.moduleCode = roomCodes.FirstOrDefault();
                 //var roomCodeName = db.Requests.Where(a => a.requestID == x.requestID).Select(a => a.RoomRequests.Select(c => c.ToList()).ToList();
 
-                var roomCodeName = db.Requests.Where(a => a.requestID == x.requestID).Select(a => a.RoomRequests.Select(c => c.roomID)).ToList();
+                var roomCodeName = db.Requests.Where(a => a.requestID == x.requestID).Select(a => a.RoomRequests.Select(c => c.roomID).ToList()).ToList();
 
                 var roomIDList = roomCodeName.First();
                 List<string> roomCodes2 = new List<string>();
@@ -240,5 +248,120 @@ namespace TimetableSys_T17.Controllers
             return View(requestList);
 
         }
+
+        [HttpGet]
+        public ActionResult Allocate(int id) 
+        {
+            ViewBag.id = id;
+            ViewBag.parkNames = db.Parks;
+            ViewBag.buildingNames = db.Buildings;
+            //var rooms = db.Rooms.OrderBy(b => b.buildingID).Select(a => a.roomCode).ToList();
+
+            var rooms = db.Rooms.OrderBy(a => a.buildingID).ToList();
+            ViewBag.rooms = rooms;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Allocate(int? id, IEnumerable<int> roomNames) 
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Request request = db.Requests.Find(id);
+
+            request.statusID = 4;
+
+            if (request == null)
+            {
+                return HttpNotFound();
+            }
+
+            foreach (var i in roomNames) 
+            {
+
+                RoomRequest temp = new RoomRequest()
+                {
+                    roomID = db.Rooms.Where(a => a.roomID == i).Select(b => b.roomID).First(),
+                    groupSize = 42
+                };
+                request.RoomRequests.Add(temp);
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        
+        }
+
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            ViewBag.id = id;
+            ViewBag.parkNames = db.Parks;
+            ViewBag.buildingNames = db.Buildings;
+
+            var rooms = db.Rooms.OrderBy(a => a.buildingID).ToList();
+
+            var selected1 = db.Requests.Where(a => a.requestID == id).Select(a => a.RoomRequests.Select(c => c.roomID)).ToList();
+
+            List<int> selected = new List<int>();
+
+            foreach(var i in selected1.First())
+            {
+                selected.Add(db.Rooms.Where(a => a.roomID == i).Select(b => b.roomID).First());
+            }
+
+            ViewBag.selected = selected;
+            ViewBag.rooms = rooms;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int? id, IEnumerable<int> roomNames)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Request request = db.Requests.Find(id);
+
+            request.statusID = 3;
+
+            if (request == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Updates the room with the correct set of facilities, either remove or add is allowed
+            Request postAttached = db.Requests.Where(x => x.requestID == id).First();
+            request.RoomRequests = postAttached.RoomRequests;
+            request.RoomRequests.Clear();
+
+            foreach (var i in roomNames) 
+            {
+
+                RoomRequest temp = new RoomRequest()
+                {
+                    roomID = db.Rooms.Where(a => a.roomID == i).Select(b => b.roomID).First(),
+                    groupSize = 42
+                };
+                request.RoomRequests.Add(temp);
+            }
+
+            //Updates old version of room with edited values, then saves to database
+            db.Entry(postAttached).CurrentValues.SetValues(request);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
+

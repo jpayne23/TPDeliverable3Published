@@ -4,8 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*@Styles.Render("~/Content/multiselectcss");*@
-
 <b> Do not remove - READ COMMENTS </b>
 
 <!-- ERROR TRAPPING REQUIRED - If user does park then room, it should then filter building. --> 
@@ -16,23 +14,47 @@
 
     <div class="ui-widget">
 
-        Park:  <select id="parks_input" name="park_sel[]" multiple="multiple"></select>
-        Building: <select id="buildings_input" multiple="multiple"></select>
-        Rooms: <select id="rooms_input" multiple="multiple"></select>
-        Facilities: <select id="facilities_input" multiple="multiple"></select>
+        <select id="parks_input" multiple="multiple"></select>
+        <select id="buildings_input" multiple="multiple"></select>
+        <select id="rooms_input" multiple="multiple"></select>
+        <select id="facilities_input" multiple="multiple"></select><br />
+        <span>1: <input id="room_i" /></span><br />
+        <span>2: <input id="room_ii" /></span><br />
+        <span>3: <input id="room_iii" /></span><br />
+        <textarea id="special_requirements" rows="10" cols="20"></textarea>
+        <br />
+        <hr />
+        <br />
+        <select id="module_code_input" multiple="multiple"></select><!--<button id="module-code-input"> Clear All </button>-->
+        <select id="module_title_input" multiple="multiple"></select>
+        <select id="session_type_input" multiple="multiple"></select>
+        <br />
+        <hr />
+        <br />
+        
+        <div id="weeks_container">
 
-    <hr />
-    <hr />
+            <input type="checkbox" id="week_i" name="weeks" /><label for="week_i"> 1 </label>
+            <input type="checkbox" id="week_ii" name="weeks" /><label for="week_ii"> 2 </label>
+            <input type="checkbox" id="week_iii" name="weeks" /><label for="week_iii"> 3 </label>
+            <input type="checkbox" id="week_iv" name="weeks" /><label for="week_iv"> 4 </label>
+            <input type="checkbox" id="week_v" name="weeks" /><label for="week_v"> 5 </label>
+            <input type="checkbox" id="week_vi" name="weeks" /><label for="week_vi"> 6 </label>
+            <input type="checkbox" id="week_vii" name="weeks" /><label for="week_vii"> 7 </label>
+            <input type="checkbox" id="week_viii" name="weeks" /><label for="week_viii"> 8 </label>
+            <input type="checkbox" id="week_ix" name="weeks" /><label for="week_ix"> 9 </label>
+            <input type="checkbox" id="week_x" name="weeks" /><label for="week_x"> 10 </label>
+            <input type="checkbox" id="week_xi" name="weeks" /><label for="week_xi"> 11 </label>
+            <input type="checkbox" id="week_xii" name="weeks" /><label for="week_xii"> 12 </label>
+            <input type="checkbox" id="week_xiii" name="weeks" /><label for="week_xiii"> 13 </label>
+            <input type="checkbox" id="week_xiv" name="weeks" /><label for="week_xiv"> 14 </label>
+            <input type="checkbox" id="week_xv" name="weeks" /><label for="week_xv"> 15 </label>
 
-    Module Code:
-    <input id="code_input" data-ttablejs-mcode />
-    Module Name:
-    <input id="name_input" data-ttablejs-mname />
-    Room Type:
-    <input id="type_input" data-ttablejs-rtype />
+        </div>
 
+        <div id="timetable"> </div>
 
-        <input type="button" value="Submit Me" id="submitter"/>
+        <input type="button" value="Push it, push the big red button!" style="color: white; background-color: red; font-weight: bold;" onclick="Submit()" />
 </div>
 
 

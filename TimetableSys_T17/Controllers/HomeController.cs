@@ -15,7 +15,7 @@ namespace TimetableSys_T17.Controllers
         public ActionResult Index()
         {
 
-            //var login = "poo";//new HomeModel { deptName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase((String)TempData["deptLogin"])};
+            //var login = new HomeModel { deptName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase((String)TempData["deptLogin"])};
 
             return View();
         }
