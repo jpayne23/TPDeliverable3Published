@@ -158,66 +158,9 @@ legend {
   border: 0;
 }
 
-button,
-input,
-select,
-textarea {
-  margin: 0;
-  font-family: inherit;
-  font-size: 100%;
-}
 
-button,
-input {
-  line-height: normal;
-}
 
-button,
-select {
-  text-transform: none;
-}
 
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  cursor: pointer;
-  -webkit-appearance: button;
-}
-
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-  padding: 0;
-  box-sizing: border-box;
-}
-
-input[type="search"] {
-  -webkit-box-sizing: content-box;
-     -moz-box-sizing: content-box;
-          box-sizing: content-box;
-  -webkit-appearance: textfield;
-}
-
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  padding: 0;
-  border: 0;
-}
-
-textarea {
-  overflow: auto;
-  vertical-align: top;
-}
 
 table {
   border-collapse: collapse;
@@ -318,14 +261,7 @@ body {
   background-color: #ffffff;
 }
 
-input,
-button,
-select,
-textarea {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
+
 
 button,
 input,
@@ -1651,54 +1587,7 @@ legend {
   border-bottom: 1px solid #e5e5e5;
 }
 
-label {
-  display: inline-block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
 
-input[type="search"] {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-  margin: 4px 0 0;
-  margin-top: 1px \9;
-  /* IE8-9 */
-
-  line-height: normal;
-}
-
-input[type="file"] {
-  display: block;
-}
-
-select[multiple],
-select[size] {
-  height: auto;
-}
-
-select optgroup {
-  font-family: inherit;
-  font-size: inherit;
-  font-style: inherit;
-}
-
-input[type="file"]:focus,
-input[type="radio"]:focus,
-input[type="checkbox"]:focus {
-  outline: thin dotted #333;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  height: auto;
-}
 
 .form-control:-moz-placeholder {
   color: #999999;
@@ -1826,10 +1715,7 @@ fieldset[disabled] .checkbox-inline {
   border-radius: 3px;
 }
 
-select.input-sm {
-  height: 30px;
-  line-height: 30px;
-}
+
 
 textarea.input-sm {
   height: auto;
@@ -1843,10 +1729,7 @@ textarea.input-sm {
   border-radius: 6px;
 }
 
-select.input-lg {
-  height: 45px;
-  line-height: 45px;
-}
+
 
 textarea.input-lg {
   height: auto;
@@ -6861,27 +6744,9 @@ body {
     color:white;
 
 }
-input {
-    display:inline;
-    margin-left: 0%;
-    margin-right: 22%;
-    width: 25%;
-    float: left;
-}
-select{
-    display:inline;
-    margin-left: 0%;
-    margin-right: 20%;
-    width: 25%;
-    float: right;
-}
-label {
-    display: inline-block;
-    float:left;
-    clear: left;
-    width: 250px;
-    text-align: justfy;
-}
+
+
+
 h1 {
     font-size: 13px;
     font-weight: bold;
