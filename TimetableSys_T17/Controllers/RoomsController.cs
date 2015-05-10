@@ -159,7 +159,11 @@ namespace TimetableSys_T17.Controllers
             {
                 ViewBag.error = "Room code already exists";
             }
-            if (result.First() == bID && checkRoomCode(room.roomCode) && validate(room.roomCode) && ModelState.IsValid)
+            else if (room.capacity < 1 || room.capacity > 400) 
+            {
+                ViewBag.error = "Room capacity exceeds range. Capacity limit is 1 - 400.";
+            }
+            if (result.First() == bID && checkRoomCode(room.roomCode) && validate(room.roomCode) && ModelState.IsValid && (room.capacity >= 1 && room.capacity <= 400))
             {
 
                 room.@private = 0;
@@ -287,7 +291,11 @@ namespace TimetableSys_T17.Controllers
                 ViewBag.error = "Room code already exists";
 
             }
-            else if (result.First() == room.buildingID && (roomings.Count() == 0 || oldRoomCode == newRoomCode) && checkRoomCode(room.roomCode))
+            else if (room.capacity < 1 || room.capacity > 400)
+            {
+                ViewBag.error = "Room capacity exceeds range. Capacity limit is 1 - 400.";
+            }
+            else if (result.First() == room.buildingID && (roomings.Count() == 0 || oldRoomCode == newRoomCode) && checkRoomCode(room.roomCode) && (room.capacity >= 1 && room.capacity <= 400))
             {
 
                 if (Labe)
