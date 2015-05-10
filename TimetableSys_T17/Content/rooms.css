@@ -1,0 +1,67 @@
+﻿
+/* create and edit */
+
+
+.left{
+
+text-align:left;
+margin-left: 15%;
+}
+
+.centre {
+
+text-align:center;
+}
+
+.select {
+   width: 20%;
+   text-align:center;
+   height:80%;
+}
+
+.input {
+   background-color:#D3D3D3;
+   padding:4px;
+   border: 1px solid #ccc;
+}
+
+input {
+    border-radius:3px;
+}
+
+select {
+border-radius:3px;
+
+}
+
+
+/* index table */
+
+
+.mainTable{
+    margin-left: auto;
+    margin-right: auto;
+    width:80%;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+ background-color: pink;
+}
+
+td, th{
+    text-align: left;
+ }
+
+
+/* details */
+
+.tableDetails{
+margin-left:auto;
+margin-right:auto;
+width:30%;
+text-align:center;
+}
+
+
+
+
