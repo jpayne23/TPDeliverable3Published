@@ -10,6 +10,7 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="../../content/rooms.css">
 <script type="text/javascript">
    
     $(function() {
@@ -34,72 +35,59 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Room</h4>
+    <div class="centre">
+        <h4 class ="centre">Room</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.roomID)
         <div>@ViewBag.error</div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.roomCode, "Room Code" ,htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.roomCode)
-                @Html.ValidationMessageFor(model => model.roomCode)
-            </div>
-        </div>
+        <div class="centre">
+            @Html.LabelFor(model => model.roomCode, "Room Code" ,htmlAttributes: new { @class = "centre" })
+            @Html.EditorFor(model => model.roomCode)
+            @Html.ValidationMessageFor(model => model.roomCode)
 
-        <div class="form-group">
+            &#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160;
+        
             @Html.LabelFor(model => model.buildingID, "Building Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("buildingID", String.Empty)
-                @Html.ValidationMessageFor(model => model.buildingID)
-            </div>
-        </div>
-        <div class="form-group">
-            Facility Name
-            <div class="col-md-10">
-                @Html.ListBox("fac", new MultiSelectList(@ViewBag.facilities, "facilityID", "facilityName", @ViewBag.selectedFac))
-            </div>
+            @Html.DropDownList("buildingID", String.Empty)
+            @Html.ValidationMessageFor(model => model.buildingID)
+            
         </div>
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <p>
-                    <label for="capacity">Capacity:</label>
-                    <input id="capacity" name="value">
-                </p>
-            </div>
+        <hr />
+
+        <div class="left">
+            <label> Facility Name</label>
+            <br />
+
+            @Html.ListBox("fac", new MultiSelectList(@ViewBag.facilities, "facilityID", "facilityName", @ViewBag.selectedFac))
+
+            &#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; &#160; &#160; &#160; 
+
+            <label for="capacity">Capacity:</label>
+            <input id="capacity" name="value">
+
             @Html.HiddenFor(model => model.capacity, new {@id="cap"})
-        </div>
 
-        <div class="form-group">
+            &#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160; 
+
             Lab
-            <div class="col-md-10">
-                @if(@ViewBag.Lab == 1){
-                    @Html.CheckBox("Labe",true)
-                }
-                else{
-                    @Html.CheckBox("Labe")
-                }         
-            </div>
-        </div>
 
-        <div class="form-group">
-            Private
-            <div class="col-md-10">
-                @if(@ViewBag.@Private == 1){
-                    @Html.CheckBox("Priv",true)
-                }
-                else{
-                    @Html.CheckBox("Priv")
-                }
-            </div>
+            @if(@ViewBag.Lab == 1){
+                @Html.CheckBox("Labe",true)
+            }
+            else{
+                @Html.CheckBox("Labe")
+            }         
         </div>
+    </div>
+    
+    <br />
+    <br />
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>
 }
