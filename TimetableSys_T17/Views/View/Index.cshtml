@@ -1,7 +1,4 @@
 ﻿@model IEnumerable<TimetableSys_T17.Models.ViewModel>
-@{
-    Layout = null;
-}
 
 
 <!DOCTYPE html>
@@ -54,11 +51,15 @@
 
     </script>
     <style type="text/css">
+        a {
+            text-decoration:underline;
+            color:#FFF;
+        }
         .popover {
             max-width:100%;
         }
         .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-          background-color: pink;
+          background-color: #CC0066;
         }
 
         td, th{
@@ -136,7 +137,12 @@
         .Pending {
         background-color:#FFFFA6 !important;
         }
-
+        #aSelect {
+            width:100px;
+        }
+        .linkBlack a{
+            color:#000;
+        }
     </style>
 </head>
 <body>
@@ -157,7 +163,7 @@
 			
 			<td>
                 Module Code
-                 <select name="moduleCode">
+                 <select name="moduleCode" id="aSelect">
                             <option value="">Any</option>
                     @foreach(var a in @ViewBag.moduleCodes){ 
                             <option value="@a">@a</option>  
@@ -165,7 +171,7 @@
                  </select>
 			</td>
 			<td>Semester:	<br/>		
-			    <select name="semester">
+			    <select name="semester" id="aSelect">
                     <option value="">Any</option>
 			        <option value="1">One</option>
                     <option value="2">Two</option>
@@ -175,7 +181,7 @@
 			
 			
 			<td>Day:<br/>
-			<select name="day">
+			<select name="day" id="aSelect">
                 <option value="">Any</option>
 		    	<option value="1">Monday</option>
                 <option value="2">Tuesday</option>
@@ -186,7 +192,7 @@
 			</td>
 			
 			<td>Status:<br/>
-			<select name="status">
+			<select name="status" id="aSelect">
                 <option value="">Any</option>
 			    <option value="1">Accepted</option>
                 <option value="2">Rejected</option>
@@ -197,7 +203,7 @@
 			</td>
             <td>
                 Round ID:<br />
-                <select id="roundID" name="roundID">
+                <select id="roundID" name="roundID" style="width:100px;">
                     <option value="">Any</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -207,7 +213,7 @@
             </td>
             <td>
                 Round ID: <br />
-                <select id="roundID" name="roundID">
+                <select id="roundID" name="roundID" style="width:100px;>
                 <option value="">Any</option>
                 @foreach(var u in @ViewBag.rounds){
                     <option value="@u">@u</option>
@@ -217,7 +223,7 @@
             </td>
             <td>
                  Year:<br />
-                <select id="roundID" name="year">
+                <select id="roundID" name="year" style="width:100px;>
                     <option value="2015">2015</option>
                     <option value="2014">2014</option>
                     <option value="1">All Years</option>
@@ -228,13 +234,13 @@
             </td>
 			
 			<td>
-			    <input type="submit" value="Filter" />
+			    <input type="submit" value="Filter"id="aSelect" />
             </form>
 			</td>
            
             <td>
               <form action="" method="get">
-                <input type="submit" value="reset"/>    
+                <input type="submit" value="reset"id="aSelect"/>    
               
             </td>    
 
@@ -312,27 +318,27 @@
          <br />   </div>
 
   <table class="table table-striped table-hover mainTable table-bordered scroll">
-  <tbody>
+  <thead>
       <tr>
-        <td>@Html.ActionLink("Request ID", "Index", new{ sortOrder = ViewBag.IDSortPram})</td>
-        <td>@Html.ActionLink("Module ID", "Index", new{sortOrder = ViewBag.ModuleSortPram})</td>
-        <td>Room</td>
-        <td>Day</td>
-        <td>Week(s)</td>
-        <td>Period</td>		
-        <td>Session length</td>
-        <td>Status</td>
+        <th>@Html.ActionLink("Request ID", "Index", new{ sortOrder = ViewBag.IDSortPram})</th>
+        <th>@Html.ActionLink("Module ID", "Index", new{sortOrder = ViewBag.ModuleSortPram})</th>
+        <th>Room</th>
+        <th>Day</th>
+        <th>Week(s)</th>
+        <th>Period</th>		
+        <th>Session length</th>
+        <th>Status</th>
 
 	
 		
       </tr>
-  
+  </thead>
     
       
       @foreach(var x in Model){
             <tr>
                 
-                <td> @x.requestID </td>
+                <td style="padding-right:35px;"> @x.requestID </td>
                 <td> @x.moduleCode </td>
                 <td>
                     @foreach(var i in x.room){
@@ -355,10 +361,10 @@
                         
 
                 </td>
-                <td> @x.periodID  </td>
+                <td style="padding-right:20px;"> @x.periodID  </td>
                 <td> @x.sessionLength Hour(s) </td>
                 <td class = "@x.status" > @x.status </td>
-                <td><a href='#'>Edit</a></td>
+                <td><a href='#' style="color:#000;">Edit</a></td>
                 <td>   <button type="button" class="btn btn-info" data-toggle="popover" title="Request ID: @x.requestID" 
                     data-content="
                             <table>
@@ -409,10 +415,10 @@
                     </button>
                     
                         </td>
-                <td> @Html.ActionLink("Cancel", "Index", new {cancelledID=x.requestID})</td>
+                <td><div class="linkBlack"> @Html.ActionLink("Cancel", "Index", new {cancelledID=x.requestID})</div></td>
             </tr>
       }
-    </tbody> 
+    </thead> 
 
   </table>
   

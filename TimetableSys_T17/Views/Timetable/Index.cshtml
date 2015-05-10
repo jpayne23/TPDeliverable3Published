@@ -1,10 +1,16 @@
 ﻿@model IEnumerable<TimetableSys_T17.Models.TimetableModel>
-@{
-    Layout = null;
-}
 
-<style type="text/css">
 
+
+<html>
+<head>
+    <title>Timetable</title>
+    <style type="text/css">
+    html, body, div, form, select, option, input {
+        margin:0;
+        padding:0;
+        float:left;
+    }
    tr td {
         border: 1px solid #000;
     }
@@ -17,22 +23,46 @@
         width:300px;
         height:100px;
     }
+    select {
+        width:100px;
+    }
 
 </style>
 
-<html>
-<head>
-    <title>Timetable</title>
+
+<script type="text/javascript">
+    
+    var getLec = @Html.Raw(Json.Encode(@ViewBag.getLec));
+    var getCourse = @Html.Raw(Json.Encode(@ViewBag.getCourse));
+    function changeSelect() {
+        var degOrCourse = document.getElementById("modOrLec").value;
+        if(degOrCourse == "Lecturer"){
+            var options = '';
+            for (var i = 0; i < getLec.length; i++) {
+                options += '<option value="'+JSON.stringify(getLec[i])+'">'+getLec[i]+'</option>';
+            }
+            $('#options').html(options);
+        }
+        if(degOrCourse == "Degree"){
+            var options = '';
+            for (var i = 0; i < getCourse.length; i++) {
+                options += '<option value="'+JSON.stringify(getCourse[i])+'">'+getCourse[i]+'</option>';
+            }
+            $('#options').html(options);
+        }
+    }
+</script>
 </head>
 <body>
     <form action="" method="get">
     
         
-        <select name="modOrLec">
+        <select name="modOrLec" id="modOrLec" onchange="changeSelect()">
+            <option value="choose">Choose..</option>
             <option value="Degree">Degree</option>
             <option value="Lecturer">Lecturer</option>
         </select>
-
+        <select name='options' id="options"></select>
         <select name="nameOrCode">
            <option value="COA101">COA101</option>
            <option value="Firat Batmaz">Firat Batmaz</option>
@@ -48,7 +78,7 @@
             <option value="1">1</option>
             <option value="2">2</option>
         </select>
-        
+        <br />
         <input type="submit" value="Search" />
     </form>
 
