@@ -4,34 +4,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<b> Do not remove - READ COMMENTS </b>
+<!--<b> Do not remove - READ COMMENTS </b>-->
+
 
 <!-- ERROR TRAPPING REQUIRED - If user does park then room, it should then filter building. --> 
 <!-- On submit, query to ensure that the booking details are consistant. -->
 
 <!-- Extra filters based on available rooms!!!! -->
-
-
-    <div class="ui-widget">
-
-        <select id="parks_input" multiple="multiple"></select>
-        <select id="buildings_input" multiple="multiple"></select>
-        <select id="rooms_input" multiple="multiple"></select>
+<h2>Create Request</h2>
+<div class="widget">
+    <h1>Mandaory Requests</h1>
+    <select id="module_code_input" multiple="multiple"></select><br /><!--<button id="module-code-input"> Clear All </button>-->
+    <select id="module_title_input" multiple="multiple"></select><br />
+    <select id="session_type_input" multiple="multiple"></select><br />
+    <br /><br />
+</div>
+    <div class="widget">
+        <h1>Optional Requests</h1>
+        <select id="parks_input" multiple="multiple"></select><br />
+        <select id="buildings_input" multiple="multiple"></select><br />
+        <select id="rooms_input" multiple="multiple"></select><br />
         <select id="facilities_input" multiple="multiple"></select><br />
+        </div>
+<div class="widget">
+    <br />
+    <h1>Special Requirements:</h1><textarea id="special_requirements" rows="3" cols="1500"></textarea>
+</div>
+<div class="widget2">
+    <br />
         <span>1: <input id="room_i" /></span><br />
         <span>2: <input id="room_ii" /></span><br />
         <span>3: <input id="room_iii" /></span><br />
-        <textarea id="special_requirements" rows="10" cols="20"></textarea>
-        <br />
-        <hr />
-        <br />
-        <select id="module_code_input" multiple="multiple"></select><!--<button id="module-code-input"> Clear All </button>-->
-        <select id="module_title_input" multiple="multiple"></select>
-        <select id="session_type_input" multiple="multiple"></select>
-        <br />
-        <hr />
-        <br />
-        
+</div>        
         <div id="weeks_container">
 
             <input type="checkbox" id="week_i" name="weeks" /><label for="week_i"> 1 </label>
@@ -51,6 +55,7 @@
             <input type="checkbox" id="week_xv" name="weeks" /><label for="week_xv"> 15 </label>
 
         </div>
+
 
         <div id="timetable"> </div>
 
