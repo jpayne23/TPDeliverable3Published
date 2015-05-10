@@ -8,13 +8,13 @@ namespace TimetableSys_T17.Controllers
 {
     public class ViewController : Controller
     {
-        
+
         //
         // GET: /View/
         public ActionResult Index(string sortOrder, int? roundID, int? cancelledID, string moduleCode, int? semester, int? day, int? status, int? year)
         {
             //get db and run query
-       
+
             var db = new TimetableDbEntities();
             var getRequests = from t in db.Requests
                               select t;
@@ -37,7 +37,7 @@ namespace TimetableSys_T17.Controllers
             if (moduleCode != null && moduleCode != "")
             {
                 var getModID = db.Modules.Where(t => t.modCode == moduleCode).Select(o => o.moduleID).FirstOrDefault();
-    
+
                 getRequests = getRequests.Where(t => t.moduleID == getModID);
             }
             if (semester != null)
@@ -70,15 +70,16 @@ namespace TimetableSys_T17.Controllers
             }
 
 
-            
-            if(year == 2014){
-                 getRequests = getRequests.Where(t => t.year == 2014);
+
+            if (year == 2014)
+            {
+                getRequests = getRequests.Where(t => t.year == 2014);
             }
             if (year == 2015 || year == null)
             {
                 getRequests = getRequests.Where(t => t.year == 2015);
             }
-          
+
 
 
             //sort dependent from view  
@@ -143,15 +144,15 @@ namespace TimetableSys_T17.Controllers
                 tmp.adhoc = x.adhoc;
                 tmp.userID = x.userID;
                 tmp.weekID = x.week;
-               
+
                 var roomCodes = db.Requests.Join(db.Modules, a => a.moduleID, d => d.moduleID, (a, d) => new { a.moduleID, d.modCode }).Where(a => a.moduleID == x.moduleID).Select(d => d.modCode);
-           
+
                 tmp.moduleCode = roomCodes.FirstOrDefault();
                 //var roomCodeName = db.Requests.Where(a => a.requestID == x.requestID).Select(a => a.RoomRequests.Select(c => c.ToList()).ToList();
-                
-                var roomCodeName = db.Requests.Where(a => a.requestID == x.requestID).Select(a => a.RoomRequests.Select(c => c.roomID).ToList()).ToList();
-                
-                var roomIDList = roomCodeName.First();
+
+                var roomCodeName = db.Requests.Where(a => a.requestID == x.requestID).Select(a => a.RoomRequests.Select(c => c.roomID)).FirstOrDefault();
+
+                var roomIDList = roomCodeName;
                 List<string> roomCodes2 = new List<string>();
                 foreach (var i in roomIDList)
                 {
@@ -166,7 +167,7 @@ namespace TimetableSys_T17.Controllers
                 tmp.status = statusName.FirstOrDefault();
 
 
-                
+
 
                 var sessionTypeName = db.Requests.Join(db.SessionTypeInfoes, a => a.sessionTypeID, d => d.sessionTypeID, (a, d) => new { a.sessionTypeID, d.sessionType }).Where(a => a.sessionTypeID == x.sessionTypeID).Select(d => d.sessionType);
                 tmp.sessionType = sessionTypeName.FirstOrDefault();
@@ -176,7 +177,7 @@ namespace TimetableSys_T17.Controllers
                 requestList.Add(tmp);
 
 
-                
+
             }
 
             var example = requestList.ToList();

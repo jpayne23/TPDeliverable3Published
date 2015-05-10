@@ -37,19 +37,18 @@ namespace TimetableSys_T17.Controllers
             @ViewBag.courseAndLecs = courseAndLecs;
             if (modOrLec != null && nameOrCode != null && week != null && getSemester != null)
             {
-                
-                List<List<int>> getLecID = new List<List<int>>();
+
+                var getLecID = db.DegreeInfoes.Where(a => a.degreeName == nameOrCode).Select(b => b.Modules.Select(c => c.moduleID)).FirstOrDefault();
+
                 if (modOrLec == "Lecturer")
                 {
-                    getLecID = db.LecturerInfoes.Where(a => a.name == nameOrCode).Select(b => b.Modules.Select(c => c.moduleID).ToList()).ToList();
+                    getLecID = db.LecturerInfoes.Where(a => a.name == nameOrCode).Select(b => b.Modules.Select(c => c.moduleID)).FirstOrDefault();
                 }
-                else
+               
+                
+                if (getLecID != null)
                 {
-                    getLecID = db.DegreeInfoes.Where(a => a.degreeName == nameOrCode).Select(b => b.Modules.Select(c => c.moduleID).ToList()).ToList();
-                }
-                if (getLecID.Count() != 0)
-                {
-                    List<int> temp = getLecID[0]; // do try catch incase index out of range
+                    IEnumerable<int> temp = getLecID; // do try catch incase index out of range
 
                     var getWeekID = db.Requests.Where(x => temp.Contains((int)x.moduleID)).Select(x => x.week).ToList();
                     var getReqID = new List<Scotthi>();
@@ -92,9 +91,9 @@ namespace TimetableSys_T17.Controllers
 
                         var weeks = db.Requests.Select(a => a.week).FirstOrDefault();
 
-                        var roomID = db.Requests.Where(a => a.requestID == p.reqID).Select(a => a.RoomRequests.Select(b => b.roomID).ToList()).ToList().First().FirstOrDefault();
+                        var roomID = db.Requests.Where(a => a.requestID == p.reqID).Select(a => a.RoomRequests.Select(b => b.roomID)).FirstOrDefault();
 
-                        var getRoomCode = db.Rooms.Where(a => a.roomID == roomID).Select(b => b.roomCode).First();
+                        var getRoomCode = db.Rooms.Where(a => a.roomID == roomID.FirstOrDefault()).Select(b => b.roomCode).First();
 
                         var getBuildingID = db.Rooms.Where(a => a.roomCode == getRoomCode).Select(b => b.buildingID).FirstOrDefault();
 
