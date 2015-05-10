@@ -6919,7 +6919,9 @@ select{
 }
 #weeks_container{
     display:inline-block;
+    width:10px;
 }
-#special_requirements {
-
+.test {
+    display:inline-block;
+    width:10px;
 }
