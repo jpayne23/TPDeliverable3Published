@@ -2,12 +2,7 @@
 
 
 <!DOCTYPE html>
-<style type="text/css">
-    td {
-        width:120px;
-    }
 
-</style>
 <html>
 <head>
     
@@ -19,10 +14,7 @@
     <title>View Request</title>
 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  
     <script type="text/javascript">
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover({
@@ -62,10 +54,9 @@
           background-color: #CC0066;
         }
 
-        td, th{
-          text-align: center;
-        }
-
+        td, th {
+            text-align: center;
+         }
 	
         h4{
           text-align: center;
@@ -76,7 +67,7 @@
         .tableFilter{
            margin-left: auto;
            margin-right: auto;
-        width:67%;
+           width:67%;
         }
         .mainTable{
             margin-left: auto;
@@ -92,7 +83,7 @@
         thead tr th { 
             height: auto;
             line-height: 30px;
-            width: 100px;
+    
         }
 
         table.scroll tbody {
@@ -105,10 +96,6 @@
         border-top: none; 
         }
 
-        tbody td, thead th {
-              width: 100px;
-
-        }
      
         .weeks {
               width:200px;
@@ -148,7 +135,7 @@
 </head>
 <body>
 
-    <div class="container">
+
 
 
 
@@ -212,25 +199,15 @@
                     <option value="4">Ad Hoc</option>
                 </select>
             </td>
-            <td>
-                Round ID: <br />
-                <select id="roundID" name="roundID" style="width:100px;>
-                <option value="">Any</option>
-                @foreach(var u in @ViewBag.rounds){
-                    <option value="@u">@u</option>
-                }
-                </select>
-
-            </td>
+            
             <td>
                  Year:<br />
-                <select id="roundID" name="year" style="width:100px;>
+                <select  name="year" style="width:100px;">
                     <option value="2015">2015</option>
                     <option value="2014">2014</option>
-                    <option value="1">All Years</option>
-                    
-                  
+                    <option value="1">All Years</option> 
                 </select>
+            
 
             </td>
 			
@@ -323,15 +300,12 @@
       <tr>
         <th>@Html.ActionLink("Request ID", "Index", new{ sortOrder = ViewBag.IDSortPram})</th>
         <th>@Html.ActionLink("Module ID", "Index", new{sortOrder = ViewBag.ModuleSortPram})</th>
-        <th>Room</th>
+        <th style="padding-right:30px;">Room</th>
         <th>Day</th>
-        <th>Week(s)</th>
+        <th style="margin-left">Week(s)</th>
         <th>Period</th>		
         <th>Session length</th>
-        <th>Status</th>
-
-	
-		
+        <th style="padding-right:25px;">Status</th>
       </tr>
   </thead>
     
@@ -339,7 +313,7 @@
       @foreach(var x in Model){
             <tr>
                 
-                <td style="padding-right:35px;"> @x.requestID </td>
+                <td style="padding-right:50px;"> @x.requestID </td>
                 <td> @x.moduleCode </td>
                 <td>
                     @foreach(var i in x.room){
