@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +13,8 @@ namespace TimetableSys_T17.Controllers
         {
 
             bool returnVal = false;
+
+            Debug.WriteLine(deptIn);
 
             using (var db = new TimetableDbEntities())
             {
@@ -73,12 +76,12 @@ namespace TimetableSys_T17.Controllers
 
                     TempData["usrId"] = userId;
                     TempData["deptLogin"] = deptLogin.deptIn;
-                    return RedirectToAction("Index", "Home"); ;
+                    return RedirectToAction("Index", "View");
 
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Serious bullshit is going on, you've input the wrong credentials.");
+                    ModelState.AddModelError("", "You've input incorrect login values.");
                 }
             }
             return View();

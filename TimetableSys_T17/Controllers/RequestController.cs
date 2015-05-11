@@ -219,28 +219,68 @@ namespace TimetableSys_T17.Controllers
                     List<Int16> inputParkIDs = _db.Parks.Where(x => inputParks_V.Contains(x.parkName)).Select(x => (Int16)x.parkID).ToList();
                     IQueryable<string> building_name_V = _db.Buildings.Where(x => inputParkIDs.Contains((Int16)x.parkID)).Select(x => x.buildingName); local.buildingName = building_name_V.ToList();
                     IQueryable<string> room_codes_V = _db.Rooms.Join(_db.Buildings, x => x.buildingID, y => y.buildingID, (x, y) => new { x.roomCode, y.buildingName }).Where(x => local.buildingName.Contains(x.buildingName)).Select(x => x.roomCode); local.roomCode = room_codes_V.ToList();
-                    IQueryable<List<string>> available_facilities_V = _db.Rooms.Where(x => local.roomCode.Contains(x.roomCode)).Select(x => x.Facilities.Select(y => y.facilityName).ToList()); local.facilities = UniqFacilities(available_facilities_V.ToList());
-                    
+                    List<IEnumerable<string>> available_facilities_V = _db.Rooms.Where(x => local.roomCode.Contains(x.roomCode)).Select(x => x.Facilities.Select(y => y.facilityName)).ToList();
+
+                    List<List<string>> MVC4change_I = new List<List<string>>();
+
+                    foreach (var i in available_facilities_V)
+                    {
+
+                        MVC4change_I.Add(i.ToList());
+
+                    }
+
+                    local.facilities = UniqFacilities(MVC4change_I);
+ 
                     break;
                 case 6:
                     
                     List<string> inputBuildings_VI = returnStripped(building_names);
                     IQueryable<string> room_codes_VI = _db.Rooms.Join(_db.Buildings, x => x.buildingID, y => y.buildingID, (x, y) => new { x.roomCode, y.buildingName }).Where(x => inputBuildings_VI.Contains(x.buildingName)).Select(x => x.roomCode); local.roomCode = room_codes_VI.ToList();
-                    IQueryable<List<string>> available_facilities_VI = _db.Rooms.Where(x => local.roomCode.Contains(x.roomCode)).Select(x => x.Facilities.Select(y => y.facilityName).ToList()); local.facilities = UniqFacilities(available_facilities_VI.ToList());
+
+                    List<IEnumerable<string>> available_facilities_VI = _db.Rooms.Where(x => local.roomCode.Contains(x.roomCode)).Select(x => x.Facilities.Select(y => y.facilityName)).ToList();
+
+                    List<List<string>> MVC4change_II = new List<List<string>>();
+
+                    foreach (var i in available_facilities_VI)
+                    {
+
+                        MVC4change_II.Add(i.ToList());
+
+                    }
+
+                    local.facilities = UniqFacilities(MVC4change_II);
 
                     break;
                 case 7:
 
                     List<string> inputRooms_VII = returnStripped(room_names);
-                    IQueryable<List<string>> available_facilities_VII = _db.Rooms.Where(x => inputRooms_VII.Contains(x.roomCode)).Select(x => x.Facilities.Select(y => y.facilityName).ToList()); local.facilities = UniqFacilities(available_facilities_VII.ToList());
+                    List<IEnumerable<string>> available_facilities_VII = _db.Rooms.Where(x => inputRooms_VII.Contains(x.roomCode)).Select(x => x.Facilities.Select(y => y.facilityName)).ToList();
+
+                    List<List<string>> MVC4change_III = new List<List<string>>();
+
+                    foreach (var i in available_facilities_VII)
+                    {
+
+                        MVC4change_III.Add(i.ToList());
+
+                    }
+
+                    local.facilities = UniqFacilities(MVC4change_III);
+
                     break;
                 case 8:
 
                     List<string> inputFacilities_VIII = returnStripped(facility_names);
-                    List<string> room_codes_VIII = _db.Rooms.Where(x => (inputFacilities_VIII.Intersect(x.Facilities.Select(y => y.facilityName).ToList())).Count() == inputFacilities_VIII.Count()).Select(x => x.roomCode).ToList(); local.roomCode = room_codes_VIII;
+
+                    var roomb = _db.Rooms.Select(x => new { arse = x.Facilities.Select(y => y.facilityName), x.roomCode }).ToList();
+
+
+                    IEnumerable<string> checker = roomb.Where(x => inputFacilities_VIII.Intersect(x.arse.ToArray()).Count() == inputFacilities_VIII.Count()).Select(x => x.roomCode);
+
+                    local.roomCode = checker.ToList();
 
                    // This works, however, because Len = 0, jQuery executes call 7.
-                   
 
                     break;
                 case 9: IQueryable<string> return_modules = _db.Modules.Select(x => x.modCode); local.moduleCode = return_modules.ToList(); break;
@@ -261,11 +301,28 @@ namespace TimetableSys_T17.Controllers
                 case 14:
                 
                     List<string> room_codes_XIV = returnStripped(room_names);
+
                     List<Int16> room_ids_XIV = _db.Rooms.Where(x => room_codes_XIV.Contains(x.roomCode)).Select(x => (Int16)x.roomID).ToList();
-                    IQueryable<List<tableViewTemplate>> return_room_base = _db.RoomRequests.Where(x => room_ids_XIV.Contains((Int16)x.roomID)).Where(x => (x.Requests.Select(y => y.statusID)).Contains(1) || (x.Requests.Select(y => y.statusID)).Contains(3)).Select(x => x.Requests.Select(y => new tableViewTemplate { dayID = y.dayID, periodID = y.periodID, sessionLength = y.sessionLength, semester = y.semester, week = y.week }).ToList());
+                    var return_room_base = _db.RoomRequests.Where(x => room_ids_XIV.Contains((Int16)x.roomID)).Where(x => (x.Requests.Select(y => y.statusID)).Contains(1) || (x.Requests.Select(y => y.statusID)).Contains(3)).Select(x => x.Requests.Select(y => new tableViewTemplate { dayID = y.dayID, periodID = y.periodID, sessionLength = y.sessionLength, semester = y.semester, week = y.week }));
 
-                    local.tableRequest = return_room_base.ToList();
+                    List<List<tableViewTemplate>> tableRequest = new List<List<tableViewTemplate>>();
 
+                    
+                    foreach (var x in return_room_base.ToList())
+                    {
+                        List<tableViewTemplate> temp = new List<tableViewTemplate>();
+
+                        foreach (var y in x)
+                        {
+
+                            temp.Add(y);
+
+                        }
+                        tableRequest.Add(temp);
+
+                    }
+
+                    local.tableRequest = tableRequest;
                     break;
             }
             
@@ -292,7 +349,7 @@ namespace TimetableSys_T17.Controllers
 
             List<string> modCode = returnStripped(module_code);
             List<string> sessionInfo = returnStripped(session_type);
-            string selectedDay = day.Substring(1, (day.Length - 1));
+            string selectedDay = day.Substring(1, (day.Length - 2));
             Int16 tempModuleID = _db.Modules.Where(a => modCode.Contains(a.modCode)).Select(b => (Int16)b.moduleID).First();
             Int16 tempSessionTypeID = _db.SessionTypeInfoes.Where(a => sessionInfo.Contains(a.sessionType)).Select(b => (Int16)b.sessionTypeID).First();
             Int16? tempDayID = _db.DayInfoes.Where(a => selectedDay.Contains(a.day)).Select(b => (Int16)b.dayID).First();
@@ -302,9 +359,8 @@ namespace TimetableSys_T17.Controllers
             Int16 tempRound = ReturnRound();
             Int16 tempYear = (Int16)DateTime.Today.Year;
             string tempWeeks = convertWeeks(toList(weeks));
-            List<string> tempFacilities = returnStripped(facility_names);
             List<string> tempRooms = returnStripped(room_names);
-
+            List<string> facilityTemp = returnStripped(facility_names);
 
             switch (tempRound)
             {
@@ -313,7 +369,7 @@ namespace TimetableSys_T17.Controllers
 
                     try { 
                           
-                        pushToDb(tempRooms, tempFacilities, tempModuleID, tempSessionTypeID, tempWeeks, 4, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 0, 1, tempYear);  // sort out prio
+                        pushToDb(tempRooms, facilityTemp, tempModuleID, tempSessionTypeID, tempWeeks, 4, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 0, 1, tempYear);  // sort out prio
 
                         local.response = "Round 1 Request submitted, please keep an eye on your view requests page for any changes.";
                     
@@ -340,7 +396,7 @@ namespace TimetableSys_T17.Controllers
                         
                         try { 
                           
-                            pushToDb(tempRooms, tempFacilities, tempModuleID, tempSessionTypeID, tempWeeks, 4, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 0, 0, tempYear);
+                            pushToDb(tempRooms, facilityTemp, tempModuleID, tempSessionTypeID, tempWeeks, 4, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 0, 0, tempYear);
 
                             local.response = "Round 2 Request submitted, please keep an eye on your view requests page for any changes.";
                     
@@ -362,7 +418,7 @@ namespace TimetableSys_T17.Controllers
                     Int16 checkIfTakenR3 = 0;
 
                     checkIfTakenR3 = _db.Requests.Where(x => x.week.Contains(tempWeeks) && x.statusID == 1 && (x.periodID >= tempPeriodID && x.periodID <= ((tempPeriodID + tempSessionLength) - 1)) && (tempRooms.Intersect(x.RoomRequests.Select(y => _db.Rooms.Where(z => z.roomID == y.roomID).Select(z => z.roomCode).FirstOrDefault())).Count() > 0) && x.dayID == tempDayID).Select(x => (Int16)x.requestID).FirstOrDefault();
-                    Debug.WriteLine(checkIfTakenR3);
+
                     if (checkIfTakenR3 != 0)
                     {
                         
@@ -372,7 +428,7 @@ namespace TimetableSys_T17.Controllers
                         
                         try { 
                           
-                            pushToDb(tempRooms, tempFacilities, tempModuleID, tempSessionTypeID, tempWeeks, 4, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 0, 0, tempYear);
+                            pushToDb(tempRooms, facilityTemp, tempModuleID, tempSessionTypeID, tempWeeks, 4, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 0, 0, tempYear);
 
                             local.response = "Round 3 Request submitted, please keep an eye on your view requests page for any changes.";
                     
@@ -392,9 +448,9 @@ namespace TimetableSys_T17.Controllers
                 case 4:
 
                     Int16 checkIfTakenAdhoc = 0;
+   
+                    checkIfTakenAdhoc =_db.Requests.Where(x => x.week.Contains(tempWeeks) && x.statusID == 1 && (x.periodID >= tempPeriodID && x.periodID <= ((tempPeriodID + tempSessionLength)-1)) &&  (tempRooms.Intersect(x.RoomRequests.Select(y => _db.Rooms.Where(z => z.roomID == y.roomID).Select(z => z.roomCode).FirstOrDefault())).Count() > 0) && x.dayID == tempDayID).Select(x => (Int16)x.requestID).FirstOrDefault();
 
-                    checkIfTakenAdhoc =_db.Requests.Where(x => x.week.Contains(tempWeeks) && x.statusID == 1 && (x.periodID >= tempPeriodID && x.periodID <= ((tempPeriodID + tempSessionLength)-1)) && (tempRooms.Intersect(x.RoomRequests.Select(y => _db.Rooms.Where(z => z.roomID == y.roomID).Select(z => z.roomCode).FirstOrDefault())).Count() > 0) && x.dayID == tempDayID).Select(x => (Int16)x.requestID).FirstOrDefault();
-                    Debug.WriteLine(checkIfTakenAdhoc);
                     if (checkIfTakenAdhoc != 0)
                     {
 
@@ -406,7 +462,7 @@ namespace TimetableSys_T17.Controllers
                         try
                         {
 
-                            pushToDb(tempRooms, tempFacilities, tempModuleID, tempSessionTypeID, tempWeeks, 1, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 1, 0, tempYear);
+                            pushToDb(tempRooms, facilityTemp, tempModuleID, tempSessionTypeID, tempWeeks, 1, tempDayID, tempPeriodID, tempSessionLength, tempSemester, tempRound, 1, 0, tempYear);
 
                             local.response = "Your request has been approved.";
 
@@ -448,21 +504,29 @@ namespace TimetableSys_T17.Controllers
                 week = weeks
             };
 
-            foreach (var i in facility_names)
-            {
-                toSubmit.Facilities.Add(_db.Facilities.Where(a => a.facilityName == i).First());
-            }
 
-            foreach (var j in room_names)
-            {
-                RoomRequest temp = new RoomRequest()
+                foreach (var i in facility_names)
                 {
-                    roomID = _db.Rooms.Where(a => a.roomCode == j).Select(b => b.roomID).First(),
-                    groupSize = 50
-                };
 
-                toSubmit.RoomRequests.Add(temp);
-            }
+                    toSubmit.Facilities.Add(_db.Facilities.Where(a => a.facilityName == i).FirstOrDefault());
+                }
+            
+
+                foreach (var j in room_names)
+                {
+
+                    RoomRequest temp = new RoomRequest()
+                    {
+
+                        roomID = _db.Rooms.Where(a => a.roomCode == j).Select(b => b.roomID).FirstOrDefault(),
+                        groupSize = 50
+
+                    };
+
+                    toSubmit.RoomRequests.Add(temp);
+                }
+            
+            
 
             _db.Requests.Add(toSubmit);
             _db.SaveChanges();
@@ -490,6 +554,7 @@ namespace TimetableSys_T17.Controllers
 
             foreach (var x in weeks)
             {
+
                 bollocks = bollocks.Remove(((Convert.ToInt16(x) * 2)-1), 1).Insert(((Convert.ToInt16(x) * 2)-1), "1");
 
             }
