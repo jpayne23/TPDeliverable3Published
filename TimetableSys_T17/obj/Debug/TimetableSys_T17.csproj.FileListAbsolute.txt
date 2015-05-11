@@ -80,4 +80,3 @@ C:\Users\mmjp9.LUNET\Desktop\Github\TPDeliverable3Published\TimetableSys_T17\bin
 C:\Users\mmjp9.LUNET\Desktop\Github\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.WebPages.Razor.xml
 C:\Users\mmjp9.LUNET\Desktop\Github\TPDeliverable3Published\TimetableSys_T17\obj\Debug\TimetableSys_T17.dll
 C:\Users\mmjp9.LUNET\Desktop\Github\TPDeliverable3Published\TimetableSys_T17\obj\Debug\TimetableSys_T17.pdb
-C:\Users\mmjp9.LUNET\Desktop\Github\TPDeliverable3Published\TimetableSys_T17\obj\Debug\TimetableSys_T17.csprojResolveAssemblyReference.cache
