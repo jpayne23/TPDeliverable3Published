@@ -23,7 +23,63 @@ namespace TimetableSys_T17.Controllers
 {
     public class TimetableController : Controller
     {
+        private string formatWeeks(string Weeks)
+        {
+            //[1,1,1,0,0,0,1,0,1,0,0,1,0,0,0]
+            var temp = Weeks.Substring(1, Weeks.Length - 2);
+            //1,1,1,0,0,0,1,0,1,0,0,1,0,0,0
+            List<int> weeksList = temp.Split(',').Select(int.Parse).ToList();
+            //
+            string result = "";
+            int consecutive = 0;
+            int startI = 0;
+            int endI = 0;
+            string selected = "";
+            int n = 0;
 
+            foreach (var i in weeksList)
+            {
+                n++;
+                if (i == 1 && n == weeksList.Count())
+                {
+                    if (consecutive > 1)
+                    {
+                        startI = n - consecutive;
+                        endI = n;
+                        selected = startI.ToString() + "-" + endI.ToString() + ", ";
+                        result += selected;
+                    }
+                    else
+                    {
+                        startI = n;
+                        selected = startI.ToString() + ", ";
+                        result += selected;
+                    }
+                }
+                else if (i == 1)
+                {
+                    consecutive++;
+                }
+                else if (i == 0 && consecutive > 1)
+                {
+                    startI = n - consecutive;
+                    endI = n - 1;
+                    selected = startI.ToString() + "-" + endI.ToString() + ", ";
+                    result += selected;
+                    consecutive = 0;
+                }
+                else if (i == 0 && consecutive == 1)
+                {
+                    startI = n - consecutive;
+                    selected = startI.ToString() + ", ";
+                    result += selected;
+                    consecutive = 0;
+                }
+
+            }
+
+            return result.Substring(0, result.Length - 2);
+        }
         // GET: Timetable
         public ActionResult Index(string modOrLec, string nameOrCode, int? week, int? getSemester)
         {
@@ -32,6 +88,7 @@ namespace TimetableSys_T17.Controllers
             var getLec = db.LecturerInfoes.Where(f => f.deptID == 5).Select(f => f.name).ToList();
             var getCourse = db.DegreeInfoes.Where(d => d.deptID == 5).Select(o => o.degreeName).ToList();
 
+          
             @ViewBag.getLec = getLec;
             @ViewBag.getCourse = getCourse;
 
@@ -108,7 +165,7 @@ namespace TimetableSys_T17.Controllers
                         @ViewBag.moduleCode = moduleCode.FirstOrDefault();
                         @ViewBag.moduleName = moduleName.FirstOrDefault();
                         @ViewBag.type = type.FirstOrDefault();
-                        @ViewBag.weeks = weeks;
+                        @ViewBag.weeks = formatWeeks(weeks);
                         @ViewBag.roomCode = getRoomCode;
                         @ViewBag.buildingName = getBuildingName;
                         @ViewBag.sessionLength = sessionLength;
