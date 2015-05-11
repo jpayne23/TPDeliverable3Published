@@ -12,17 +12,14 @@
 
     }
    tr td {
-        border: 1px solid #000;
+        border: 1px solid #808080;
     }
     
-    .filled {
-        background-color:#f00;
-    }
+
 
     #mainRow {
         width:300px;
         height:100px;
-        
     }
     select {
         width:100px;
@@ -31,7 +28,15 @@
     border: 0; border-top: 1px solid #808080;
     margin:2px 0; padding: 0; }
     .even {
-        background-color:#f9f9f9;
+        background-color:#C0C0C0;
+        color:#FFF;
+    }
+    .odd {
+        background-color:#FFF;
+    }
+    .day {
+        background-color:#753dae;
+        color:#FFF;
     }
     
 </style>
@@ -83,13 +88,14 @@
                 Week:
             </td>
            <td>
-
+                 Semester:
            </td>
            <td>
                      
-                 Semester:
+                
 
            </td>
+
        </tr>
        <tr>
             <td>
@@ -127,7 +133,7 @@
                 </select>
            </td>
            <td>
-               <br />
+            
                   <input type="submit" value="Search" style="width:100px"/>
 
            </td>
@@ -162,9 +168,13 @@
             if(i % 2 == 0){
                 rowClass = "even";
             }
+            if(i % 2 != 0){
+                rowClass = "odd";
+            }
             
             <tr id="@rowID" class="@rowClass">
             @for(var j = 0; j<10; j++){
+                
                 if(i==0 && j == 1 ){
                         <td>9:00 - 10:00</td>
                 }
@@ -193,19 +203,19 @@
                         <td>17:00 - 18:00</td>
                 }
                 if(i == 1 && j==0 ){
-                    <td>Monday</td>
+                    <td class="day">Monday</td>
                 }
                 if(i == 2 && j==0 ){
-                    <td>Tuesday</td>
+                    <td class="day">Tuesday</td>
                 }
                 if(i == 3 && j==0 ){
-                    <td>Wednesday</td>
+                    <td class="day">Wednesday</td>
                 }
                 if(i == 4 && j==0 ){
-                    <td>Thursday</td>
+                    <td class="day">Thursday</td>
                 }
                 if(i == 5 && j==0 ){
-                    <td>Friday</td>
+                    <td class="day">Friday</td>
                 }
                if(i==0 && j==0){
                     <td>    </td>

@@ -187,7 +187,11 @@ namespace TimetableSys_T17.Controllers
                 ViewBag.error = "Room code already exists";
 
             }
-            if (ModelState.IsValid && validate(room1.roomCode) && result == bID && checkRoomCode(room1.roomCode))
+            else if (room.capacity < 1 || room.capacity > 400)
+            {
+                ViewBag.error = "Room capacity exceeds range. Capacity limit is 1 - 400.";
+            }
+            if (ModelState.IsValid && validate(room1.roomCode) && result == bID && checkRoomCode(room1.roomCode) && (room.capacity >= 1 && room.capacity <= 400))
             {
 
                 if (fac != null)
@@ -361,7 +365,11 @@ namespace TimetableSys_T17.Controllers
                 ViewBag.error = "Room code already exists";
 
             }
-            else if (result.First() == room.buildingID && (roomings.Count() == 0 || oldRoomCode == newRoomCode) && checkRoomCode(room.roomCode))
+            else if (room.capacity < 1 || room.capacity > 400)
+            {
+                ViewBag.error = "Room capacity exceeds range. Capacity limit is 1 - 400.";
+            }
+            else if (result.First() == room.buildingID && (roomings.Count() == 0 || oldRoomCode == newRoomCode) && checkRoomCode(room.roomCode) && (room.capacity >= 1 && room.capacity <= 400))
             {
 
                 if (Labe)

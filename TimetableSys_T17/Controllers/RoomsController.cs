@@ -58,12 +58,30 @@ namespace TimetableSys_T17.Controllers
         }
 
         // GET: Rooms
-        public ActionResult Index()
+        public ActionResult Index(int? buildingID, int? lab)
         {
             //Gets all rooms that arent private and orders them by building id
-            var rooms = db.Rooms.OrderBy(a => a.buildingID).Where(a => a.@private == 0).Include(r => r.Building);
+            var rooms = db.Rooms.OrderBy(a => a.buildingID).Where(a => a.@private == 0).Include(r => r.Building).ToList();
             //var result = rooms.OrderBy(a => a.buildingID);
-            return View(rooms.ToList());
+
+            if (buildingID != null)
+            {
+                rooms = rooms.Where(t => t.buildingID == buildingID).ToList();
+            }
+            if (lab != null)
+            {
+                rooms = rooms.Where(t => t.lab == lab).ToList();
+            }
+
+            var options = db.Buildings.AsEnumerable().Select(s => new
+            {
+                buildingID = s.buildingID,
+                Info = string.Format("{0} - {1}", s.buildingCode, s.buildingName)
+            });
+
+            ViewBag.buildingID = new SelectList(options, "buildingID", "Info");
+
+            return View(rooms);
         }
 
         // GET: Rooms/Details/5
@@ -159,7 +177,11 @@ namespace TimetableSys_T17.Controllers
             {
                 ViewBag.error = "Room code already exists";
             }
-            if (result.First() == bID && checkRoomCode(room.roomCode) && validate(room.roomCode) && ModelState.IsValid)
+            else if (room.capacity < 1 || room.capacity > 400) 
+            {
+                ViewBag.error = "Room capacity exceeds range. Capacity limit is 1 - 400.";
+            }
+            if (result.First() == bID && checkRoomCode(room.roomCode) && validate(room.roomCode) && ModelState.IsValid && (room.capacity >= 1 && room.capacity <= 400))
             {
 
                 room.@private = 0;
@@ -287,7 +309,11 @@ namespace TimetableSys_T17.Controllers
                 ViewBag.error = "Room code already exists";
 
             }
-            else if (result.First() == room.buildingID && (roomings.Count() == 0 || oldRoomCode == newRoomCode) && checkRoomCode(room.roomCode))
+            else if (room.capacity < 1 || room.capacity > 400)
+            {
+                ViewBag.error = "Room capacity exceeds range. Capacity limit is 1 - 400.";
+            }
+            else if (result.First() == room.buildingID && (roomings.Count() == 0 || oldRoomCode == newRoomCode) && checkRoomCode(room.roomCode) && (room.capacity >= 1 && room.capacity <= 400))
             {
 
                 if (Labe)

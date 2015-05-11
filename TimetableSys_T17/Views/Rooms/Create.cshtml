@@ -8,6 +8,7 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="../../content/rooms.css">
 <script type="text/javascript">
    
     $(function() {
@@ -31,17 +32,20 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Room</h4>
+    <div class="centre">
+        <h4 class ="centre">Room</h4>
         <hr />
         @Html.ValidationSummary(true)
         <div>@ViewBag.error</div>
+
         <div class="centre">
             @Html.LabelFor(model => model.roomCode, "Room Code", htmlAttributes: new { @class = "centre" })
             @Html.EditorFor(model => model.roomCode)
             @Html.ValidationMessageFor(model => model.roomCode)
 
             &#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160;
+
+            <br />
 
             @Html.LabelFor(model => model.buildingID, "Building Name", htmlAttributes: new { @class = "centre" })
             @Html.DropDownList("buildingID", "Select")

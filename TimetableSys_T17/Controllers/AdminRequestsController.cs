@@ -216,7 +216,7 @@ namespace TimetableSys_T17.Controllers
                 tmp.moduleCode = roomCodes.FirstOrDefault();
                 //var roomCodeName = db.Requests.Where(a => a.requestID == x.requestID).Select(a => a.RoomRequests.Select(c => c.ToList()).ToList();
 
-                var roomCodeName = db.Requests.Where(a => a.requestID == x.requestID).Select(a => a.RoomRequests.Select(c => c.roomID).ToList()).ToList();
+                var roomCodeName = db.Requests.Where(a => a.requestID == x.requestID).Select(a => a.RoomRequests.Select(c => c.roomID)).ToList();
 
                 var roomIDList = roomCodeName.First();
                 List<string> roomCodes2 = new List<string>();
