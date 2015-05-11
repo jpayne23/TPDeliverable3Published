@@ -5,8 +5,33 @@ using System.Web;
 
 namespace TimetableSys_T17.Models
 {
+
+    public static class userLogged
+    {
+
+        static string _usrName;
+        static int _deptID;
+
+        public static string UserName
+        {
+            get { return _usrName; }
+            set { _usrName = value; }
+        }
+
+        public static int usrId
+        {
+
+            get { return _deptID; }
+            set { _deptID = value; }
+
+        }
+        
+    }
+
     public class ViewModel
     {
+
+ 
         public int requestID { get; set; }
         public int? userID { get; set; }
         public String email { get; set; }

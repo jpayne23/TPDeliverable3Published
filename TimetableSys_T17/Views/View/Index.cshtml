@@ -1,19 +1,8 @@
 ﻿@model IEnumerable<TimetableSys_T17.Models.ViewModel>
-@{
-    Layout = null;
-}
-@Scripts.Render("~/bundles/modernizr")
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
+
 
 <!DOCTYPE html>
-<style type="text/css">
-    td {
-        width:120px;
-    }
 
-</style>
 <html>
 <head>
     
@@ -25,10 +14,7 @@
     <title>View Request</title>
 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  
     <script type="text/javascript">
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover({
@@ -57,17 +43,20 @@
 
     </script>
     <style type="text/css">
+        a {
+            text-decoration:underline;
+            color:#FFF;
+        }
         .popover {
             max-width:100%;
         }
         .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-          background-color: pink;
+          background-color: #CC0066;
         }
 
-        td, th{
-          text-align: center;
-        }
-
+        td, th {
+            text-align: center;
+         }
 	
         h4{
           text-align: center;
@@ -78,7 +67,7 @@
         .tableFilter{
            margin-left: auto;
            margin-right: auto;
-        width:67%;
+           width:67%;
         }
         .mainTable{
             margin-left: auto;
@@ -94,7 +83,7 @@
         thead tr th { 
             height: auto;
             line-height: 30px;
-            width: 100px;
+    
         }
 
         table.scroll tbody {
@@ -107,10 +96,7 @@
         border-top: none; 
         }
 
-        tbody td, thead th {
-              width: 100px;
-
-        }
+     
         .weeks {
               width:200px;
         }
@@ -123,7 +109,7 @@
         background-color:#753DAE;
         color:white;
         }
-
+        
          .Cancelled {
         background-color:#ff0000 !important;
         }
@@ -139,12 +125,17 @@
         .Pending {
         background-color:#FFFFA6 !important;
         }
-
+        #aSelect {
+            width:100px;
+        }
+        .linkBlack a{
+            color:#000;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
+
 
 
 
@@ -160,7 +151,7 @@
 			
 			<td>
                 Module Code
-                 <select name="moduleCode">
+                 <select name="moduleCode" id="aSelect">
                             <option value="">Any</option>
                     @foreach(var a in @ViewBag.moduleCodes){ 
                             <option value="@a">@a</option>  
@@ -168,7 +159,7 @@
                  </select>
 			</td>
 			<td>Semester:	<br/>		
-			    <select name="semester">
+			    <select name="semester" id="aSelect">
                     <option value="">Any</option>
 			        <option value="1">One</option>
                     <option value="2">Two</option>
@@ -178,7 +169,7 @@
 			
 			
 			<td>Day:<br/>
-			<select name="day">
+			<select name="day" id="aSelect">
                 <option value="">Any</option>
 		    	<option value="1">Monday</option>
                 <option value="2">Tuesday</option>
@@ -189,7 +180,7 @@
 			</td>
 			
 			<td>Status:<br/>
-			<select name="status">
+			<select name="status" id="aSelect">
                 <option value="">Any</option>
 			    <option value="1">Accepted</option>
                 <option value="2">Rejected</option>
@@ -200,7 +191,7 @@
 			</td>
             <td>
                 Round ID:<br />
-                <select id="roundID" name="roundID">
+                <select id="roundID" name="roundID" style="width:100px;">
                     <option value="">Any</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -208,36 +199,26 @@
                     <option value="4">Ad Hoc</option>
                 </select>
             </td>
-            <td>
-                Round ID: <br />
-                <select id="roundID" name="roundID">
-                <option value="">Any</option>
-                @foreach(var u in @ViewBag.rounds){
-                    <option value="@u">@u</option>
-                }
-                </select>
-
-            </td>
+            
             <td>
                  Year:<br />
-                <select id="roundID" name="year">
+                <select  name="year" style="width:100px;">
                     <option value="2015">2015</option>
                     <option value="2014">2014</option>
-                    <option value="1">All Years</option>
-                    
-                  
+                    <option value="1">All Years</option> 
                 </select>
+            
 
             </td>
 			
 			<td>
-			    <input type="submit" value="Filter" />
+			    <input type="submit" value="Filter"id="aSelect" />
             </form>
 			</td>
            
             <td>
               <form action="" method="get">
-                <input type="submit" value="reset"/>    
+                <input type="submit" value="reset"id="aSelect"/>    
               
             </td>    
 
@@ -315,27 +296,24 @@
          <br />   </div>
 
   <table class="table table-striped table-hover mainTable table-bordered scroll">
-  <tbody>
+  <thead>
       <tr>
-        <td>@Html.ActionLink("Request ID", "Index", new{ sortOrder = ViewBag.IDSortPram})</td>
-        <td>@Html.ActionLink("Module ID", "Index", new{sortOrder = ViewBag.ModuleSortPram})</td>
-        <td>Room</td>
-        <td>Day</td>
-        <td>Week(s)</td>
-        <td>Period</td>		
-        <td>Session length</td>
-        <td>Status</td>
-
-	
-		
+        <th>@Html.ActionLink("Request ID", "Index", new{ sortOrder = ViewBag.IDSortPram})</th>
+        <th>@Html.ActionLink("Module ID", "Index", new{sortOrder = ViewBag.ModuleSortPram})</th>
+        <th style="padding-right:30px;">Room</th>
+        <th>Day</th>
+        <th style="margin-left">Week(s)</th>
+        <th>Period</th>		
+        <th>Session length</th>
+        <th style="padding-right:25px;">Status</th>
       </tr>
-  
+  </thead>
     
       
       @foreach(var x in Model){
             <tr>
                 
-                <td> @x.requestID </td>
+                <td style="padding-right:50px;"> @x.requestID </td>
                 <td> @x.moduleCode </td>
                 <td>
                     @foreach(var i in x.room){
@@ -358,11 +336,11 @@
                         
 
                 </td>
-                <td> @x.periodID  </td>
+                <td style="padding-right:20px;"> @x.periodID  </td>
                 <td> @x.sessionLength Hour(s) </td>
                 <td class = "@x.status" > @x.status </td>
-                <td><a href='#'>Edit</a></td>
-                <td>   <button type="button" class="btn btn-info" data-toggle="popover" title="Request ID: @x.requestID" 
+                <td><a href='#' style="color:#000;">Edit</a></td>
+                <td>   <button type="button" class="btn btn-info"  data-toggle="popover" title="Request ID: @x.requestID" 
                     data-content="
                             <table>
                                 <tr>
@@ -376,7 +354,7 @@
              
                                 </tr>
                                 <tr>
-                                    <td><a> @x.email </a>
+                                    <td> @x.email 
     
                                     </td>
                                     <td> @x.sessionType </td>
@@ -412,10 +390,10 @@
                     </button>
                     
                         </td>
-                <td> @Html.ActionLink("Cancel", "Index", new {cancelledID=x.requestID})</td>
+                <td><div class="linkBlack"> @Html.ActionLink("Cancel", "Index", new {cancelledID=x.requestID})</div></td>
             </tr>
       }
-    </tbody> 
+    </thead> 
 
   </table>
   

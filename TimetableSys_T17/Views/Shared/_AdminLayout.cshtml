@@ -26,6 +26,17 @@
     <link rel="stylesheet" href="~/Content/jquery-ui.structure.min.css">
     <link rel="stylesheet" href="~/Content/jquery-ui.theme.css">
     <link rel="stylesheet" href="~/Content/bootstrap-multiselect.css">
+    <style type="text/css">
+        h2, h3 {
+            margin:0;
+        }
+        select, button, input {
+            width:150px;
+            margin:0;
+            padding:0;
+        }
+
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top"><img class="logo" src="~/Content/images/lborologo.jpg" alt="Image" />
@@ -41,10 +52,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Create Request", "Index", "Request")</li>
-                    <li>@Html.ActionLink("View Request", "Index", "View")</li>
-                    <li>@Html.ActionLink("Timetable", "Index", "Timetable")</li>
+                    <li>@Html.ActionLink("Admin Home", "Index", "Admin")</li>
+                    <li>@Html.ActionLink("Create Room", "Index", "CreateRoom");</li>
+                    <li>@Html.ActionLink("Facilities", "Index", "Facilities")</li>
+                    <li>@Html.ActionLink("Rooms", "Index", "Rooms")</li>
+                    <li>@Html.ActionLink("Rounds", "Index", "Rounds")</li>
                 </ul>
                 @*@Html.Partial("_LoginPartial")*@
             </div>

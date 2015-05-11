@@ -62,18 +62,11 @@ namespace TimetableSys_T17.Controllers
                 }
                     
 
-                    /*return RedirectToRoute(new
-                    {
-                        Controller = "Home",
-                        action = "Index",
-                        userId = userId,
-                        userName = deptLogin.deptIn
-
-                    });*/
+       
 
                     TempData["usrId"] = userId;
                     TempData["deptLogin"] = deptLogin.deptIn;
-                    return RedirectToAction("Index", "Home"); ;
+                    return RedirectToAction("Index", "View"); ;
 
                 }
                 else
