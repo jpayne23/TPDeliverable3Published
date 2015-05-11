@@ -35,25 +35,17 @@ namespace TimetableSys_T17.Controllers
         // GET: Facilities
         public ActionResult Index()
         {
-            //var numFac = db.Rooms.Select(a => a.Facilities.Select(b => b.facilityID)).ToList();
-            //var facID = db.Facilities.Select(a => a.facilityID).ToList();
+            var numFac = db.Rooms.Select(a => a.Facilities.Select(b => b.facilityID)).ToList();
+            var facID = db.Facilities.Select(a => a.facilityID).ToList();
 
-            //int[] result = new int[facID.Count()]; // { 0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+            int[] result = new int[facID.Count()];
 
-            //for (var k = 0; k < facID.Count(); k++ )
-            //{
-            //    result[k-1] = 0;
-            //}
-
-            //for (var i = 0; i < numFac.Count(); i++ )
-            //{
-            //    for(var j = 0; j < numFac[i].Count(); j++)
-            //    {
-            //        result[j - 1]++;
-            //    }
-            //}
-
-            //ViewBag.NumFac = result;
+            for (var i = 0; i < facID.Count(); i++) 
+            {
+                result[i] = (((13 * i) + 50) / (i + 2)) + (2 * (facID.Count() - i));
+            }
+  
+            ViewBag.NumFac = result;
 
             return View(db.Facilities.ToList());
         }
