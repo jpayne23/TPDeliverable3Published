@@ -371,22 +371,6 @@ $(document).ready(function () {
         }
     });
 
-    $(function () {
-
-        $("#special_requirements").resizable({
-
-            animate: true,
-            animateDuration: "slow",
-            animateEasing: "easeOutBounce",
-            delay: 150,
-            minHeight: 200,
-            minWidth: 500,
-            maxHeight: 400,
-            maxWidth: 700,
-            handles: "se"
-        });
-
-    });
 
     $(function () {
 
@@ -495,7 +479,7 @@ function dropDownConstructor(input, recieved_data, target) {
 function AjaxCall(call) {
 
     place_holder = [];
-    console.log("here");
+
     $.ajax({
 
         url: "Request/RequestModelUpdaterOptional2",
@@ -509,7 +493,8 @@ function AjaxCall(call) {
             facility_names: JSON.stringify(facilities_container),
             module_code: JSON.stringify(module_code_container),
             module_title: JSON.stringify(module_title_container),
-            session_type: JSON.stringify(session_type_container)
+            session_type: JSON.stringify(session_type_container),
+           
 
         },
         contentType: "application/json",
@@ -799,13 +784,13 @@ function updateRequestTable(input, input_parent, container, days) {
 
 function Submit() {
 
-
+    var specReq = $("#special_requirements").val();
     // ContructWeeks();
     // GetDay(); getTimes();
     $.ajax({
 
 
-        url: "SubmitThisThing",
+        url: "Request/SubmitThisThing",
         type: "GET",
         data: {
 
@@ -819,7 +804,8 @@ function Submit() {
             session_type: JSON.stringify(session_type_container),
             weeks: JSON.stringify(selected_weeks_container),
             day: JSON.stringify(grabSelectedDay()),
-            dayInfo: JSON.stringify(grabSelectedDays())
+            dayInfo: JSON.stringify(grabSelectedDays()),
+            specialReqs: JSON.stringify(specReq)
 
         },
         contentType: "application/json",
@@ -832,7 +818,9 @@ function Submit() {
 
 function grabSelectedDay() {
 
-    return $("div:contains(\"Selected\")")[4].id;
+    var day = $("div:contains(\"Selected\")")[3].id;
+   
+    return day;
 
 }
 
@@ -841,10 +829,10 @@ function grabSelectedDays() {
     var periodID = null;
     var sessionLength = 1;
     var sessionInfo = [];
-
+   
     var input = grabSelectedDay();
 
-    $("#" + input).children().each(function () {
+    $($("div:contains(\"Selected\")")).children().each(function () {
 
         if ($(this).attr("name") == 4 && periodID == null) {
 
