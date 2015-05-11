@@ -73,11 +73,9 @@ B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.W
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\EntityFramework.xml
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\Newtonsoft.Json.xml
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.Helpers.xml
-B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.Mvc.xml
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.Razor.xml
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.WebPages.xml
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.WebPages.Deployment.xml
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.WebPages.Razor.xml
-B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\obj\Debug\TimetableSys_T17.csprojResolveAssemblyReference.cache
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\obj\Debug\TimetableSys_T17.dll
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\obj\Debug\TimetableSys_T17.pdb

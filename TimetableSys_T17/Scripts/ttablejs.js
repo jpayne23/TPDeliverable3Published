@@ -478,7 +478,7 @@ function dropDownConstructor(input, recieved_data, target) {
         });
 
     } else {
-
+        
         recieved_data.forEach(function (value) {
 
             var stepping = { label: value, title: value, value: value }
@@ -495,10 +495,10 @@ function dropDownConstructor(input, recieved_data, target) {
 function AjaxCall(call) {
 
     place_holder = [];
-
+    console.log("here");
     $.ajax({
 
-        url: "RequestModelUpdaterOptional2",
+        url: "Request/RequestModelUpdaterOptional2",
         type: "GET",
         data: {
 

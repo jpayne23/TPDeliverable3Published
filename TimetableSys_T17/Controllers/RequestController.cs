@@ -204,6 +204,7 @@ namespace TimetableSys_T17.Controllers
         [HttpGet]
         public JsonResult RequestModelUpdaterOptional2(Int16 which_call, string park_names, string building_names, string room_names, string facility_names, string module_code, string module_title, string session_type, Int16? room_i, Int16? room_ii, Int16? room_iii)
         {
+            Debug.WriteLine("Here");
             
             RequestModel local = new RequestModel();
 
