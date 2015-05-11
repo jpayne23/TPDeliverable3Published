@@ -6,13 +6,26 @@ using System.Web;
 namespace TimetableSys_T17.Models
 {
 
-    public class userLogged
+    public static class userLogged
     {
 
+        static string _usrName;
+        static int _deptID;
 
-        public string usrName { get; set; }
-        public int usrID { get; set; }
+        public static string UserName
+        {
+            get { return _usrName; }
+            set { _usrName = value; }
+        }
 
+        public static int usrId
+        {
+
+            get { return _deptID; }
+            set { _deptID = value; }
+
+        }
+        
     }
 
     public class ViewModel

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TimetableSys_T17.Models;
 
 public class Scotthi
 {
@@ -85,8 +86,8 @@ namespace TimetableSys_T17.Controllers
         {
             //dskufhsdjkfhaidsuf
             var db = new TimetableDbEntities();
-            var getLec = db.LecturerInfoes.Where(f => f.deptID == 5).Select(f => f.name).ToList();
-            var getCourse = db.DegreeInfoes.Where(d => d.deptID == 5).Select(o => o.degreeName).ToList();
+            var getLec = db.LecturerInfoes.Where(f => f.deptID == userLogged.usrId).Select(f => f.name).ToList();
+            var getCourse = db.DegreeInfoes.Where(d => d.deptID == userLogged.usrId).Select(o => o.degreeName).ToList();
 
           
             @ViewBag.getLec = getLec;

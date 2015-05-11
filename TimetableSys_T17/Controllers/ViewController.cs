@@ -18,16 +18,12 @@ namespace TimetableSys_T17.Controllers
         {
             //get db and run query
 
-            userLogged userInfo = new userLogged()
-            {
+   
+               userLogged.UserName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase((String)TempData["deptLogin"]);
+               userLogged.usrId = (int)TempData["usrId"];
 
-               usrName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase((String)TempData["deptLogin"]),
-               usrID = (int)TempData["usrId"]
-            
-            };
 
-            Debug.WriteLine(userInfo.usrName);
-            Debug.WriteLine(userInfo.usrID);
+
             
 
             var db = new TimetableDbEntities();
@@ -37,8 +33,8 @@ namespace TimetableSys_T17.Controllers
             var getRounds = from t in db.RoundInfoes select t.round;
             @ViewBag.rounds = getRounds;
 
-            var moduleCodes = db.Modules.Where(f => f.deptID == 5).Select(a => a.modCode).ToList();
-            var lecturer = db.LecturerInfoes.Where(f => f.deptID == 5).Select(a => a.name).ToList();
+            var moduleCodes = db.Modules.Where(f => f.deptID == userLogged.usrId).Select(a => a.modCode).ToList();
+            var lecturer = db.LecturerInfoes.Where(f => f.deptID == userLogged.usrId).Select(a => a.name).ToList();
 
             List<string> codeOrName = new List<string>();
             codeOrName.Add(moduleCode);
