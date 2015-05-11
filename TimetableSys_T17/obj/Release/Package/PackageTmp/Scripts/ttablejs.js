@@ -478,7 +478,7 @@ function dropDownConstructor(input, recieved_data, target) {
         });
 
     } else {
-
+        
         recieved_data.forEach(function (value) {
 
             var stepping = { label: value, title: value, value: value }
@@ -495,10 +495,10 @@ function dropDownConstructor(input, recieved_data, target) {
 function AjaxCall(call) {
 
     place_holder = [];
-
+    console.log("here");
     $.ajax({
 
-        url: "RequestModelUpdaterOptional2",
+        url: "Request/RequestModelUpdaterOptional2",
         type: "GET",
         data: {
 
@@ -514,7 +514,7 @@ function AjaxCall(call) {
         },
         contentType: "application/json",
         success: function (data) {
-
+           
             if (data.parkName != null) { dropDownConstructor(parks_container, data.parkName, "#parks_input"); }
             if (data.buildingName != null) { dropDownConstructor(buildings_container, data.buildingName, "#buildings_input"); }
             if (data.roomCode != null) { dropDownConstructor(rooms_container, data.roomCode, "#rooms_input"); }
@@ -530,7 +530,7 @@ function AjaxCall(call) {
 }
 
 function populateTable(responseData) {
-    
+
     var tableIDs = ["m", "t", "w", "h", "f"];
     var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
     temp_container = []; // for update table;
@@ -591,10 +591,12 @@ function populateTable(responseData) {
 
     responseData.forEach(function(value)
     {
+
+
         var day, moment; var collection = [];
         value.forEach(function (inception_minus_two) {
-
-            if (!returnValidTable(inception_minus_two.week, selected_weeks_container)) {
+            
+            if (returnValidTable(inception_minus_two.week, selected_weeks_container)) {
 
                 switch (inception_minus_two.dayID) {
 
@@ -606,13 +608,18 @@ function populateTable(responseData) {
 
                 }
 
-                moment = inception_minus_two.periodID + inception_minus_two.sessionLength - 1;
+                moment = inception_minus_two.periodID + inception_minus_two.sessionLength;
 
-            
-                $("#" + day + "" + inception_minus_two.periodID).html("X");
+
+                for (var i = 0; i < moment; i++) {
+
+                $("#" + day + "" + i).html("Booked");
+                $("#" + day + "" + i).attr("name", 3);
+
+                }
+                $("#" + day + "" + inception_minus_two.periodID).html("Booked");
                 $("#" + day + "" + inception_minus_two.periodID).attr("name", 3);
-                $("#" + day + "" + moment).html("X");
-                $("#" + day + "" + moment).attr("name", 3);
+
 
             }
         });
@@ -622,15 +629,18 @@ function populateTable(responseData) {
 
 function returnValidTable(dbData, usrData) {
 
+
+
     dbData = (dbData.substring(1, dbData.length - 1)).split(",");
 
-    var return_val = true;
+    var return_val = false;
 
     for (var i = 0; i < usrData.length; i++) {
 
         if (dbData[(usrData[i]-1)] == 1) {
 
-            return_val = false;
+            return_val = true;
+
             break;
         }
 
@@ -655,7 +665,7 @@ function updateRequestTable(input, input_parent, container, days) {
         } else {
 
             $("#" + input).attr("name", 1);
-            $("#" + input).html("bum");
+            $("#" + input).html("Available");
 
         }
 
@@ -732,7 +742,7 @@ function updateRequestTable(input, input_parent, container, days) {
 
 
                 $(this).attr("name", 2);
-                $(this).html("DoC")
+                $(this).html("")
 
             }
         });
@@ -747,7 +757,7 @@ function updateRequestTable(input, input_parent, container, days) {
             } else if ($(this).html() != input_parent && $(this).attr("name") == 2) {
 
                 $(this).attr("name", 1);
-                $(this).html("bum");
+                $(this).html("Available");
 
             }
         });
@@ -764,7 +774,7 @@ function updateRequestTable(input, input_parent, container, days) {
             } else if ($(this).html() != input_parent && $(this).attr("name") == 0) { //change this to class
 
                 $(this).attr("name", 1);
-                $(this).html("bum");
+                $(this).html("Available");
 
             } 
 
@@ -778,7 +788,7 @@ function updateRequestTable(input, input_parent, container, days) {
 
                     if ($(this).html() == "" && $(this).attr("name") == 0) {
 
-                        $(this).html("DoC");
+                        $(this).html("");
                         $(this).attr("name", 2);
                     }
                 });

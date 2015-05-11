@@ -35,6 +35,9 @@
             margin:0;
             padding:0;
         }
+        .red {
+            color:#f00;
+        }
 
     </style>
 </head>
@@ -48,12 +51,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Loughborough University Timetabling Website", "Index", "Home", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("Loughborough University Timetabling Website", "Index", "AdminRequests", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Admin Home", "Index", "Admin")</li>
-                    <li>@Html.ActionLink("Create Room", "Index", "CreateRoom");</li>
+                    <li>@Html.ActionLink("Admin Home", "Index", "AdminRequests")</li>
                     <li>@Html.ActionLink("Facilities", "Index", "Facilities")</li>
                     <li>@Html.ActionLink("Rooms", "Index", "Rooms")</li>
                     <li>@Html.ActionLink("Rounds", "Index", "Rounds")</li>

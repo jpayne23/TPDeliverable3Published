@@ -1,6 +1,6 @@
 ﻿@model TimetableSys_T17.Room
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -25,7 +25,7 @@
     });
 </script>
 
-<h2>Create</h2>
+<h3>Create Room</h3>
 
 
 @using (Html.BeginForm()) 
@@ -33,30 +33,39 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Room</h4>
+
         <hr />
         @Html.ValidationSummary(true)
         <div>@ViewBag.error</div>
         <div class="form-group">
-            @Html.LabelFor(model => model.roomCode, "Room Code", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.roomCode)
+          
+            <div class="col-md-3">
+                
+            <table>
+                <tr>
+                    <td>Room Code:</td>
+                    <td>@Html.EditorFor(model => model.roomCode)</td>
+                </tr>
+
+            </table>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.buildingID, "Building Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                    @Html.DropDownList("buildingID", String.Empty)
+           
+            <div class="col-md-3">
+                Building Name:    @Html.DropDownList("buildingID", String.Empty)
             </div>
         </div>
         <div class="form-group">
-            @Html.ListBox("fac",
-                 new MultiSelectList(@ViewBag.facilities, "facilityID", "facilityName"))
-                
+            <div class="col-md-3">
+                Facilities:
+                @Html.ListBox("fac",
+                     new MultiSelectList(@ViewBag.facilities, "facilityID", "facilityName"))
+            </div>
         </div>
         <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <p>
                     <label for="capacity">Capacity:</label>
                     <input id="capacity" name="value">
@@ -66,9 +75,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.lab, "Lab" ,htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.CheckBox("Labe")      
+           
+            <div class="col-md-3">
+           Lab:     @Html.CheckBox("Labe")      
             </div>
         </div>
         <div class="form-group">

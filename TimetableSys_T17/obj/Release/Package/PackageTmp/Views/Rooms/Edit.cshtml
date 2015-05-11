@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     
 }
 
@@ -10,6 +10,7 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="../../content/rooms.css">
 <script type="text/javascript">
    
     $(function() {
@@ -27,79 +28,83 @@
     
 </script>
 
-<h2>Edit</h2>
+<h2>Edit Room</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Room</h4>
+    <div class="centre">
+      
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.roomID)
         <div>@ViewBag.error</div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.roomCode, "Room Code" ,htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+      
+            
+            
+
+         
+            
+            
+     
+
+
+      
+            
+    
+
+            
+
+
+            
+            
+
+        
+            
+     
+    </div>
+    <table>
+        <tr>
+            <td><label for="capacity">Capacity:</label></td>
+            <td><input id="capacity" name="value">
+
+            @Html.HiddenFor(model => model.capacity, new {@id="cap"})</td>
+        </tr>
+        <tr>
+            <td><label> Facility Name</label></td>
+            <td>@Html.ListBox("fac", new MultiSelectList(@ViewBag.facilities, "facilityID", "facilityName", @ViewBag.selectedFac))</td>
+        </tr>
+        <tr>
+            <td>Room Code</td>
+            <td>
                 @Html.EditorFor(model => model.roomCode)
                 @Html.ValidationMessageFor(model => model.roomCode)
-            </div>
-        </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Building Name
+            </td>
+            <td>@Html.DropDownList("buildingID", String.Empty)
+            @Html.ValidationMessageFor(model => model.buildingID)</td>
+        </tr>
+        <tr>
+            <td>Lab</td>
+            <td>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.buildingID, "Building Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("buildingID", String.Empty)
-                @Html.ValidationMessageFor(model => model.buildingID)
-            </div>
-        </div>
-        <div class="form-group">
-            Facility Name
-            <div class="col-md-10">
-                @Html.ListBox("fac", new MultiSelectList(@ViewBag.facilities, "facilityID", "facilityName", @ViewBag.selectedFac))
-            </div>
-        </div>
+            @if(@ViewBag.Lab == 1){
+                @Html.CheckBox("Labe",true)
+            }
+            else{
+                @Html.CheckBox("Labe")
+            }         </td>
+        </tr>
+    </table>
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <p>
-                    <label for="capacity">Capacity:</label>
-                    <input id="capacity" name="value">
-                </p>
-            </div>
-            @Html.HiddenFor(model => model.capacity, new {@id="cap"})
-        </div>
-
-        <div class="form-group">
-            Lab
-            <div class="col-md-10">
-                @if(@ViewBag.Lab == 1){
-                    @Html.CheckBox("Labe",true)
-                }
-                else{
-                    @Html.CheckBox("Labe")
-                }         
-            </div>
-        </div>
-
-        <div class="form-group">
-            Private
-            <div class="col-md-10">
-                @if(@ViewBag.@Private == 1){
-                    @Html.CheckBox("Priv",true)
-                }
-                else{
-                    @Html.CheckBox("Priv")
-                }
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>
 }

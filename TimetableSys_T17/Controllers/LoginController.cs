@@ -54,20 +54,30 @@ namespace TimetableSys_T17.Controllers
                 if (validateDetails(deptLogin.deptIn, deptLogin.password))
                 {
                     int userId = 0;
-                    using (var db = new TimetableDbEntities()) { 
-                    
+                    using (var db = new TimetableDbEntities())
+                    {
 
-                       var userID = from deptTable in db.DeptInfoes where deptTable.deptName == deptLogin.deptIn select deptTable.deptID;
-                       userId = userID.FirstOrDefault();
-                }
-                    
 
-       
+                        var userID = from deptTable in db.DeptInfoes where deptTable.deptName == deptLogin.deptIn select deptTable.deptID;
+                        userId = userID.FirstOrDefault();
 
-                    TempData["usrId"] = userId;
-                    TempData["deptLogin"] = deptLogin.deptIn;
-                    return RedirectToAction("Index", "View"); ;
 
+                        var db2 = new TimetableDbEntities();
+
+                        var isAdmin = db2.Users.Where(a => a.userID == userId).Select(b => b.admin).First();
+
+                        TempData["usrId"] = userId;
+                        TempData["deptLogin"] = deptLogin.deptIn;
+
+                        if (isAdmin == 0)
+                        {
+                            return RedirectToAction("Index", "View"); ;
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "AdminRequests"); ;
+                        }
+                    }
                 }
                 else
                 {

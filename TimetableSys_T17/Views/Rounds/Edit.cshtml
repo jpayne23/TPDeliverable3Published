@@ -52,7 +52,7 @@ $(function() {
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.round)
-        <div>@ViewBag.error</div>
+        <div class="red">@ViewBag.error</div>
         <div class="form-group">
            <p>Start Date: <input type="text" id="datepickerStart"></p>
         </div>
