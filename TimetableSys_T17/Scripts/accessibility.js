@@ -37,30 +37,26 @@
         })(jQuery);
 
         $(function () {
-            $('h1,p, a, table, button, input, label').fontResize(); 
+            $('h1,p, a, table, button, input, label, h2, h3, h4, h5, h6').fontResize(); 
         });
 
 
-
-
-
-
-        var invertButton = false;
-
+        invertedColours = false;
+     
 
         function invertColours() {
 
-            if (invertButton) {
+            if (invertedColours) {
                 negativar2();
-                invertButton = false;
-                document.getElementById("coloursButton").value = "Invert Colours";
+                invertedColours = false;
+
             }
             else {
                 negativar();
-                invertButton = true;
-                document.getElementById("coloursButton").value = "Revert Colours";
+                invertedColours = true;
+
             }
-        }
+                     }
 
 
         function negativar() {
@@ -124,3 +120,4 @@
             M = M ? [M[1], M[2]] : [N, navigator.appVersion, '-?'];
             return M;
         }
+

@@ -32,14 +32,16 @@
 <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top"><img class="logo" src="~/Content/images/lborologo.jpg" alt="Image" />
-     <div style=" margin-left:15%;">
+
+     <div style="float:right; padding:2px;padding-right:1%;">
              <p style="float: left; color: white;">Font Size:
      <button  style="width:20px" id="decrease">-</button>
      <button  style=" width:20px;" id="increase">+</button></p>
      
          <br />
           <br />
-<input style="float: none; width: auto;" type="button" onclick="invertColours();" value="Invert Colours"/>
+
+  <input style="float: none; width: auto;"  type="button" onclick="invertColours();" value="Invert Colours"/>
     </div>
 
      <div class="container">
@@ -70,5 +72,8 @@
         </footer>
     </div> 
     @RenderSection("scripts", required: false)
+
+
+ <h1 style="font-size:50 px">   testing la</h1>
 </body>
 </html>
