@@ -5,8 +5,20 @@ using System.Web;
 
 namespace TimetableSys_T17.Models
 {
+
+    public class userLogged
+    {
+
+
+        public string usrName { get; set; }
+        public int usrID { get; set; }
+
+    }
+
     public class ViewModel
     {
+
+ 
         public int requestID { get; set; }
         public int? userID { get; set; }
         public String email { get; set; }
