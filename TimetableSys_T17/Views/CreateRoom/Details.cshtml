@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h3>Room Details - @Html.DisplayFor(model => model.roomCode)</h3>
 
 <div>
-    <h4>Room</h4>
+    
     <hr />
     <dl class="dl-horizontal">
 
@@ -17,11 +17,11 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.roomCode)
+           
         </dd>
 
         <dt>
-            @Html.LabelFor(model => model.Building.buildingName, "Building Name")
+          Building:  
         </dt>
 
         <dd>
@@ -41,7 +41,8 @@
             }
         }  
         <dt>
-            @Html.LabelFor(model => model.capacity, "Capacity")
+           
+            Capacity
         </dt>
 
         <dd>
@@ -49,7 +50,7 @@
         </dd>
 
         <dt>
-            @Html.LabelFor(model => model.lab, "Lab")
+          Lab:  @Html.LabelFor(model => model.lab, "Lab")
         </dt>
 
         <dd>

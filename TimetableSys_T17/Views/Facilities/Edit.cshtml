@@ -2,10 +2,10 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Edit</h2>
+<h3>Edit Facility</h3>
 
 
 @using (Html.BeginForm())
@@ -13,21 +13,22 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Facility</h4>
+       
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.facilityID)
         <div>@ViewBag.error</div>
         <div class="form-group">
-            Facility Name
+            
             <div class="col-md-10">
+                Facility Name:<br />
                 @Html.EditorFor(model => model.facilityName)
                 @Html.ValidationMessageFor(model => model.facilityName)
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-0 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>

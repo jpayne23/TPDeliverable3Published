@@ -1,60 +1,146 @@
 ﻿@model IEnumerable<TimetableSys_T17.Models.TimetableModel>
-@{
-    Layout = null;
-}
 
-<style type="text/css">
 
+
+<html>
+<head>
+    <title>Timetable</title>
+    <style type="text/css">
+    html, body, div, form, select, option, input {
+        margin:0;
+        padding:0;
+
+    }
    tr td {
-        border: 1px solid #000;
+        border: 1px solid #808080;
     }
     
-    .filled {
-        background-color:#f00;
-    }
+
 
     #mainRow {
         width:300px;
         height:100px;
     }
-
+    select {
+        width:100px;
+    }
+    hr { display: block; height: 1px;
+    border: 0; border-top: 1px solid #808080;
+    margin:2px 0; padding: 0; }
+    .even {
+        background-color:#C0C0C0;
+        color:#FFF;
+    }
+    .odd {
+        background-color:#FFF;
+    }
+    .day {
+        background-color:#753dae;
+        color:#FFF;
+    }
+    
 </style>
 
-<html>
-<head>
-    <title>Timetable</title>
+<title></title>
+
+<script type="text/javascript">
+    
+    var getLec = @Html.Raw(Json.Encode(@ViewBag.getLec));
+    var getCourse = @Html.Raw(Json.Encode(@ViewBag.getCourse));
+    function changeSelect() {
+        var degOrCourse = document.getElementById("modOrLec").value;
+        if(degOrCourse == "Lecturer"){
+            var options = '';
+            for (var i = 0; i < getLec.length; i++) {
+                options += '<option value="'+getLec[i]+'">'+getLec[i]+'</option>';
+            }
+            $('#options').html(options);
+        }
+        if(degOrCourse == "Degree"){
+            var options = '';
+            for (var i = 0; i < getCourse.length; i++) {
+                options += '<option value="'+getCourse[i]+'">'+getCourse[i]+'</option>';
+            }
+            $('#options').html(options);
+        }
+    }
+</script>
 </head>
 <body>
     <form action="" method="get">
     
         
-        <select name="modOrLec">
-            <option value="Degree">Degree</option>
-            <option value="Lecturer">Lecturer</option>
-        </select>
+    
+    <br />
+   <table>
+       <tr>
+            <td>
 
-        <select name="nameOrCode">
-           <option value="COA101">COA101</option>
-           <option value="Firat Batmaz">Firat Batmaz</option>
-        </select>
-        <select name="week">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-        <select name="getSemester">
-            <option value="1">1</option>
-            <option value="2">2</option>
-        </select>
-        
-        <input type="submit" value="Search" />
-    </form>
+                Degree Or Lecture:
 
-   
- 
+            </td>
+           <td>
 
+               Lecturer or Degree:
+
+           </td>
+            <td>
+                Week:
+            </td>
+           <td>
+                 Semester:
+           </td>
+           <td>
+                     
+                
+
+           </td>
+
+       </tr>
+       <tr>
+            <td>
+                <select name="modOrLec" id="modOrLec" onchange="changeSelect()">
+                    <option value="choose">Choose..</option>
+                    <option value="Degree">Degree</option>
+                    <option value="Lecturer">Lecturer</option>
+                </select>
+            </td>
+           <td>
+
+               <select name='nameOrCode' id="options"></select>
+
+           </td>
+            <td>
+                <select name="week">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">12</option>
+                     <option value="12">12</option>
+                 </select>
+            </td>
+           <td>
+               <select name="getSemester">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+           </td>
+           <td>
+            
+                  <input type="submit" value="Search" style="width:100px"/>
+
+           </td>
+       </tr>
+
+   </table>
+ </form>
 <br /><br />
 
 
@@ -69,6 +155,7 @@
 <div>
 <table>
         @{string rowID = "";}
+        @{string rowClass = "";}
         @for(var i = 0; i < 6; i++){
         
             
@@ -77,8 +164,17 @@
             } else{
                 rowID = "mainRow";
             }
-            <tr id="@rowID">
+            
+            if(i % 2 == 0){
+                rowClass = "even";
+            }
+            if(i % 2 != 0){
+                rowClass = "odd";
+            }
+            
+            <tr id="@rowID" class="@rowClass">
             @for(var j = 0; j<10; j++){
+                
                 if(i==0 && j == 1 ){
                         <td>9:00 - 10:00</td>
                 }
@@ -107,19 +203,19 @@
                         <td>17:00 - 18:00</td>
                 }
                 if(i == 1 && j==0 ){
-                    <td>Monday</td>
+                    <td class="day">Monday</td>
                 }
                 if(i == 2 && j==0 ){
-                    <td>Tuesday</td>
+                    <td class="day">Tuesday</td>
                 }
                 if(i == 3 && j==0 ){
-                    <td>Wednesday</td>
+                    <td class="day">Wednesday</td>
                 }
                 if(i == 4 && j==0 ){
-                    <td>Thursday</td>
+                    <td class="day">Thursday</td>
                 }
                 if(i == 5 && j==0 ){
-                    <td>Friday</td>
+                    <td class="day">Friday</td>
                 }
                if(i==0 && j==0){
                     <td>    </td>
@@ -130,20 +226,14 @@
                     <td colspan="@ViewBag.sessionLength">
                     @if(@ViewBag.error == "good"){ 
                         if(@ViewBag.req.periodID == j && @ViewBag.req.dayID == i){
-                            @ViewBag.sessionLength <br />
-                            @ViewBag.moduleCode <br />
-                            @ViewBag.moduleName 
+                           
+                          <b>  @ViewBag.moduleCode </b><hr />
+                          <b>  @ViewBag.moduleName </b> <br />
+                          <b>  @ViewBag.roomCode </b> <br /><hr />  
                             @ViewBag.type <br />
-                            @ViewBag.roomCode <br />
-                            @ViewBag.buildingName   <br />
-                        string[] weeks = ViewBag.weeks.Split(new char[]{','});
-                        int count = 0;
-                        foreach(var p in weeks){
-                          count++;
-                          if(p == "1" || p == "[1" || p == "1]"){
-                            <span>@count </span>
-                          }
-                        }   
+                            
+                            @ViewBag.buildingName   <br /><hr />
+                            @ViewBag.weeks
                         } 
                     }
                             
