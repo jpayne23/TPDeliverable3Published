@@ -202,9 +202,8 @@ namespace TimetableSys_T17.Controllers
         }
 
         [HttpGet]
-        public JsonResult RequestModelUpdaterOptional2(Int16 which_call, string park_names, string building_names, string room_names, string facility_names, string module_code, string module_title, string session_type, Int16? room_i, Int16? room_ii, Int16? room_iii)
+        public JsonResult RequestModelUpdaterOptional2(Int16 which_call, string park_names, string building_names, string room_names, string facility_names, string module_code, string module_title, string session_type, Int16? room_i, Int16? room_ii, Int16? room_iii, string specReq)
         {
-            Debug.WriteLine("Here");
             
             RequestModel local = new RequestModel();
 
@@ -304,7 +303,8 @@ namespace TimetableSys_T17.Controllers
                     List<string> room_codes_XIV = returnStripped(room_names);
 
                     List<Int16> room_ids_XIV = _db.Rooms.Where(x => room_codes_XIV.Contains(x.roomCode)).Select(x => (Int16)x.roomID).ToList();
-                    var return_room_base = _db.RoomRequests.Where(x => room_ids_XIV.Contains((Int16)x.roomID)).Where(x => (x.Requests.Select(y => y.statusID)).Contains(1) || (x.Requests.Select(y => y.statusID)).Contains(3)).Select(x => x.Requests.Select(y => new tableViewTemplate { dayID = y.dayID, periodID = y.periodID, sessionLength = y.sessionLength, semester = y.semester, week = y.week }));
+                    Int16 sem = (Int16)ReturnSemester();
+                    var return_room_base = _db.RoomRequests.Where(x => room_ids_XIV.Contains((Int16)x.roomID)).Where(x => (x.Requests.Select((y => y.statusID)).Contains(1) || (x.Requests.Select(y => y.statusID)).Contains(3)) && (x.Requests.Select(y => y.semester).Contains(sem))).Select(x => x.Requests.Select(y => new tableViewTemplate { dayID = y.dayID, periodID = y.periodID, sessionLength = y.sessionLength, semester = y.semester, week = y.week }));
 
                     List<List<tableViewTemplate>> tableRequest = new List<List<tableViewTemplate>>();
 
@@ -331,12 +331,11 @@ namespace TimetableSys_T17.Controllers
             return Json(local, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SubmitThisThing(Int16 which_call, string park_names, string building_names, string room_names, string facility_names, string module_code, string module_title, string session_type, string weeks, string day, string dayInfo)
+        public JsonResult SubmitThisThing(Int16 which_call, string park_names, string building_names, string room_names, string facility_names, string module_code, string module_title, string session_type, string weeks, string day, string dayInfo, string additional)
         {
             RequestModel local = new RequestModel();
             local.response = "Oops! Something has gone terribly wrong. Call 0800 70U80R0UGH 4 45515574NC3";
 
-            string additional = "";
 
             List<string> rooms = returnStripped(room_names);
 
@@ -346,7 +345,8 @@ namespace TimetableSys_T17.Controllers
                 additional += "¦" + building_names + park_names;
 
             }
-
+            Debug.WriteLine(day);
+            Debug.WriteLine(dayInfo);
 
             List<string> modCode = returnStripped(module_code);
             List<string> sessionInfo = returnStripped(session_type);

@@ -371,22 +371,6 @@ $(document).ready(function () {
         }
     });
 
-    $(function () {
-
-        $("#special_requirements").resizable({
-
-            animate: true,
-            animateDuration: "slow",
-            animateEasing: "easeOutBounce",
-            delay: 150,
-            minHeight: 200,
-            minWidth: 500,
-            maxHeight: 400,
-            maxWidth: 700,
-            handles: "se"
-        });
-
-    });
 
     $(function () {
 
@@ -495,7 +479,7 @@ function dropDownConstructor(input, recieved_data, target) {
 function AjaxCall(call) {
 
     place_holder = [];
-    console.log("here");
+
     $.ajax({
 
         url: "Request/RequestModelUpdaterOptional2",
@@ -509,7 +493,8 @@ function AjaxCall(call) {
             facility_names: JSON.stringify(facilities_container),
             module_code: JSON.stringify(module_code_container),
             module_title: JSON.stringify(module_title_container),
-            session_type: JSON.stringify(session_type_container)
+            session_type: JSON.stringify(session_type_container),
+           
 
         },
         contentType: "application/json",
@@ -553,14 +538,14 @@ function populateTable(responseData) {
 
                 var firstDiv = document.createElement("div");
                 $(firstDiv).attr("id", "origin");
-                $(firstDiv).attr("style", "width: 100px; height: 50px; background-color: orange; display: inline-block; color: white;");
+                $(firstDiv).attr("style", "width: 100px; height: 50px; background-color: clear; display: inline-block; color: white;");
                 $(firstDiv).appendTo(dayDiv);
 
             } else if (y == 0 && i != 0) {
 
                 var firstDiv = document.createElement("div");
                 $(firstDiv).attr("id", "days");
-                $(firstDiv).attr("style", "width: 100px; height: 50px; background-color: blue; display: inline-block; color: white;");
+                $(firstDiv).attr("style", "width: 100px; height: 50px; background-color: #753DAE; display: inline-block; color: white;");
                 $(firstDiv).html(days[i-1]);
                 $(firstDiv).appendTo(dayDiv);
 
@@ -568,7 +553,7 @@ function populateTable(responseData) {
           
                 var topDivs = document.createElement("div");
                 $(topDivs).attr("id", "times");
-                $(topDivs).attr("style", "width: 100px; height: 50px; background-color: red; display: inline-block; color: white;");
+                $(topDivs).attr("style", "width: 100px; height: 50px; background-color: #753DAE; display: inline-block; color: white;");
                 $(topDivs).html((y + 8) + ":00 - " + (y + 9) + ":00");
                 $(topDivs).appendTo(dayDiv);
 
@@ -578,7 +563,7 @@ function populateTable(responseData) {
                 $(bodyDivs).attr("id", fullTag);
                 $(bodyDivs).attr("name", 0);
                 $(bodyDivs).click(function () { updateRequestTable($(this).attr("id"), $(this).parent().attr("id"), temp_container, days); });
-                $(bodyDivs).attr("style", "width: 100px; height: 50px; background-color: pink; display: inline-block;");
+                $(bodyDivs).attr("style", "width: 100px; height: 50px; background-color: #E7E7E7; display: inline-block;");
                 $(bodyDivs).appendTo(dayDiv);
 
             }
@@ -799,13 +784,13 @@ function updateRequestTable(input, input_parent, container, days) {
 
 function Submit() {
 
-
+    var specReq = $("#special_requirements").val();
     // ContructWeeks();
     // GetDay(); getTimes();
     $.ajax({
 
 
-        url: "SubmitThisThing",
+        url: "Request/SubmitThisThing",
         type: "GET",
         data: {
 
@@ -819,7 +804,8 @@ function Submit() {
             session_type: JSON.stringify(session_type_container),
             weeks: JSON.stringify(selected_weeks_container),
             day: JSON.stringify(grabSelectedDay()),
-            dayInfo: JSON.stringify(grabSelectedDays())
+            dayInfo: JSON.stringify(grabSelectedDays()),
+            specialReqs: JSON.stringify(specReq)
 
         },
         contentType: "application/json",
@@ -832,7 +818,9 @@ function Submit() {
 
 function grabSelectedDay() {
 
-    return $("div:contains(\"Selected\")")[4].id;
+    var day = $("div:contains(\"Selected\")")[3].id;
+   
+    return day;
 
 }
 
@@ -841,10 +829,10 @@ function grabSelectedDays() {
     var periodID = null;
     var sessionLength = 1;
     var sessionInfo = [];
-
+   
     var input = grabSelectedDay();
 
-    $("#" + input).children().each(function () {
+    $($("div:contains(\"Selected\")")).children().each(function () {
 
         if ($(this).attr("name") == 4 && periodID == null) {
 

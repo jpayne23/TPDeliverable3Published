@@ -27,6 +27,7 @@ namespace TimetableSys_T17.Models
         public List<string> moduleCode { get; set; }
         public List<string> moduleTitle { get; set; }
         public List<string> sessionType { get; set; }
+        public string specialReqs { get; set; }
         public List<List<tableViewTemplate>> tableRequest { get; set; }
         public string response { get; set; }
 
