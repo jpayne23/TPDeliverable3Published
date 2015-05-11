@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -26,14 +26,13 @@
     
 </script>
 
-<h2>Create</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="centre">
-        <h4 class ="centre">Room</h4>
+        <h4 class ="centre">Create Room</h4>
         <hr />
         @Html.ValidationSummary(true)
         <div>@ViewBag.error</div>
@@ -43,47 +42,50 @@
             @Html.EditorFor(model => model.roomCode)
             @Html.ValidationMessageFor(model => model.roomCode)
 
-            &#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160;
+          
 
             <br />
 
-            @Html.LabelFor(model => model.buildingID, "Building Name", htmlAttributes: new { @class = "centre" })
-            @Html.DropDownList("buildingID", "Select")
+            
+            
 
         </div>
 
         <hr />
-        <div class="left">
-            <label> Facility Name</label>
-            <br />
-            @Html.ListBox("fac",
-                 new MultiSelectList(@ViewBag.facilities, "facilityID", "facilityName"), htmlAttributes: new { @class = "select"})
-
-            &#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; &#160; &#160; &#160;
-
-            <label for="capacity">Capacity:</label>
-            <input id="capacity" name="value">
-            @Html.HiddenFor(model => model.capacity, new {@id="cap"})
-
-            &#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; 	&#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160;
-
-            @Html.LabelFor(model => model.lab, "Lab" ,htmlAttributes: new { @class = "" })
-            @if(@ViewBag.Lab == 1){
+        
+        <br />
+        <br />
+    </div>
+   
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.roomCode, "Room Code", htmlAttributes: new { @class = "centre" })
+           
+            @Html.ValidationMessageFor(model => model.roomCode)</td>
+            <td> @Html.EditorFor(model => model.roomCode)</td>
+        </tr>
+        <tr>
+            <td>Building Name: </td>
+            <td>@Html.DropDownList("buildingID", "Select")</td>
+        </tr>
+        <tr>
+            <td>Lab: </td>
+            <td>@if(@ViewBag.Lab == 1){
                 @Html.CheckBox("Labe",true)
             }
             else{
                 @Html.CheckBox("Labe")
-            }   
-
-        </div>
-        <br />
-        <br />
-    </div>
-    <div class="form-group">
+            }   </td>
+        </tr>
+        <tr>
+            <td> <div class="form-group">
         <div class="centre">
             <input type="submit" value="Create Room" class="btn btn-default" />
         </div>
-    </div>
+    </div></td>
+            <td></td>
+        </tr>
+    </table>
     
 }
 
