@@ -10,6 +10,19 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<form action="" method="get">
+    By Building
+    @Html.DropDownList("buildingID", "Select")
+
+    <select id="lab" name="lab">
+        <option value="">Select</option>
+        <option value="0">Not Lab</option>
+        <option value="1">Is Lab</option>           
+    </select>
+
+    <input type="submit" value="Filter" />
+</form>
+
 <table class="table">
     <tr>
         <th>
@@ -23,9 +36,6 @@
         </th>
         <th>
             Lab
-        </th>
-        <th>
-            Private
         </th>
         <th></th>
         <th></th>
@@ -46,14 +56,6 @@
         @if (item.lab == 1)
         {
             <td>Yes</td>     
-        }
-        else
-        {
-            <td>No</td>
-        }
-        @if (item.@private == 1)
-        {
-            <td>Yes</td>
         }
         else
         {

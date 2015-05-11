@@ -58,12 +58,30 @@ namespace TimetableSys_T17.Controllers
         }
 
         // GET: Rooms
-        public ActionResult Index()
+        public ActionResult Index(int? buildingID, int? lab)
         {
             //Gets all rooms that arent private and orders them by building id
-            var rooms = db.Rooms.OrderBy(a => a.buildingID).Where(a => a.@private == 0).Include(r => r.Building);
+            var rooms = db.Rooms.OrderBy(a => a.buildingID).Where(a => a.@private == 0).Include(r => r.Building).ToList();
             //var result = rooms.OrderBy(a => a.buildingID);
-            return View(rooms.ToList());
+
+            if (buildingID != null)
+            {
+                rooms = rooms.Where(t => t.buildingID == buildingID).ToList();
+            }
+            if (lab != null)
+            {
+                rooms = rooms.Where(t => t.lab == lab).ToList();
+            }
+
+            var options = db.Buildings.AsEnumerable().Select(s => new
+            {
+                buildingID = s.buildingID,
+                Info = string.Format("{0} - {1}", s.buildingCode, s.buildingName)
+            });
+
+            ViewBag.buildingID = new SelectList(options, "buildingID", "Info");
+
+            return View(rooms);
         }
 
         // GET: Rooms/Details/5
