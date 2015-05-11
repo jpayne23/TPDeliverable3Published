@@ -17,6 +17,7 @@
     <script src="~/Scripts/bootstrap-multiselect.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/modernizr-*"></script>
+    <script src="~/Scripts/accessibility.js"></script>
     <script src="~/bundles/jqueryval"></script>
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="~/Content/bootstrap.css">
@@ -43,7 +44,20 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top"><img class="logo" src="~/Content/images/lborologo.jpg" alt="Image" />
-        <div class="container">
+        <div style="float:right; padding:2px;padding-right:1%;">
+            <p style="float: left; color: white;">
+                Font Size:
+                <button style="width:20px" id="decrease">-</button>
+                <button style=" width:20px;" id="increase">+</button>
+            </p>
+
+            <br />
+            <br />
+
+            <input style="float: none; width: auto;" type="button" onclick="invertColours();" value="Invert Colours" />
+        </div>      
+    
+    <div class="container">
             <div class="navbar-header">
                 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
