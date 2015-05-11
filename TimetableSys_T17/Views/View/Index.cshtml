@@ -56,6 +56,7 @@
 
         td, th {
             text-align: center;
+            padding-right:30px;
          }
 	
         h4{
@@ -130,6 +131,9 @@
         }
         .linkBlack a{
             color:#000;
+        }
+        th {
+            border:0;
         }
     </style>
 </head>
@@ -300,11 +304,11 @@
       <tr>
         <th>@Html.ActionLink("Request ID", "Index", new{ sortOrder = ViewBag.IDSortPram})</th>
         <th>@Html.ActionLink("Module ID", "Index", new{sortOrder = ViewBag.ModuleSortPram})</th>
-        <th style="padding-right:30px;">Room</th>
-        <th>Day</th>
-        <th style="margin-left">Week(s)</th>
+        <th style="padding-right:20px;">Room</th>
+        <th style="padding-right:60px;">Day</th>
+        <th style="padding-right:80px;">Week(s)</th>
         <th>Period</th>		
-        <th>Session length</th>
+        <th>Session <br />length</th>
         <th style="padding-right:25px;">Status</th>
       </tr>
   </thead>
@@ -313,30 +317,27 @@
       @foreach(var x in Model){
             <tr>
                 
-                <td style="padding-right:50px;"> @x.requestID </td>
-                <td> @x.moduleCode </td>
-                <td>
+                <td style="padding-right:70px;"> @x.requestID </td>
+                <td style="padding-right:22px;"> @x.moduleCode </td>
+                <td style="padding-right:10px;">
                     @foreach(var i in x.room){
                         <span>@i</span>
                     }
 
 
                 </td>
-                <td> @x.day </td>
-                <td class="weeks">
+                <td > @x.day </td>
+                <td class="weeks" style="padding-right:70px;">
 
                         @{string[] weeks = x.weekID.Split(new char[]{','});}
                         @{int count = 0;}
                         @foreach(var p in weeks){
-                          count++;
-                          if(p == "1" || p == "[1" || p == "1]"){
-                            <span>@count </span>
-                          }
+                          @p
                         }   
                         
 
                 </td>
-                <td style="padding-right:20px;"> @x.periodID  </td>
+                <td style="padding-right:40px;"> @x.periodID  </td>
                 <td> @x.sessionLength Hour(s) </td>
                 <td class = "@x.status" > @x.status </td>
                 <td><a href='#' style="color:#000;">Edit</a></td>
