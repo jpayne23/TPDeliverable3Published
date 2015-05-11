@@ -6920,7 +6920,25 @@ select{
 #weeks_container{
     display:inline-block;
     width:10px;
+    float:left;
+
 }
 .test {
+    display: inline-block;
+    width: 10px;
+    position: absolute;
+
+}
+#timetable_table {
+    position: relative;
+    width: 89%;
+    float:right;
     display:inline-block;
-    width:10px;
+    height:180px;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    width:30px;
+}
+.submit {
+    margin-top:37%;
+}

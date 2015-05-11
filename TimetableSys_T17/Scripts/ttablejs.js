@@ -538,14 +538,14 @@ function populateTable(responseData) {
 
                 var firstDiv = document.createElement("div");
                 $(firstDiv).attr("id", "origin");
-                $(firstDiv).attr("style", "width: 100px; height: 50px; background-color: orange; display: inline-block; color: white;");
+                $(firstDiv).attr("style", "width: 100px; height: 50px; background-color: clear; display: inline-block; color: white;");
                 $(firstDiv).appendTo(dayDiv);
 
             } else if (y == 0 && i != 0) {
 
                 var firstDiv = document.createElement("div");
                 $(firstDiv).attr("id", "days");
-                $(firstDiv).attr("style", "width: 100px; height: 50px; background-color: blue; display: inline-block; color: white;");
+                $(firstDiv).attr("style", "width: 100px; height: 50px; background-color: #753DAE; display: inline-block; color: white;");
                 $(firstDiv).html(days[i-1]);
                 $(firstDiv).appendTo(dayDiv);
 
@@ -553,7 +553,7 @@ function populateTable(responseData) {
           
                 var topDivs = document.createElement("div");
                 $(topDivs).attr("id", "times");
-                $(topDivs).attr("style", "width: 100px; height: 50px; background-color: red; display: inline-block; color: white;");
+                $(topDivs).attr("style", "width: 100px; height: 50px; background-color: #753DAE; display: inline-block; color: white;");
                 $(topDivs).html((y + 8) + ":00 - " + (y + 9) + ":00");
                 $(topDivs).appendTo(dayDiv);
 
@@ -563,7 +563,7 @@ function populateTable(responseData) {
                 $(bodyDivs).attr("id", fullTag);
                 $(bodyDivs).attr("name", 0);
                 $(bodyDivs).click(function () { updateRequestTable($(this).attr("id"), $(this).parent().attr("id"), temp_container, days); });
-                $(bodyDivs).attr("style", "width: 100px; height: 50px; background-color: pink; display: inline-block;");
+                $(bodyDivs).attr("style", "width: 100px; height: 50px; background-color: #E7E7E7; display: inline-block;");
                 $(bodyDivs).appendTo(dayDiv);
 
             }
