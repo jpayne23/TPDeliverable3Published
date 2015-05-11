@@ -79,4 +79,3 @@ B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.W
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\bin\System.Web.WebPages.Razor.xml
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\obj\Debug\TimetableSys_T17.dll
 B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\obj\Debug\TimetableSys_T17.pdb
-B:\My Documents\GitHub\TPDeliverable3Published\TimetableSys_T17\obj\Debug\TimetableSys_T17.csprojResolveAssemblyReference.cache

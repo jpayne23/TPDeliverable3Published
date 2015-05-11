@@ -613,11 +613,11 @@ function populateTable(responseData) {
 
                 for (var i = 0; i < moment; i++) {
 
-                $("#" + day + "" + i).html("X");
+                $("#" + day + "" + i).html("Booked");
                 $("#" + day + "" + i).attr("name", 3);
 
                 }
-                $("#" + day + "" + inception_minus_two.periodID).html("X");
+                $("#" + day + "" + inception_minus_two.periodID).html("Booked");
                 $("#" + day + "" + inception_minus_two.periodID).attr("name", 3);
 
 
@@ -636,8 +636,7 @@ function returnValidTable(dbData, usrData) {
     var return_val = false;
 
     for (var i = 0; i < usrData.length; i++) {
-        console.log(usrData[i] + ":UD");
-        console.log(dbData[(usrData[i] - 1)]);
+
         if (dbData[(usrData[i]-1)] == 1) {
 
             return_val = true;
@@ -666,7 +665,7 @@ function updateRequestTable(input, input_parent, container, days) {
         } else {
 
             $("#" + input).attr("name", 1);
-            $("#" + input).html("bum");
+            $("#" + input).html("Available");
 
         }
 
@@ -743,7 +742,7 @@ function updateRequestTable(input, input_parent, container, days) {
 
 
                 $(this).attr("name", 2);
-                $(this).html("DoC")
+                $(this).html("")
 
             }
         });
@@ -758,7 +757,7 @@ function updateRequestTable(input, input_parent, container, days) {
             } else if ($(this).html() != input_parent && $(this).attr("name") == 2) {
 
                 $(this).attr("name", 1);
-                $(this).html("bum");
+                $(this).html("Available");
 
             }
         });
@@ -775,7 +774,7 @@ function updateRequestTable(input, input_parent, container, days) {
             } else if ($(this).html() != input_parent && $(this).attr("name") == 0) { //change this to class
 
                 $(this).attr("name", 1);
-                $(this).html("bum");
+                $(this).html("Available");
 
             } 
 
@@ -789,7 +788,7 @@ function updateRequestTable(input, input_parent, container, days) {
 
                     if ($(this).html() == "" && $(this).attr("name") == 0) {
 
-                        $(this).html("DoC");
+                        $(this).html("");
                         $(this).attr("name", 2);
                     }
                 });

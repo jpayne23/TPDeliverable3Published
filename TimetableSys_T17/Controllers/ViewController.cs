@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TimetableSys_T17.Models;
 
 namespace TimetableSys_T17.Controllers
 {
@@ -14,7 +17,11 @@ namespace TimetableSys_T17.Controllers
         public ActionResult Index(string sortOrder, int? roundID, int? cancelledID, string moduleCode, int? semester, int? day, int? status, int? year)
         {
             //get db and run query
-       
+
+            userLogged.UserName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase((String)TempData["deptLogin"]);
+            userLogged.usrId = (int)TempData["usrId"];
+
+
             var db = new TimetableDbEntities();
             var getRequests = from t in db.Requests
                               select t;

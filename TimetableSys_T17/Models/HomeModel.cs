@@ -5,10 +5,10 @@ using System.Web;
 
 namespace TimetableSys_T17.Models
 {
-    public class HomeModel
+    public static class HomeModel
     {
 
-        public String deptName { get; set; } 
+        
 
     }
 }

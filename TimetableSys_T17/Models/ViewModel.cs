@@ -1,10 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
 namespace TimetableSys_T17.Models
 {
+
+    public static class userLogged
+    {
+        static string _userName;
+        static int _deptID;
+
+        public static string UserName {
+            
+            get { return _userName; }
+            set { _userName = value;  }
+        
+        }
+
+        public static int usrId
+        {
+            get { return _deptID;  }
+            set { _deptID = value; }
+
+        }
+
+
+    }
+
     public class ViewModel
     {
         public int requestID { get; set; }
