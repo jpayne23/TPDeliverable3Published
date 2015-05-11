@@ -259,7 +259,7 @@ namespace TimetableSys_T17.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken] //Editing everything works, not complete with error checking
-        public ActionResult Edit([Bind(Include = "roomID,roomCode,buildingID,capacity")] Room room, bool Labe, bool Priv, IEnumerable<int> fac)
+        public ActionResult Edit([Bind(Include = "roomID,roomCode,buildingID,capacity")] Room room, bool Labe, IEnumerable<int> fac)
         {
 
             ViewBag.error = "";
@@ -324,15 +324,6 @@ namespace TimetableSys_T17.Controllers
                 {
                     room.lab = 0;
                 }
-                if (Priv)
-                {
-                    room.@private = 1;
-                }
-                else
-                {
-                    room.@private = 0;
-                }
-
                 if (ModelState.IsValid)
                 {
                     //Updates the room with the correct set of facilities, either remove or add is allowed
