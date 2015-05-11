@@ -2,35 +2,26 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Rooms</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <form action="" method="get">
-    
-    
+    By Building
+    @Html.DropDownList("buildingID", "Select")
 
-    
-    
+    <select id="lab" name="lab">
+        <option value="">Select</option>
+        <option value="0">Not Lab</option>
+        <option value="1">Is Lab</option>           
+    </select>
+
+    <input type="submit" value="Filter" />
 </form>
-<table>
-    <tr>
-        <td>By Building</td>
-        <td>@Html.DropDownList("buildingID", "Select")</td>
-        <td>    <select id="lab" name="lab">
-                    <option value="">Select</option>
-                    <option value="0">Not Lab</option>
-                    <option value="1">Is Lab</option>           
-                </select>
-        </td>
-        <td><input type="submit" value="Filter" /></td>
-    </tr>
-
-</table>
 
 <table class="table">
     <tr>
